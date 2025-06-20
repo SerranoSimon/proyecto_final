@@ -1,4 +1,4 @@
-public class Jugador implements Participante{
+public class Jugador implements Participante, Comparable<Jugador>{
     private String nombre;
     private String apellido;
     private String correo;
@@ -13,5 +13,21 @@ public class Jugador implements Participante{
     }
     public void agregarPuntos(int puntos){
         this.puntos=+puntos;
+    }
+    public int getELO(){
+        return ELO;
+    }
+
+    @Override
+    public int compareTo(Jugador j) {
+        if(this.getELO()>j.getELO()){
+            return -1;
+        }
+        else if(this.getELO()<j.getELO()){
+            return 1;
+        }
+        else{
+            return 0;
+        }
     }
 }
