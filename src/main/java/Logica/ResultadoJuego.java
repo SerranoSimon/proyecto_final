@@ -1,3 +1,5 @@
+package Logica;
+
 import java.util.Random;
 public class ResultadoJuego {
 

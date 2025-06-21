@@ -1,6 +1,8 @@
+package Logica;
+
 import java.util.ArrayList;
 
-public class TorneoIndividual extends Torneo{
+public class TorneoIndividual extends Torneo {
     private static TorneoIndividual instancia;
     private TorneoIndividual(){
         participantes=new ArrayList<>();

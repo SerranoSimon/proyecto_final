@@ -1,3 +1,5 @@
+package Logica;
+
 public class Partida {
     protected Jugador blancas;
     protected Jugador negras;
@@ -10,12 +12,12 @@ public class Partida {
         this.tipoDePartida=tipoDePartida;
     }
     public void jugar(){
-        char r=ResultadoJuego.DrawResult(blancas.getELO(),negras.getELO());
+        char r= ResultadoJuego.DrawResult(blancas.getELO(),negras.getELO());
         if(r=='w'){
-            resultado=Resultado.VICTORIA_P1;
+            resultado= Resultado.VICTORIA_P1;
         }
         else{
-            resultado=Resultado.VICTORIA_P2;
+            resultado= Resultado.VICTORIA_P2;
         }
     }
     public Resultado getResultado(){

@@ -1,3 +1,5 @@
+package Logica;
+
 public class Jugador implements Participante, Comparable<Jugador>{
     private String nombre;
     private String apellido;
@@ -29,5 +31,9 @@ public class Jugador implements Participante, Comparable<Jugador>{
         else{
             return 0;
         }
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 }

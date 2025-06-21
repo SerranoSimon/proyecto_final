@@ -1,3 +1,5 @@
+package Logica;
+
 public interface Participante {
     default int getPuntos(){
         return 0;

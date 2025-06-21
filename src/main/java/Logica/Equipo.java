@@ -1,6 +1,8 @@
+package Logica;
+
 import java.util.ArrayList;
 
-public class Equipo implements Participante{
+public class Equipo implements Participante {
     private String nombre;
     private ArrayList<Jugador> jugadores;
     private int puntos;

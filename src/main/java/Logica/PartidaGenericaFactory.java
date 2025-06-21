@@ -1,3 +1,5 @@
+package Logica;
+
 public class PartidaGenericaFactory implements PartidaFactory {
 
     @Override

@@ -1,3 +1,5 @@
+package Logica;
+
 public enum TipoDePartida {
     BLITZ(3),
     RAPIDA(5),

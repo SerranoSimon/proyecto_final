@@ -1,31 +1,33 @@
+package Logica;
+
 public class Enfrentamiento {
     private Jugador j1;
     private Jugador j2;
     private TipoDePartida normal;
     private TipoDePartida desempate;
-    private PartidaGenericaFactory factory;
+    private PartidaFactory factory;
     private Resultado resultado;
 
     public Enfrentamiento(Jugador j1, Jugador j2,
-                          TipoDePartida normal, TipoDePartida desempate, PartidaGenericaFactory factory){
+                          TipoDePartida normal, TipoDePartida desempate, PartidaFactory factory){
         this.j1=j1;
         this.j2=j2;
         this.normal=normal;
         this.desempate=desempate;
         this.factory=factory;
     }
-    private int asignarPuntos(Resultado resultado,boolean esJ1){
+    private int asignarPuntos(Resultado resultado, boolean esJ1){
         if(esJ1){
             return switch (resultado){
-                case EMPATE -> 1;
-                case VICTORIA_P1 -> 2;
-                case VICTORIA_P2 -> 0;
+                case Resultado.EMPATE -> 1;
+                case Resultado.VICTORIA_P1 -> 2;
+                case Resultado.VICTORIA_P2 -> 0;
             };
         }
         return switch (resultado){
-            case EMPATE -> 1;
-            case VICTORIA_P1 -> 0;
-            case VICTORIA_P2 -> 2;
+            case Resultado.EMPATE -> 1;
+            case Resultado.VICTORIA_P1 -> 0;
+            case Resultado.VICTORIA_P2 -> 2;
         };
     }
     public void jugar(){
@@ -50,10 +52,10 @@ public class Enfrentamiento {
 
         }
         if(puntosJ1>puntosJ2){
-            resultado=Resultado.VICTORIA_P1;
+            resultado= Resultado.VICTORIA_P1;
         }
         else{
-            resultado=Resultado.VICTORIA_P2;
+            resultado= Resultado.VICTORIA_P2;
         }
     }
     public Resultado getResultado(){
