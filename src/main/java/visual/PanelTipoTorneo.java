@@ -2,6 +2,7 @@ package visual;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class PanelTipoTorneo extends JPanel {
     public PanelTipoTorneo(Ventana ventana) {
@@ -25,6 +26,23 @@ public class PanelTipoTorneo extends JPanel {
         JButton btnTodosIndividual = crearBoton("Todos contra todos Individual", new Color(70, 150, 220));
         JButton btnTodosEquipos = crearBoton("Todos contra todos en equipos", new Color(200, 60, 60));
 
+        ActionListener tipoTorneoListener = e -> {
+            JButton boton = (JButton) e.getSource();
+            String tipoTorneo = boton.getText();
+            ventana.getPanelDatosTorneo().setVisible(false);
+            ventana.getPanelDatosTorneo().removeAll();
+            ventana.getPanelDatosTorneo().add(new PanelDatosTorneo(ventana, tipoTorneo));
+            ventana.getPanelDatosTorneo().revalidate();
+            ventana.getPanelDatosTorneo().repaint();
+            setVisible(false);
+            ventana.getPanelDatosTorneo().setVisible(true);
+        };
+
+        btnSuizoIndividual.addActionListener(tipoTorneoListener);
+        btnSuizoEquipos.addActionListener(tipoTorneoListener);
+        btnElimDirecta.addActionListener(tipoTorneoListener);
+        btnTodosIndividual.addActionListener(tipoTorneoListener);
+        btnTodosEquipos.addActionListener(tipoTorneoListener);
 
         panelBotones.add(Box.createVerticalGlue());
         panelBotones.add(btnSuizoIndividual);

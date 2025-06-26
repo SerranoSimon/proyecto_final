@@ -6,6 +6,7 @@ import java.awt.*;
 public class Ventana extends JFrame {
     private PanelMenu panelMenu;
     private PanelTipoTorneo panelTipoTorneo;
+    private PanelDatosTorneo panelDatosTorneo;
 
     public Ventana() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -21,19 +22,25 @@ public class Ventana extends JFrame {
 
         panelMenu = new PanelMenu(this);
         panelTipoTorneo = new PanelTipoTorneo(this);
+        panelDatosTorneo = new PanelDatosTorneo(this, "");
 
 
         panelMenu.setAlignmentX(0.5f);
         panelMenu.setAlignmentY(0.5f);
         panelTipoTorneo.setAlignmentX(0.5f);
         panelTipoTorneo.setAlignmentY(0.5f);
+        panelDatosTorneo.setAlignmentX(0.5f);
+        panelDatosTorneo.setAlignmentY(0.5f);
 
 
+        mainPanel.add(panelDatosTorneo);
         mainPanel.add(panelTipoTorneo);
         mainPanel.add(panelMenu);
 
 
+
         panelTipoTorneo.setVisible(false);
+        panelDatosTorneo.setVisible(false);
 
         this.add(mainPanel);
         this.setVisible(true);
@@ -46,5 +53,8 @@ public class Ventana extends JFrame {
 
     public PanelTipoTorneo getPanelTipoTorneo() {
         return panelTipoTorneo;
+    }
+    public PanelDatosTorneo getPanelDatosTorneo() {
+        return panelDatosTorneo;
     }
 }
