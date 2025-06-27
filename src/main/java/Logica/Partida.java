@@ -12,12 +12,15 @@ public class Partida {
         this.tipoDePartida=tipoDePartida;
     }
     public void jugar(){
-        char r= ResultadoJuego.DrawResult(blancas.getELO(),negras.getELO());
+        char r= ResultadoJuego.drawResult(blancas.getELO(),negras.getELO());
         if(r=='w'){
             resultado= Resultado.VICTORIA_P1;
         }
-        else{
+        else if(r=='b'){
             resultado= Resultado.VICTORIA_P2;
+        }
+        else{
+            resultado= Resultado.TABLAS;
         }
     }
     public Resultado getResultado(){
