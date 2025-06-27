@@ -1,8 +1,13 @@
 package Logica;
+//Patron composite?
+public interface Participante extends Comparable<Participante>{
+    int getPuntos();
+    String getNombre();
+    int getELO();
 
-public interface Participante {
-    default int getPuntos(){
-        return 0;
+    int compareTo(Participante j);
+
+    default void agregarPuntos(int i) {
+        
     }
-    default void agregarPuntos(int puntos){};
 }

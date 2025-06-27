@@ -2,30 +2,27 @@ package Logica;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.stream.Collectors;
 
 public class EliminacionDirecta implements ModalidadJuego {
     private TipoDePartida normal;
     private TipoDePartida desempate;
-    private PartidaFactory factory;
-    private ArrayList<ArrayList<Jugador>> distribucion;
-    private ArrayList<Jugador> activos;
+    private ArrayList<ArrayList<Participante>> distribucion;
+    private ArrayList<Participante> activos;
 
-    public EliminacionDirecta(TipoDePartida normal, TipoDePartida desempate, PartidaFactory factory){
+    public EliminacionDirecta(TipoDePartida normal, TipoDePartida desempate){
         this.normal=normal;
         this.desempate=desempate;
-        this.factory=factory;
         this.distribucion=new ArrayList<>();
         this.activos=new ArrayList<>();
 
 
 
     }
-    public void ordenarEnfrentamientos(ArrayList<Jugador> jugadores){
+    public void ordenarEnfrentamientos(ArrayList<Participante> jugadores){
         int n= jugadores.size();
         distribucion=new ArrayList<>();
         for(int i=0;i<n/2;i++){
-            ArrayList<Jugador> arrTemp= new ArrayList<>();
+            ArrayList<Participante> arrTemp= new ArrayList<>();
             arrTemp.add(activos.get(i));
             arrTemp.add(activos.get(n/2+i));
             distribucion.add(arrTemp);
@@ -36,27 +33,21 @@ public class EliminacionDirecta implements ModalidadJuego {
 
 
 
-
-
     @Override
     public void ejuctarRondas(ArrayList<Participante> participantes) {
-        //casteo de participantes a jugadores para ordenarlos
-        activos = participantes.stream()
-                .map(participante -> (Jugador) participante)
-                .sorted()
-                .collect(Collectors.toCollection(ArrayList::new));
-        Collections.sort(activos);
+        Collections.sort(participantes);
+        activos = participantes;
         ordenarEnfrentamientos(activos);
         int ronda=1;
         System.out.println("Enfrentamientos: "+distribucion);
         while (distribucion.size()>0){
             System.out.println("Ronda: "+ronda);
-            for(ArrayList<Jugador> pareja: distribucion){
-                Jugador p1=pareja.getFirst();
-                Jugador p2= pareja.getLast();
+            for(ArrayList<Participante> pareja: distribucion){
+                Participante p1=pareja.getFirst();
+                Participante p2= pareja.getLast();
                 System.out.println(p1.getNombre()+"vs"+p2.getNombre());
-               Enfrentamiento enf= new Enfrentamiento(p1, p2,
-                       TipoDePartida.CLASICA,TipoDePartida.BLITZ, factory);
+               EnfrentamientoJugadores enf= new EnfrentamientoJugadores(p1, p2,
+                       normal,desempate);
                enf.jugar();
                if(enf.getResultado()==Resultado.VICTORIA_P1){
                    activos.remove(p2);

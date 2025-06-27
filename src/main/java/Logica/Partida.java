@@ -1,12 +1,12 @@
 package Logica;
 
 public class Partida {
-    protected Jugador blancas;
-    protected Jugador negras;
+    protected Participante blancas;
+    protected Participante negras;
     protected TipoDePartida tipoDePartida;
     protected Resultado resultado;
 
-    public Partida(Jugador blancas, Jugador negras, TipoDePartida tipoDePartida){
+    public Partida(Participante blancas, Participante negras, TipoDePartida tipoDePartida){
         this.blancas=blancas;
         this.negras=negras;
         this.tipoDePartida=tipoDePartida;

@@ -7,4 +7,9 @@ public class TodosContraTodos implements ModalidadJuego {
     public void ejuctarRondas(ArrayList<Participante> participantes) {
 
     }
+
+    @Override
+    public void ordenarEnfrentamientos(ArrayList<Participante> participantes) {
+
+    }
 }

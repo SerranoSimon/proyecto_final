@@ -1,6 +1,6 @@
 package Logica;
 
-public class Jugador implements Participante, Comparable<Jugador>{
+public class Jugador implements Participante, Comparable<Participante>{
     private String nombre;
     private String apellido;
     private String correo;
@@ -16,12 +16,15 @@ public class Jugador implements Participante, Comparable<Jugador>{
     public void agregarPuntos(int puntos){
         this.puntos=+puntos;
     }
+    public int getPuntos(){
+        return puntos;
+    }
     public int getELO(){
         return ELO;
     }
 
     @Override
-    public int compareTo(Jugador j) {
+    public int compareTo(Participante j) {
         if(this.getELO()>j.getELO()){
             return -1;
         }
@@ -36,4 +39,5 @@ public class Jugador implements Participante, Comparable<Jugador>{
     public String getNombre() {
         return nombre;
     }
+
 }
