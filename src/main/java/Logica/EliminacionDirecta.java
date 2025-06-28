@@ -18,7 +18,7 @@ public class EliminacionDirecta implements ModalidadJuego {
 
 
     }
-    public void ordenarEnfrentamientos(ArrayList<Participante> jugadores){
+    public void ordenarEnfrentamientos(ArrayList<Participante> jugadores, boolean esPrimeraRonda){
         int n= jugadores.size();
         distribucion=new ArrayList<>();
         for(int i=0;i<n/2;i++){
@@ -37,7 +37,7 @@ public class EliminacionDirecta implements ModalidadJuego {
     public void ejuctarRondas(ArrayList<Participante> participantes) {
         Collections.sort(participantes);
         activos = participantes;
-        ordenarEnfrentamientos(activos);
+        ordenarEnfrentamientos(activos,false); //no nos interesa si es primera ronda para ordenar en esta modalidad
         int ronda=1;
         System.out.println("Enfrentamientos: "+distribucion);
         while (distribucion.size()>0){
@@ -54,7 +54,7 @@ public class EliminacionDirecta implements ModalidadJuego {
                else{
                    activos.remove(p1);
                }
-                ordenarEnfrentamientos(activos);
+                ordenarEnfrentamientos(activos,false);
             }
             ronda+=1;
 

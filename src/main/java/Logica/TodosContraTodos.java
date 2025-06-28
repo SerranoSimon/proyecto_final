@@ -9,7 +9,7 @@ public class TodosContraTodos implements ModalidadJuego {
     }
 
     @Override
-    public void ordenarEnfrentamientos(ArrayList<Participante> participantes) {
+    public void ordenarEnfrentamientos(ArrayList<Participante> participantes, boolean esPrimeraRonda) {
 
     }
 }

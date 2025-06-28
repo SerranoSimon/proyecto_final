@@ -16,18 +16,19 @@ public class SistemaSuizo implements ModalidadJuego {
     public void ejuctarRondas(ArrayList<Participante> participantes) {
 
         EnfrentamientoFactory factory = new EnfrentamientoFactory();
+
         int i=1;
-        if(i==1){
-            Collections.sort(participantes);
-        }
-        else{
-            ordenarEnfrentamientos(participantes);
-        }
         int n= participantes.size();
         int numeroRondas = (int) Math.ceil(Math.log(n) / Math.log(2));
         while(i< numeroRondas+1){
             System.out.println("Ronda "+i);
-            ordenarEnfrentamientos(participantes);
+             if(i==1){
+                 ordenarEnfrentamientos(participantes,true);
+             }
+             else{
+                 ordenarEnfrentamientos(participantes,false);
+             }
+
             for(ArrayList<Participante> pareja: distribucion){
                 Enfrentamiento enf=factory.crearEnfrentamiento(pareja.getFirst(), pareja.getLast(), normal,desempate);
                 enf.jugar();
@@ -37,14 +38,19 @@ public class SistemaSuizo implements ModalidadJuego {
         }
 
         participantes.sort(new ComparadorPorPuntos());
-        System.out.println(participantes);
+
 
 
     }
 
     @Override
-    public void ordenarEnfrentamientos(ArrayList<Participante> participantes) {
-        participantes.sort(new ComparadorPorPuntos());
+    public void ordenarEnfrentamientos(ArrayList<Participante> participantes, boolean esPrimeraRonda) {
+        if(esPrimeraRonda){
+            Collections.sort(participantes);
+        }
+        else{
+            participantes.sort(new ComparadorPorPuntos());
+        }
         int n= participantes.size();
         distribucion=new ArrayList<>();
         for(int i=0; i<n;i+=2){
