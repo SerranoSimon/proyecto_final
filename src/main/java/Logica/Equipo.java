@@ -21,6 +21,7 @@ public class Equipo implements Participante {
 
     @Override
     public int getPuntos() {
+        actualizarPuntaje();
         return puntos;
     }
 
@@ -37,7 +38,7 @@ public class Equipo implements Participante {
     public ArrayList<Jugador> getJugadores() {
         return jugadores;
     }
-    public void actualizarPuntaje(){
+    private void actualizarPuntaje(){
         for(Jugador j: jugadores){
             puntos+=j.getPuntos();
         }
@@ -55,5 +56,10 @@ public class Equipo implements Participante {
         else{
             return 0;
         }
+    }
+
+    @Override
+    public void agregarPuntos(int i) {
+        puntos+=i;
     }
 }

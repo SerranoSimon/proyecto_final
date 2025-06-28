@@ -1,5 +1,5 @@
+package Logica;
 
-import Logica.Jugador;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

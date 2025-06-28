@@ -7,7 +7,5 @@ public interface Participante extends Comparable<Participante>{
 
     int compareTo(Participante j);
 
-    default void agregarPuntos(int i) {
-        
-    }
+    void agregarPuntos(int i);
 }

@@ -14,11 +14,18 @@ public class SistemaSuizo implements ModalidadJuego {
     }
     @Override
     public void ejuctarRondas(ArrayList<Participante> participantes) {
-        Collections.sort(participantes);
+
         EnfrentamientoFactory factory = new EnfrentamientoFactory();
         int i=1;
+        if(i==1){
+            Collections.sort(participantes);
+        }
+        else{
+            ordenarEnfrentamientos(participantes);
+        }
         while(i< distribucion.size()+1){
             System.out.println("Ronda "+i);
+            ordenarEnfrentamientos(participantes);
             for(ArrayList<Participante> pareja: distribucion){
                 factory.crearEnfrentamiento(pareja.getFirst(), pareja.getLast(), normal,desempate);
             }
@@ -31,6 +38,7 @@ public class SistemaSuizo implements ModalidadJuego {
 
     @Override
     public void ordenarEnfrentamientos(ArrayList<Participante> participantes) {
+        participantes.sort(new ComparadorPorPuntos());
         int n= participantes.size();
         distribucion=new ArrayList<>();
         for(int i=0; i<n;i+=2){
@@ -41,5 +49,9 @@ public class SistemaSuizo implements ModalidadJuego {
         }
 
 
+    }
+
+    public ArrayList<ArrayList<Participante>> getDistribucion() {
+        return distribucion;
     }
 }
