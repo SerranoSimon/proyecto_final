@@ -72,9 +72,21 @@ class SistemaSuizoTest {
         ArrayList<Participante> equipos = new ArrayList<>(List.of(e1, e2, e3, e4));
         SistemaSuizo sis=new SistemaSuizo(TipoDePartida.CLASICA,TipoDePartida.BLITZ);
         sis.ordenarEnfrentamientos(equipos);
-        System.out.println(sis.getDistribucion());
         assertTrue(sis.getDistribucion().get(0).equals(List.of(e1, e4)) || sis.getDistribucion().get(0).equals(List.of(e4, e1)));
         assertEquals(List.of(e2, e3), sis.getDistribucion().get(1));
+
+    }
+    @Test
+    void ordenarEnfrentamientosEquipos2(){
+        e1.agregarPuntos(24);
+        e2.agregarPuntos(14);
+        e3.agregarPuntos(20);
+        e4.agregarPuntos(18);
+        ArrayList<Participante> equipos = new ArrayList<>(List.of(e1, e2, e3, e4));
+        SistemaSuizo sis=new SistemaSuizo(TipoDePartida.CLASICA,TipoDePartida.BLITZ);
+        sis.ordenarEnfrentamientos(equipos);
+        assertEquals(List.of(e1, e3), sis.getDistribucion().get(0));
+        assertEquals(List.of(e4, e2), sis.getDistribucion().get(1));
 
     }
 

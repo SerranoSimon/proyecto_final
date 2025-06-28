@@ -45,17 +45,14 @@ public class EliminacionDirecta implements ModalidadJuego {
             for(ArrayList<Participante> pareja: distribucion){
                 Participante p1=pareja.getFirst();
                 Participante p2= pareja.getLast();
-                System.out.println(p1.getNombre()+"vs"+p2.getNombre());
                EnfrentamientoJugadores enf= new EnfrentamientoJugadores(p1, p2,
                        normal,desempate);
                enf.jugar();
                if(enf.getResultado()==Resultado.VICTORIA_P1){
                    activos.remove(p2);
-                   System.out.println("gana"+p1.getNombre());
                }
                else{
                    activos.remove(p1);
-                   System.out.println("gana"+p2.getNombre());
                }
                 ordenarEnfrentamientos(activos);
             }

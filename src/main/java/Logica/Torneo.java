@@ -7,6 +7,10 @@ public abstract class  Torneo {
     protected ModalidadJuego modalidadJuego;
     protected TipoDePartida partidaNormal;
     protected TipoDePartida partidaDesempate;
+    protected Participante primerLugar;
+    protected Participante segundoLugar;
+    protected Participante tercerLugar;
+
 
 
     public void setModalidadJuego(ModalidadJuego modalidadJuego) {

@@ -14,7 +14,7 @@ public class Jugador implements Participante, Comparable<Participante>{
 
     }
     public void agregarPuntos(int puntos){
-        this.puntos=+puntos;
+        this.puntos+=puntos;
     }
     public int getPuntos(){
         return puntos;
@@ -40,4 +40,8 @@ public class Jugador implements Participante, Comparable<Participante>{
         return nombre;
     }
 
+    @Override
+    public String toString() {
+        return nombre+": "+puntos;
+    }
 }

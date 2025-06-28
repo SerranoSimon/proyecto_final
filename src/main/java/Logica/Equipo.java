@@ -12,7 +12,7 @@ public class Equipo implements Participante {
         this.nombre=nombre;
         this.jugadores=jugadores;
         for(Jugador j: jugadores){
-            ELOEquipo=+j.getELO();
+            ELOEquipo+=j.getELO();
         }
         ELOEquipo=ELOEquipo/ jugadores.size();
         Collections.sort(jugadores);
@@ -38,7 +38,8 @@ public class Equipo implements Participante {
     public ArrayList<Jugador> getJugadores() {
         return jugadores;
     }
-    private void actualizarPuntaje(){
+    public void actualizarPuntaje(){
+        puntos=0;
         for(Jugador j: jugadores){
             puntos+=j.getPuntos();
         }
@@ -61,5 +62,10 @@ public class Equipo implements Participante {
     @Override
     public void agregarPuntos(int i) {
         puntos+=i;
+    }
+
+    @Override
+    public String toString() {
+        return nombre+": "+puntos;
     }
 }

@@ -23,15 +23,21 @@ public class SistemaSuizo implements ModalidadJuego {
         else{
             ordenarEnfrentamientos(participantes);
         }
-        while(i< distribucion.size()+1){
+        int n= participantes.size();
+        int numeroRondas = (int) Math.ceil(Math.log(n) / Math.log(2));
+        while(i< numeroRondas+1){
             System.out.println("Ronda "+i);
             ordenarEnfrentamientos(participantes);
             for(ArrayList<Participante> pareja: distribucion){
-                factory.crearEnfrentamiento(pareja.getFirst(), pareja.getLast(), normal,desempate);
+                Enfrentamiento enf=factory.crearEnfrentamiento(pareja.getFirst(), pareja.getLast(), normal,desempate);
+                enf.jugar();
             }
 
             i+=1;
         }
+
+        participantes.sort(new ComparadorPorPuntos());
+        System.out.println(participantes);
 
 
     }

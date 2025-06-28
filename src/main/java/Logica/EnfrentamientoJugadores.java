@@ -12,6 +12,8 @@ public class EnfrentamientoJugadores implements Enfrentamiento{
         this.j2=j2;
         this.normal=normal;
         this.desempate=desempate;
+
+
     }
     private int asignarPuntos(Resultado resultado, boolean esJ1){
         if(esJ1){
@@ -28,6 +30,7 @@ public class EnfrentamientoJugadores implements Enfrentamiento{
         };
     }
     public void jugar(){
+        System.out.println("ENFRENTAMIENTO: "+j1.getNombre()+" v/s "+j2.getNombre());
         int puntosJ1=0;
         int puntosJ2=0;
 
@@ -51,10 +54,12 @@ public class EnfrentamientoJugadores implements Enfrentamiento{
         if(puntosJ1>puntosJ2){
             resultado= Resultado.VICTORIA_P1;
             j1.agregarPuntos(2);
+            System.out.println("GANADOR: "+j1.getNombre());
         }
         else{
             resultado= Resultado.VICTORIA_P2;
             j2.agregarPuntos(2);
+            System.out.println("GANADOR: "+j2.getNombre());
         }
     }
     public Resultado getResultado(){
