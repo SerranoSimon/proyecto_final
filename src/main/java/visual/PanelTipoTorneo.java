@@ -86,14 +86,14 @@ public class PanelTipoTorneo extends JPanel {
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 g2.setColor(color);
                 g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
-                g2.setColor(color.darker());
+
                 g2.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 20, 20);
                 g2.setColor(Color.WHITE);
                 FontMetrics fm = g2.getFontMetrics();
                 int x = (getWidth() - fm.stringWidth(getText())) / 2;
                 int y = ((getHeight() - fm.getHeight()) / 2) + fm.getAscent();
                 g2.drawString(getText(), x, y);
-                g2.dispose();
+
             }
         };
         boton.setContentAreaFilled(false);
