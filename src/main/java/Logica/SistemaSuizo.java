@@ -59,8 +59,6 @@ public class SistemaSuizo implements ModalidadJuego {
             arrTemp.add(participantes.get(i+1));
             distribucion.add(arrTemp);
         }
-
-
     }
 
     public ArrayList<ArrayList<Participante>> getDistribucion() {
