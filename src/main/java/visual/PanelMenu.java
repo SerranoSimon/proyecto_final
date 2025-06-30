@@ -10,7 +10,7 @@ public class PanelMenu extends JPanel {
         setBackground(new Color(30, 30, 40));
 
         JLabel titulo = new JLabel("Gestor de Torneos de Ajedrez", SwingConstants.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 36));
+        titulo.setFont(new Font("Monospaced", Font.BOLD, 36));
         titulo.setForeground(new Color(220, 220, 255));
         titulo.setBorder(BorderFactory.createEmptyBorder(50, 0, 100, 0));
         add(titulo, BorderLayout.NORTH);
