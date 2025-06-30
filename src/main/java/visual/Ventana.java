@@ -7,10 +7,11 @@ public class Ventana extends JFrame {
     private PanelMenu panelMenu;
     private PanelTipoTorneo panelTipoTorneo;
     private PanelDatosTorneo panelDatosTorneo;
+    private PanelTorneo panelTorneo;
 
     public Ventana() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setSize(1920, 1080);
+        this.setSize(1280, 720);
         this.setResizable(false);
         this.setTitle("Gestor de Torneos de Ajedrez");
 
@@ -23,7 +24,7 @@ public class Ventana extends JFrame {
         panelMenu = new PanelMenu(this);
         panelTipoTorneo = new PanelTipoTorneo(this);
         panelDatosTorneo = new PanelDatosTorneo(this, "");
-
+        panelTorneo = new PanelTorneo("", "");
 
         panelMenu.setAlignmentX(0.5f);
         panelMenu.setAlignmentY(0.5f);
@@ -31,8 +32,10 @@ public class Ventana extends JFrame {
         panelTipoTorneo.setAlignmentY(0.5f);
         panelDatosTorneo.setAlignmentX(0.5f);
         panelDatosTorneo.setAlignmentY(0.5f);
+        panelTorneo.setAlignmentX(0.5f);
+        panelTorneo.setAlignmentY(0.5f);
 
-
+        mainPanel.add(panelTorneo);
         mainPanel.add(panelDatosTorneo);
         mainPanel.add(panelTipoTorneo);
         mainPanel.add(panelMenu);
@@ -41,6 +44,8 @@ public class Ventana extends JFrame {
 
         panelTipoTorneo.setVisible(false);
         panelDatosTorneo.setVisible(false);
+        panelTorneo.setVisible(false);
+
 
         this.add(mainPanel);
         this.setVisible(true);
@@ -56,5 +61,8 @@ public class Ventana extends JFrame {
     }
     public PanelDatosTorneo getPanelDatosTorneo() {
         return panelDatosTorneo;
+    }
+    public PanelTorneo getPanelTorneo() {
+        return panelTorneo;
     }
 }
