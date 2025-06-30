@@ -10,7 +10,7 @@ public class PanelTipoTorneo extends JPanel {
         setBackground(new Color(30, 30, 40));
 
         JLabel titulo = new JLabel("Escoger tipo de torneo:", SwingConstants.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 30));
+        titulo.setFont(new Font("Monospaced", Font.BOLD, 30));
         titulo.setForeground(new Color(220, 220, 255));
         titulo.setBorder(BorderFactory.createEmptyBorder(50, 0, 50, 0));
         add(titulo, BorderLayout.NORTH);
@@ -59,6 +59,16 @@ public class PanelTipoTorneo extends JPanel {
         add(panelBotones, BorderLayout.CENTER);
 
 
+        JButton btnRegresar = getJButton(ventana);
+
+        JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        panelInferior.setOpaque(false);
+        panelInferior.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 20));
+        panelInferior.add(btnRegresar);
+        add(panelInferior, BorderLayout.SOUTH);
+    }
+
+    private JButton getJButton(Ventana ventana) {
         JButton btnRegresar = new JButton("Regresar");
         btnRegresar.addActionListener(e -> {
             setVisible(false);
@@ -70,12 +80,7 @@ public class PanelTipoTorneo extends JPanel {
         btnRegresar.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
         btnRegresar.setFocusPainted(false);
         btnRegresar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        panelInferior.setOpaque(false);
-        panelInferior.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 20));
-        panelInferior.add(btnRegresar);
-        add(panelInferior, BorderLayout.SOUTH);
+        return btnRegresar;
     }
 
     private JButton crearBoton(String texto, Color color) {
@@ -99,7 +104,7 @@ public class PanelTipoTorneo extends JPanel {
         boton.setContentAreaFilled(false);
         boton.setBorderPainted(false);
         boton.setFocusPainted(false);
-        boton.setFont(new Font("Arial", Font.BOLD, 14));
+        boton.setFont(new Font("Monospaced", Font.BOLD, 14));
         boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         boton.setMaximumSize(new Dimension(300, 50));
         boton.setAlignmentX(Component.CENTER_ALIGNMENT);
