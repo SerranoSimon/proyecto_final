@@ -1,26 +1,42 @@
 package visual;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.awt.*;
 
 public class PanelTorneo extends JPanel {
     private String lugarTorneo;
     private String tipoTiempo;
+    private Timer timer;
+    private int tiempoRestante;
+    private JLabel contadorLabel;
+    private JButton btnIniciarRonda;
+
     public PanelTorneo(String lugar, String tiempo) {
         this.lugarTorneo = lugar;
         this.tipoTiempo = tiempo;
         setBackground(Color.LIGHT_GRAY);
         setLayout(new BorderLayout());
+
         JPanel panelSuperior = new JPanel(new GridLayout(1, 2));
         panelSuperior.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         panelSuperior.setOpaque(false);
+
         JLabel Lugar = new JLabel("Lugar del torneo: " + lugarTorneo);
         Lugar.setFont(new Font("Monospaced", Font.PLAIN, 16));
         panelSuperior.add(Lugar);
+
+        contadorLabel = new JLabel("Tiempo: " + tiempoRestante + "s", SwingConstants.CENTER);
+        contadorLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        contadorLabel.setForeground(Color.BLUE);
+        panelSuperior.add(contadorLabel);
+
         JLabel Tipo = new JLabel("Tipo de torneo: " + tipoTiempo, SwingConstants.RIGHT);
         Tipo.setFont(new Font("Monospaced", Font.PLAIN, 16));
         panelSuperior.add(Tipo);
+
         add(panelSuperior, BorderLayout.NORTH);
+
         JPanel panelJuego = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -86,13 +102,46 @@ public class PanelTorneo extends JPanel {
         btnEstado.setFont(new Font("Monospaced", Font.BOLD, 16));
         btnEstado.setBackground(new Color(70, 150, 220));
         btnEstado.setForeground(Color.WHITE);
-        btnEstado.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         btnEstado.setFocusPainted(false);
 
-        JPanel panelBoton = new JPanel();
+        btnIniciarRonda = new JButton("Iniciar Ronda");
+        btnIniciarRonda.setFont(new Font("Arial", Font.BOLD, 16));
+        btnIniciarRonda.setBackground(new Color(60, 180, 75));
+        btnIniciarRonda.setForeground(Color.WHITE);
+        btnIniciarRonda.setFocusPainted(false);
+        btnIniciarRonda.addActionListener(e -> iniciarContador());
+
+        JPanel panelBoton = new JPanel(new GridLayout(1, 2, 10, 0));
         panelBoton.setBorder(BorderFactory.createEmptyBorder(20, 100, 20, 100));
         panelBoton.setOpaque(false);
+
         panelBoton.add(btnEstado);
+        panelBoton.add(btnIniciarRonda);
         add(panelBoton, BorderLayout.SOUTH);
+
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tiempoRestante--;
+                contadorLabel.setText("contador: " + tiempoRestante + "s");
+
+                if (tiempoRestante <= 0) {
+                    timer.stop();
+                    contadorLabel.setForeground(Color.RED);
+                    btnIniciarRonda.setEnabled(true);
+                }
+            }
+        });
+    }
+    private void iniciarContador() {
+        switch(tipoTiempo.toLowerCase()) {
+            case "blitz": tiempoRestante = 3; break;
+            case "rápido": tiempoRestante = 15; break;
+            case "clásico": tiempoRestante = 90; break;
+        }
+        contadorLabel.setText("Tiempo: " + tiempoRestante + "s");
+        contadorLabel.setForeground(Color.BLUE);
+        timer.start();
+        btnIniciarRonda.setEnabled(false);
     }
 }
