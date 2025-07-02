@@ -8,6 +8,9 @@ public class Equipo implements Participante {
     private ArrayList<Jugador> jugadores;
     private int ELOEquipo; //promedio de ELOs
     private int puntos;
+    private boolean tuvoDescanso;
+
+
     public Equipo(String nombre, ArrayList<Jugador> jugadores){
         this.nombre=nombre;
         this.jugadores=jugadores;
@@ -16,6 +19,7 @@ public class Equipo implements Participante {
         }
         ELOEquipo=ELOEquipo/ jugadores.size();
         Collections.sort(jugadores);
+        this.tuvoDescanso=false;
 
     }
 
@@ -62,6 +66,16 @@ public class Equipo implements Participante {
     @Override
     public void agregarPuntos(int i) {
         puntos+=i;
+    }
+
+    @Override
+    public boolean getTuvoDescanso() {
+        return tuvoDescanso;
+    }
+
+    @Override
+    public void setTuvoDescanso(boolean tuvoDescanso) {
+        this.tuvoDescanso=tuvoDescanso;
     }
 
     @Override

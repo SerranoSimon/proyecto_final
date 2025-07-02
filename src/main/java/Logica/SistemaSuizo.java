@@ -4,64 +4,55 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class SistemaSuizo implements ModalidadJuego {
-    private TipoDePartida normal;
-    private TipoDePartida desempate;
-    private ArrayList<ArrayList<Participante>> distribucion;
-    public SistemaSuizo(TipoDePartida normal, TipoDePartida desempate){
-        this.normal=normal;
-        this.desempate=desempate;
-        this.distribucion=new ArrayList<>();
+    public SistemaSuizo(){
     }
     @Override
-    public void ejuctarRondas(ArrayList<Participante> participantes) {
-
-        EnfrentamientoFactory factory = new EnfrentamientoFactory();
-
-        int i=1;
-        int n= participantes.size();
-        int numeroRondas = (int) Math.ceil(Math.log(n) / Math.log(2));
-        while(i< numeroRondas+1){
-            System.out.println("Ronda "+i);
-             if(i==1){
-                 ordenarEnfrentamientos(participantes,true);
-             }
-             else{
-                 ordenarEnfrentamientos(participantes,false);
-             }
-
-            for(ArrayList<Participante> pareja: distribucion){
-                Enfrentamiento enf=factory.crearEnfrentamiento(pareja.getFirst(), pareja.getLast(), normal,desempate);
-                enf.jugar();
-            }
-
-            i+=1;
-        }
-
-        participantes.sort(new ComparadorPorPuntos());
-
-
-
-    }
-
-    @Override
-    public void ordenarEnfrentamientos(ArrayList<Participante> participantes, boolean esPrimeraRonda) {
-        if(esPrimeraRonda){
+    public void ordenarParticipantes(ArrayList<Participante> participantes,
+                                       int numeroDeRonda) {
+        if(numeroDeRonda==1){
             Collections.sort(participantes);
         }
         else{
             participantes.sort(new ComparadorPorPuntos());
         }
-        int n= participantes.size();
-        distribucion=new ArrayList<>();
-        for(int i=0; i<n;i+=2){
-            ArrayList<Participante> arrTemp=new ArrayList<>();
-            arrTemp.add(participantes.get(i));
-            arrTemp.add(participantes.get(i+1));
-            distribucion.add(arrTemp);
-        }
+
     }
 
-    public ArrayList<ArrayList<Participante>> getDistribucion() {
-        return distribucion;
+    @Override
+    public ArrayList<ArrayList<Participante>> obtenerDistribucionEnfrentamientos(ArrayList<Participante> participantes) {
+        ArrayList<ArrayList<Participante>> distribucion=new ArrayList<>();
+        ArrayList<Participante> participantesCopia= (ArrayList<Participante>) participantes.clone(); //shallow copy
+        if(participantes.size()%2!=0){
+            distribucion.add(crearEnfrentamientoFantasma(participantesCopia));
+        }
+        for(int i=0; i< participantesCopia.size();i+=2){
+            ArrayList<Participante> arrTemp=new ArrayList<>();
+            arrTemp.add(participantesCopia.get(i));
+            arrTemp.add(participantesCopia.get(i+1));
+            distribucion.add(arrTemp);
+        }
+       return distribucion;
     }
+
+    @Override
+    public int numeroDeRondas(int numeroDeParticipantes) {
+        return (int) Math.ceil(Math.log(numeroDeParticipantes) / Math.log(2));
+    }
+
+    public ArrayList<Participante> crearEnfrentamientoFantasma(ArrayList<Participante> participantes){
+        ArrayList<Participante> enfFantasma= new ArrayList<>();
+        for(int i=0;i< participantes.size();i++){
+            if(!participantes.get(participantes.size()-1-i).getTuvoDescanso()){
+                enfFantasma.add(new Fantasma());
+                enfFantasma.add(participantes.get(participantes.size()-1-i));
+                participantes.get(participantes.size()-1-i).setTuvoDescanso(true);
+                participantes.remove(participantes.size()-1-i);
+                break;
+
+
+            }
+        }
+        return enfFantasma;
+    }
+
 }

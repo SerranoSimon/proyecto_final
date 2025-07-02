@@ -3,6 +3,9 @@ package Logica;
 import java.util.ArrayList;
 
 public interface ModalidadJuego {
-    void ejuctarRondas(ArrayList<Logica.Participante> participantes);
-    void ordenarEnfrentamientos(ArrayList<Participante> participantes, boolean esPrimeraRonda);
+    void ordenarParticipantes(ArrayList<Participante> participantes,
+                                int numeroDeRonda);
+    ArrayList<ArrayList<Participante>> obtenerDistribucionEnfrentamientos(ArrayList<Participante> participantes);
+    int numeroDeRondas(int numeroDeParticipantes);
+   
 }

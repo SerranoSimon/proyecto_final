@@ -25,4 +25,14 @@ public class Fantasma implements Participante{
     public void agregarPuntos(int i) {
 
     }
+
+    @Override
+    public boolean getTuvoDescanso() {
+        return false;
+    }
+
+    @Override
+    public void setTuvoDescanso(boolean tuvoDescanso) {
+
+    }
 }

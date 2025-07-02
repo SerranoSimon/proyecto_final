@@ -27,4 +27,9 @@ private TipoDePartida desempate;
         }
 
     }
+
+    @Override
+    public Resultado getResultado() {
+        return null;
+    }
 }

@@ -62,6 +62,7 @@ public class EnfrentamientoJugadores implements Enfrentamiento{
             System.out.println("GANADOR: "+j2.getNombre());
         }
     }
+    @Override
     public Resultado getResultado(){
         return resultado;
     }

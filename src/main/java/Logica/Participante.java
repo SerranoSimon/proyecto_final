@@ -8,4 +8,6 @@ public interface Participante extends Comparable<Participante>{
     int compareTo(Participante j);
 
     void agregarPuntos(int i);
+    boolean getTuvoDescanso();
+    void setTuvoDescanso(boolean tuvoDescanso);
 }

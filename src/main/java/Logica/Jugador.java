@@ -6,12 +6,23 @@ public class Jugador implements Participante, Comparable<Participante>{
     private String correo;
     private int ELO;
     private int puntos;
+    private boolean tuvoDescanso;
+
     public Jugador(String nombre, String apellido, String correo, int ELO){
         this.nombre=nombre;
         this.apellido=apellido;
         this.correo=correo;
         this.ELO=ELO;
+        this.tuvoDescanso=false;
 
+    }
+    @Override
+    public void setTuvoDescanso(boolean tuvoDescanso) {
+        this.tuvoDescanso = tuvoDescanso;
+    }
+    @Override
+    public boolean getTuvoDescanso() {
+        return tuvoDescanso;
     }
     public void agregarPuntos(int puntos){
         this.puntos+=puntos;
