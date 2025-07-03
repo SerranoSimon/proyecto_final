@@ -1,7 +1,6 @@
 package visual;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 public class PanelDatosTorneo extends JPanel {
     private JTextField textoFecha;
@@ -9,6 +8,7 @@ public class PanelDatosTorneo extends JPanel {
     private JToggleButton botonSeleccionado;
 
     public PanelDatosTorneo(Ventana ventana, String tipoTorneo) {
+
         setLayout(new BorderLayout());
         setBackground(new Color(30, 30, 40));
 
@@ -69,23 +69,28 @@ public class PanelDatosTorneo extends JPanel {
         panelLugar.add(textoLugar);
         panelCentral.add(panelLugar);
 
-        JButton btnIniciar = getJButton(ventana, textoLugar);
-        panelCentral.add(btnIniciar);
+        JButton btnPublicar = getJButton(ventana,textoLugar);
+        btnPublicar.setMaximumSize(new Dimension(300, 50));
+        btnPublicar.addActionListener(e -> {
+            ventana.getPanelInscripciones().setVisible(true);
+            setVisible(false);
+        });
+        panelCentral.add(btnPublicar);
         panelCentral.add(Box.createVerticalGlue());
         add(panelCentral, BorderLayout.CENTER);
     }
 
     private JButton getJButton(Ventana ventana, JTextField textoLugar) {
-        JButton btnIniciar = new JButton("Iniciar Torneo");
-        btnIniciar.setFont(new Font("Monospaced", Font.BOLD, 16));
-        btnIniciar.setBackground(new Color(70, 150, 220));
-        btnIniciar.setForeground(Color.WHITE);
-        btnIniciar.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnIniciar.setMaximumSize(new Dimension(300, 50));
-        btnIniciar.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-        btnIniciar.setFocusPainted(false);
+        JButton btnPublicar = new JButton("Publicar y recibir inscripciones");
+        btnPublicar.setFont(new Font("Monospaced", Font.BOLD, 16));
+        btnPublicar.setBackground(new Color(70, 150, 220));
+        btnPublicar.setForeground(Color.WHITE);
+        btnPublicar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnPublicar.setMaximumSize(new Dimension(300, 50));
+        btnPublicar.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        btnPublicar.setFocusPainted(false);
 
-        btnIniciar.addActionListener(e -> {
+        btnPublicar.addActionListener(e -> {
             String tiempo = botonSeleccionado != null ? botonSeleccionado.getText() : "";
             ventana.getPanelTorneo().setVisible(false);
             ventana.getPanelTorneo().removeAll();
@@ -93,9 +98,9 @@ public class PanelDatosTorneo extends JPanel {
             ventana.getPanelTorneo().revalidate();
             ventana.getPanelTorneo().repaint();
             setVisible(false);
-            ventana.getPanelTorneo().setVisible(true);
+            ventana.getPanelInscripciones().setVisible(true);
         });
-        return btnIniciar;
+        return btnPublicar;
     }
 
     private JToggleButton botonTiempo(String texto, Color color) {
