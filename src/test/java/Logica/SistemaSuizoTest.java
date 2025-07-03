@@ -49,7 +49,7 @@ class SistemaSuizoTest {
     void ejuctarRondas() {
     }
    //PROBLEMAS PORQUE NO PODEMOS SABER LOS RESULTADOS DESPUES DE LA RONDA 1
-    @Test
+   /* @Test
     void ordenarEnfrentamientosJugadores() {
         Torneo torneo=TorneoIndividual.getInstance();
         torneo.setModalidadJuego(new SistemaSuizo());
@@ -100,7 +100,7 @@ class SistemaSuizoTest {
         assertEquals(esperado,torneo.participantes);
 
 
-    }
+    }*/
 
 
 

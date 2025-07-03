@@ -32,21 +32,16 @@ public class TodosContraTodos implements ModalidadJuego {
                     segundaMitad.add(participantesCopia.get(i));
                 }
             }
-            System.out.println("1 "+primeraMitad);
-            System.out.println("2 "+segundaMitad);
             arrayRotado.add(primeraMitad.getFirst());
             arrayRotado.add(segundaMitad.getFirst());
             Participante ultimo= primeraMitad.getLast();
-            System.out.println("1");
             for(int i=1;i<n/2-1;i++){
                 arrayRotado.add(primeraMitad.get(i));
 
                 System.out.println(arrayRotado);
             }
-            System.out.println("2");
             for(int j=1;j<n/2;j++){
                 arrayRotado.add(segundaMitad.get(j));
-                System.out.println(arrayRotado);
             }
             arrayRotado.add(ultimo);
             participantesCopia=arrayRotado;
@@ -61,7 +56,6 @@ public class TodosContraTodos implements ModalidadJuego {
         //no usamos participantes en este metodo para esta modalidad, sino su copia.
         ArrayList<ArrayList<Participante>> distribucion=new ArrayList<>();
         int n=participantesCopia.size();
-        System.out.println("dentro:"+participantesCopia);
         for(int j=0;j<n/2;j++){
             ArrayList<Participante> enfrentamiento=new ArrayList<>();
             enfrentamiento.add(participantesCopia.get(j));
@@ -78,10 +72,10 @@ public class TodosContraTodos implements ModalidadJuego {
     @Override
     public int numeroDeRondas(int numeroDeParticipantes) {
         if(numeroDeParticipantes%2==0){
-            return numeroDeParticipantes/2;
+            return numeroDeParticipantes-1;
         }
         else{
-            return (numeroDeParticipantes-1)/2;
+            return numeroDeParticipantes;
         }
     }
 

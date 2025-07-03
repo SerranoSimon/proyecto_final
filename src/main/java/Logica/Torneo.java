@@ -16,15 +16,15 @@ public abstract class  Torneo {
     protected Participante primerLugar;
     protected Participante segundoLugar;
     protected Participante tercerLugar;
-   public Torneo(ModalidadJuego modalidadJuego,TipoDePartida partidaNormal, TipoDePartida partidaDesempate,){
-
+   public Torneo(ModalidadJuego modalidadJuego,TipoDePartida partidaNormal, TipoDePartida partidaDesempate){
+       this.solicitudesInscripcion=new ArrayList<>();
+       this.participantes=new ArrayList<>();
        this.distribucion=new ArrayList<>();
        this.modalidadJuego=modalidadJuego;
        this.partidaNormal=partidaNormal;
        this.partidaDesempate=partidaDesempate;
        this.factory = new EnfrentamientoFactory();
-       this.numeroRonda=1;
-       this.numeroMaximoRondas=0;
+       this.numeroRonda=0;
    }
     public void solicitarInscripcion(Participante participante) {
         solicitudesInscripcion.add(participante);
@@ -32,21 +32,25 @@ public abstract class  Torneo {
     }
     public void aceptarSolicitud(Participante participante) {
         solicitudesInscripcion.remove(participante);
-        agregarParticipante(participante); // Agregar al torneo
+        agregarParticipante(participante);
         System.out.println(participante + " ha sido aceptado en el torneo.");
     }
     public void rechazarSolicitud(Participante participante) {
         solicitudesInscripcion.remove(participante);
         System.out.println(participante + " ha sido rechazado.");
     }
-
+    public void actualizarNumeroMaximoRondas(){
+       numeroMaximoRondas=modalidadJuego.numeroDeRondas(participantes.size());
+    }
     public void ordenarEnfrentamientos(){
-        modalidadJuego.ordenarParticipantes(participantes,numeroRonda);
+        modalidadJuego.ordenarParticipantes(participantes,numeroRonda+1);
         distribucion=modalidadJuego.obtenerDistribucionEnfrentamientos(participantes);
     }
     public abstract void agregarParticipante(Participante participante);
     public void ejecutarRonda() throws LimiteDeRondasSuperadoException{
+        numeroRonda+=1;
         if(numeroRonda<=numeroMaximoRondas) {
+            System.out.println("RONDA: "+numeroRonda);
             for (ArrayList<Participante> pareja : distribucion) {
                 Enfrentamiento enf = factory.crearEnfrentamiento(pareja.getFirst(), pareja.getLast(), partidaNormal, partidaDesempate);
                 enf.jugar();
@@ -58,7 +62,7 @@ public abstract class  Torneo {
                     }
                 }
             }
-            numeroRonda+=1;
+
         }
         else{
             throw new LimiteDeRondasSuperadoException("Las rondas ya han acabado");
@@ -68,6 +72,42 @@ public abstract class  Torneo {
         modalidadJuego.ordenarParticipantesParaMostrar(participantes,numeroRonda);
         System.out.println(participantes);
     }
+    public boolean seNecesitaDesempate(){
+        if((participantes.get(0).getPuntos()!=participantes.get(1).getPuntos())
+                && (participantes.get(1).getPuntos()!=participantes.get(2).getPuntos())
+                && (participantes.get(2).getPuntos())!=participantes.get(3).getPuntos()){
+            return false;
+        }
+        return true;
+    }
+    public void desempatar(){
+        ArrayList<Participante> porPrimerLugar=new ArrayList<>();
+        porPrimerLugar.add(participantes.get(0));
+        ArrayList<Participante> porSegundoLugar=new ArrayList<>();
+        ArrayList<Participante> porTercerLugar=new ArrayList<>();
+
+        // Asignar los participantes a las listas
+        int cont = 1;
+        ArrayList<Participante> base = porPrimerLugar;
+        for(int i=1;i<participantes.size();i++){
+            if(participantes.get(i).getPuntos()<participantes.get(i-1).getPuntos()){
+                cont++;
+                if(cont==2){
+                    base=porSegundoLugar;
+                }
+                if(cont==3){
+                    base=porTercerLugar;
+                }
+            }
+            base.add(participantes.get(i));
+
+        }
+
+        System.out.println(porPrimerLugar);
+        System.out.println(porSegundoLugar);
+        System.out.println(porTercerLugar);
+
+    }
     public void establecerGanadores(){
         if(numeroRonda==numeroMaximoRondas){
             modalidadJuego.ordenarParticipantesParaMostrar(participantes,numeroRonda);
@@ -76,18 +116,19 @@ public abstract class  Torneo {
                 System.out.println("GANADOR DEL TORNEO: "+primerLugar);
             }
             else{
-                if((participantes.get(0).getPuntos()!=participantes.get(1).getPuntos())
-                   && (participantes.get(1).getPuntos()!=participantes.get(2).getPuntos())           ){
+                if(!seNecesitaDesempate()){
                     primerLugar=participantes.get(0);
                     segundoLugar=participantes.get(1);
                     tercerLugar=participantes.get(2);
                 }
                 else{
-                    System.out.println("Existe un empate, se necesita desempatar");
+                    System.out.println("Existe al menos un empate, se necesita desempatar");
+                    desempatar();
                 }
             }
         }
         else{
+
             System.out.println("aun no acaba el torneo");
         }
     }
