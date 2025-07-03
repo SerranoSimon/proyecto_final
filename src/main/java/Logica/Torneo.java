@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public abstract class  Torneo {
     protected ArrayList<Participante> participantes;
-    protected ArrayList<ArrayList<Participante>> distribucion=new ArrayList<>();
     protected ArrayList<Participante> solicitudesInscripcion;
-    protected int numeroRonda=1;
+    protected ArrayList<ArrayList<Participante>> distribucion;
+    protected int numeroRonda;
     protected int numeroMaximoRondas;
-    protected EnfrentamientoFactory factory = new EnfrentamientoFactory();
+    protected EnfrentamientoFactory factory;
     protected ModalidadJuego modalidadJuego;
     protected TipoDePartida partidaNormal;
     protected TipoDePartida partidaDesempate;
@@ -16,45 +16,35 @@ public abstract class  Torneo {
     protected Participante primerLugar;
     protected Participante segundoLugar;
     protected Participante tercerLugar;
+   public Torneo(ModalidadJuego modalidadJuego,TipoDePartida partidaNormal, TipoDePartida partidaDesempate,){
 
-
-
-
-    public void setModalidadJuego(ModalidadJuego modalidadJuego) {
-
-        this.modalidadJuego = modalidadJuego;
-        this.numeroMaximoRondas=modalidadJuego.numeroDeRondas(participantes.size());
-    }
-
-    public void setPartidaNormal(TipoDePartida partidaNormal) {
-        this.partidaNormal = partidaNormal;
-    }
-
-    public void setPartidaDesempate(TipoDePartida partidaDesempate) {
-        this.partidaDesempate = partidaDesempate;
-    }
-
-    public abstract void agregarParticipante(Participante participante);
+       this.distribucion=new ArrayList<>();
+       this.modalidadJuego=modalidadJuego;
+       this.partidaNormal=partidaNormal;
+       this.partidaDesempate=partidaDesempate;
+       this.factory = new EnfrentamientoFactory();
+       this.numeroRonda=1;
+       this.numeroMaximoRondas=0;
+   }
     public void solicitarInscripcion(Participante participante) {
         solicitudesInscripcion.add(participante);
         System.out.println("Solicitud de inscripción recibida para: " + participante);
     }
     public void aceptarSolicitud(Participante participante) {
-            solicitudesInscripcion.remove(participante);
-            agregarParticipante(participante);
-            System.out.println(participante + " ha sido aceptado en el torneo.");
-
+        solicitudesInscripcion.remove(participante);
+        agregarParticipante(participante); // Agregar al torneo
+        System.out.println(participante + " ha sido aceptado en el torneo.");
     }
-
     public void rechazarSolicitud(Participante participante) {
         solicitudesInscripcion.remove(participante);
         System.out.println(participante + " ha sido rechazado.");
-
     }
+
     public void ordenarEnfrentamientos(){
         modalidadJuego.ordenarParticipantes(participantes,numeroRonda);
         distribucion=modalidadJuego.obtenerDistribucionEnfrentamientos(participantes);
     }
+    public abstract void agregarParticipante(Participante participante);
     public void ejecutarRonda() throws LimiteDeRondasSuperadoException{
         if(numeroRonda<=numeroMaximoRondas) {
             for (ArrayList<Participante> pareja : distribucion) {
