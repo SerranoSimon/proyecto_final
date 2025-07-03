@@ -39,6 +39,12 @@ public class SistemaSuizo implements ModalidadJuego {
         return (int) Math.ceil(Math.log(numeroDeParticipantes) / Math.log(2));
     }
 
+    @Override
+    public void ordenarParticipantesParaMostrar(ArrayList<Participante> participantes,
+                                                int numeroDeRonda) {
+        ordenarParticipantes(participantes, numeroDeRonda);
+    }
+
     public ArrayList<Participante> crearEnfrentamientoFantasma(ArrayList<Participante> participantes){
         ArrayList<Participante> enfFantasma= new ArrayList<>();
         for(int i=0;i< participantes.size();i++){

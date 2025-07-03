@@ -31,4 +31,9 @@ public class EliminacionDirecta implements ModalidadJuego {
     public int numeroDeRondas(int numeroDeParticipantes) {
         return numeroDeParticipantes/2;
     }
+
+    @Override
+    public void ordenarParticipantesParaMostrar(ArrayList<Participante> participantes, int numeroDeRonda) {
+        Collections.sort(participantes);
+    }
 }

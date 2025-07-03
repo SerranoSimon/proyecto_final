@@ -32,10 +32,10 @@ class SistemaSuizoTest {
          j6=new Jugador("Rosita","Curihual","rositac@gmail.com",2400);
          j7=new Jugador("Vicente","Leal","vicentel@gmail.com",2320);
          j8=new Jugador("Patricio","Diaz","patriciod@gmail.com",2320);
-         ArrayList<Jugador> jugadores1=new ArrayList<>(List.of(j1, j2));
-        ArrayList<Jugador> jugadores2=new ArrayList<>(List.of(j3, j4));
-        ArrayList<Jugador> jugadores3=new ArrayList<>(List.of(j5, j6));
-        ArrayList<Jugador> jugadores4=new ArrayList<>(List.of(j7, j8));
+         ArrayList<Participante> jugadores1=new ArrayList<>(List.of(j1, j2));
+        ArrayList<Participante> jugadores2=new ArrayList<>(List.of(j3, j4));
+        ArrayList<Participante> jugadores3=new ArrayList<>(List.of(j5, j6));
+        ArrayList<Participante> jugadores4=new ArrayList<>(List.of(j7, j8));
         e1=new Equipo("Equipo 1",jugadores1);
         e2=new Equipo("Equipo 2",jugadores2);
         e3=new Equipo("Equipo 3",jugadores3);
@@ -48,19 +48,22 @@ class SistemaSuizoTest {
     @Test
     void ejuctarRondas() {
     }
-
+   //PROBLEMAS PORQUE NO PODEMOS SABER LOS RESULTADOS DESPUES DE LA RONDA 1
     @Test
     void ordenarEnfrentamientosJugadores() {
-          j1.agregarPuntos(4);
-          j2.agregarPuntos(6);
-          j3.agregarPuntos(2);
-          j4.agregarPuntos(1);
-         ArrayList<Participante> jugadores = new ArrayList<>(List.of(j1, j2, j3, j4));
-          SistemaSuizo sis=new SistemaSuizo(TipoDePartida.CLASICA,TipoDePartida.BLITZ);
-          sis.ordenarEnfrentamientos(jugadores, false);
-          assertEquals(List.of(j2, j1), sis.getDistribucion().get(0));
-          assertEquals(List.of(j3, j4), sis.getDistribucion().get(1));
-
+        Torneo torneo=TorneoIndividual.getInstance();
+        torneo.setModalidadJuego(new SistemaSuizo());
+        torneo.agregarParticipante(j1);
+        torneo.agregarParticipante(j2);
+        torneo.agregarParticipante(j3);
+        torneo.agregarParticipante(j4);
+        j1.agregarPuntos(4);
+        j2.agregarPuntos(6);
+        j3.agregarPuntos(2);
+        j4.agregarPuntos(1);
+         ArrayList<Participante> esperado = new ArrayList<>(List.of(j2, j1, j3, j4));
+         torneo.ordenarEnfrentamientos();
+         assertEquals(esperado,torneo.participantes);
 
     }
     @Test
@@ -69,26 +72,36 @@ class SistemaSuizoTest {
         e2.agregarPuntos(9);
         e3.agregarPuntos(3);
         e4.agregarPuntos(12);
-        ArrayList<Participante> equipos = new ArrayList<>(List.of(e1, e2, e3, e4));
-        SistemaSuizo sis=new SistemaSuizo(TipoDePartida.CLASICA,TipoDePartida.BLITZ);
-        sis.ordenarEnfrentamientos(equipos,false);
-        assertTrue(sis.getDistribucion().get(0).equals(List.of(e1, e4)) || sis.getDistribucion().get(0).equals(List.of(e4, e1)));
-        assertEquals(List.of(e2, e3), sis.getDistribucion().get(1));
+        ArrayList<Participante> esperado1 = new ArrayList<>(List.of(e1, e4, e2, e3));
+        ArrayList<Participante> esperado2 = new ArrayList<>(List.of(e4, e1, e2, e3));
+        Torneo torneo=TorneoEquipos.getInstance();
+        torneo.setModalidadJuego(new SistemaSuizo());
+        torneo.agregarParticipante(e1);
+        torneo.agregarParticipante(e2);
+        torneo.agregarParticipante(e3);
+        torneo.agregarParticipante(e4);
+        torneo.ordenarEnfrentamientos();
+        assertTrue(esperado1.equals(torneo.participantes) ||esperado2.equals(torneo.participantes));
 
     }
+
     @Test
     void ordenarEnfrentamientosEquipos2(){
         e1.agregarPuntos(24);
         e2.agregarPuntos(14);
         e3.agregarPuntos(20);
-        e4.agregarPuntos(18);
-        ArrayList<Participante> equipos = new ArrayList<>(List.of(e1, e2, e3, e4));
-        SistemaSuizo sis=new SistemaSuizo(TipoDePartida.CLASICA,TipoDePartida.BLITZ);
-        sis.ordenarEnfrentamientos(equipos,false);
-        assertEquals(List.of(e1, e3), sis.getDistribucion().get(0));
-        assertEquals(List.of(e4, e2), sis.getDistribucion().get(1));
+        ArrayList<Participante> esperado = new ArrayList<>(List.of(e1, e3, e2));
+        Torneo torneo=TorneoEquipos.getInstance();
+        torneo.setModalidadJuego(new SistemaSuizo());
+        torneo.agregarParticipante(e1);
+        torneo.agregarParticipante(e2);
+        torneo.agregarParticipante(e3);
+        torneo.ordenarEnfrentamientos();
+        assertEquals(esperado,torneo.participantes);
+
 
     }
+
 
 
 

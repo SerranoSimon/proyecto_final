@@ -18,8 +18,8 @@ private TipoDePartida desempate;
     public void jugar() {
         System.out.println("ENFRENTAMIENTO DE EQUIPOS: "+e1.getNombre()+" v/s "+e2.getNombre());
         for(int i=0;i<e1.getJugadores().size();i++){
-            Jugador j1=e1.getJugadores().get(i);
-            Jugador j2=e2.getJugadores().get(i);
+            Participante j1=e1.getJugadores().get(i);
+            Participante j2=e2.getJugadores().get(i);
             EnfrentamientoJugadores enf=
                     new EnfrentamientoJugadores(j1, j2, normal, desempate);
             enf.jugar();

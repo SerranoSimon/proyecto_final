@@ -7,5 +7,7 @@ public interface ModalidadJuego {
                                 int numeroDeRonda);
     ArrayList<ArrayList<Participante>> obtenerDistribucionEnfrentamientos(ArrayList<Participante> participantes);
     int numeroDeRondas(int numeroDeParticipantes);
+    void ordenarParticipantesParaMostrar(ArrayList<Participante> participantes,
+                                         int numeroDeRonda);
    
 }

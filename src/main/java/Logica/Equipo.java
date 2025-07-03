@@ -5,16 +5,16 @@ import java.util.Collections;
 
 public class Equipo implements Participante {
     private String nombre;
-    private ArrayList<Jugador> jugadores;
+    private ArrayList<Participante> jugadores;
     private int ELOEquipo; //promedio de ELOs
     private int puntos;
     private boolean tuvoDescanso;
 
 
-    public Equipo(String nombre, ArrayList<Jugador> jugadores){
+    public Equipo(String nombre, ArrayList<Participante> jugadores){
         this.nombre=nombre;
         this.jugadores=jugadores;
-        for(Jugador j: jugadores){
+        for(Participante j: jugadores){
             ELOEquipo+=j.getELO();
         }
         ELOEquipo=ELOEquipo/ jugadores.size();
@@ -39,12 +39,12 @@ public class Equipo implements Participante {
         return ELOEquipo;
     }
 
-    public ArrayList<Jugador> getJugadores() {
+    public ArrayList<Participante> getJugadores() {
         return jugadores;
     }
     public void actualizarPuntaje(){
         puntos=0;
-        for(Jugador j: jugadores){
+        for(Participante j: jugadores){
             puntos+=j.getPuntos();
         }
     }

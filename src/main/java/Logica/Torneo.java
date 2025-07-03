@@ -6,6 +6,7 @@ public abstract class  Torneo {
     protected ArrayList<Participante> participantes;
     protected ArrayList<ArrayList<Participante>> distribucion=new ArrayList<>();
     protected int numeroRonda=1;
+    protected int numeroMaximoRondas;
     protected EnfrentamientoFactory factory = new EnfrentamientoFactory();
     protected ModalidadJuego modalidadJuego;
     protected TipoDePartida partidaNormal;
@@ -19,7 +20,9 @@ public abstract class  Torneo {
 
 
     public void setModalidadJuego(ModalidadJuego modalidadJuego) {
+
         this.modalidadJuego = modalidadJuego;
+        this.numeroMaximoRondas=modalidadJuego.numeroDeRondas(participantes.size());
     }
 
     public void setPartidaNormal(TipoDePartida partidaNormal) {
@@ -35,23 +38,27 @@ public abstract class  Torneo {
         modalidadJuego.ordenarParticipantes(participantes,numeroRonda);
         distribucion=modalidadJuego.obtenerDistribucionEnfrentamientos(participantes);
     }
-    public void ejecutarRonda(){
-        for(ArrayList<Participante> pareja: distribucion){
-            Enfrentamiento enf=factory.crearEnfrentamiento(pareja.getFirst(), pareja.getLast(), partidaNormal,partidaDesempate);
-            enf.jugar();
-            if(modalidadJuego instanceof EliminacionDirecta){
-                if(enf.getResultado()==Resultado.VICTORIA_P1){
-                    participantes.remove(pareja.getLast());
-                }
-                else{
-                    participantes.remove(pareja.getFirst());
+    public void ejecutarRonda() throws LimiteDeRondasSuperadoException{
+        if(numeroRonda<=numeroMaximoRondas) {
+            for (ArrayList<Participante> pareja : distribucion) {
+                Enfrentamiento enf = factory.crearEnfrentamiento(pareja.getFirst(), pareja.getLast(), partidaNormal, partidaDesempate);
+                enf.jugar();
+                if (modalidadJuego instanceof EliminacionDirecta) {
+                    if (enf.getResultado() == Resultado.VICTORIA_P1) {
+                        participantes.remove(pareja.getLast());
+                    } else {
+                        participantes.remove(pareja.getFirst());
+                    }
                 }
             }
+            numeroRonda+=1;
         }
-        numeroRonda+=1;
+        else{
+            throw new LimiteDeRondasSuperadoException("Las rondas ya han acabado");
+        }
     }
     public void verEstado(){
-        modalidadJuego.ordenarParticipantes(participantes,numeroRonda);
+        modalidadJuego.ordenarParticipantesParaMostrar(participantes,numeroRonda);
         System.out.println(participantes);
     }
 
