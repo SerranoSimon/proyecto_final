@@ -22,7 +22,7 @@ public class Main {
         Equipo e3=new Equipo("Equipo 3",jugadores3);
         Equipo e4=new Equipo("Equipo 4",jugadores4);
 
-        Torneo torneo= new TorneoIndividual(new TodosContraTodos(),TipoDePartida.CLASICA, TipoDePartida.RAPIDA);
+        Torneo torneo= new TorneoIndividual(new EliminacionDirecta(),TipoDePartida.CLASICA, TipoDePartida.RAPIDA);
         torneo.solicitarInscripcion(j1);
         torneo.solicitarInscripcion(j2);
         torneo.solicitarInscripcion(j3);
@@ -32,7 +32,6 @@ public class Main {
         torneo.aceptarSolicitud(j2);
         torneo.aceptarSolicitud(j3);
         torneo.aceptarSolicitud(j4);
-        torneo.aceptarSolicitud(j5);
         torneo.actualizarNumeroMaximoRondas();
         System.out.println(torneo.numeroMaximoRondas);
         torneo.verEstado();
@@ -42,16 +41,10 @@ public class Main {
         torneo.ordenarEnfrentamientos();
         torneo.ejecutarRonda();
         torneo.verEstado();
-        torneo.ordenarEnfrentamientos();
-        torneo.ejecutarRonda();
-        torneo.verEstado();
-        torneo.ordenarEnfrentamientos();
-        torneo.ejecutarRonda();
-        torneo.verEstado();
-        torneo.ordenarEnfrentamientos();
-        torneo.ejecutarRonda();
-        torneo.verEstado();
         torneo.establecerGanadores();
+        System.out.println(torneo.primerLugar);
+        System.out.println(torneo.segundoLugar);
+        System.out.println(torneo.tercerLugar);
 
 
 

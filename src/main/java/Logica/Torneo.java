@@ -12,7 +12,7 @@ public abstract class  Torneo {
     protected ModalidadJuego modalidadJuego;
     protected TipoDePartida partidaNormal;
     protected TipoDePartida partidaDesempate;
-
+    protected ArrayList<Participante> disputaTercerLugar;
     protected Participante primerLugar;
     protected Participante segundoLugar;
     protected Participante tercerLugar;
@@ -25,6 +25,7 @@ public abstract class  Torneo {
        this.partidaDesempate=partidaDesempate;
        this.factory = new EnfrentamientoFactory();
        this.numeroRonda=0;
+       this.disputaTercerLugar=new ArrayList<>();
    }
     public void solicitarInscripcion(Participante participante) {
         solicitudesInscripcion.add(participante);
@@ -58,11 +59,37 @@ public abstract class  Torneo {
                 if (modalidadJuego instanceof EliminacionDirecta) {
                     if (enf.getResultado() == Resultado.VICTORIA_P1) {
                         participantes.remove(pareja.getLast());
+                        if(numeroRonda==numeroMaximoRondas-1){
+                            disputaTercerLugar.add(pareja.getLast());
+                        }
+                        if(numeroRonda==numeroMaximoRondas){
+                            primerLugar=pareja.getFirst();
+                            segundoLugar=pareja.getLast();
+                        }
                     } else {
                         participantes.remove(pareja.getFirst());
+                        if(numeroRonda==numeroMaximoRondas-1){
+                            disputaTercerLugar.add(pareja.getFirst());
+                        }
+                        if(numeroRonda==numeroMaximoRondas){
+                            primerLugar=pareja.getLast();
+                            segundoLugar=pareja.getFirst();
+                        }
                     }
                 }
             }
+            if(numeroRonda==numeroMaximoRondas && modalidadJuego instanceof EliminacionDirecta){
+                System.out.println("Disputa tercer lugar eliminacion directa");
+                Enfrentamiento enf = factory.crearEnfrentamiento(disputaTercerLugar.getFirst(), disputaTercerLugar.getLast(), partidaNormal, partidaDesempate);
+                enf.jugar();
+                if (enf.getResultado() == Resultado.VICTORIA_P1) {
+                   tercerLugar=disputaTercerLugar.getFirst();
+                } else {
+                    tercerLugar=disputaTercerLugar.getLast();
+                }
+
+            }
+
 
         }
         else{
@@ -93,21 +120,18 @@ public abstract class  Torneo {
     public void establecerGanadores(){
         if(numeroRonda==numeroMaximoRondas){
             modalidadJuego.ordenarParticipantesParaMostrar(participantes,numeroRonda);
-            if(modalidadJuego instanceof EliminacionDirecta){
-                primerLugar=participantes.get(0);
-                System.out.println("GANADOR DEL TORNEO: "+primerLugar);
-            }
-            else{
-                if(!seNecesitaDesempate()){
-                    primerLugar=participantes.get(0);
-                    segundoLugar=participantes.get(1);
-                    tercerLugar=participantes.get(2);
-                }
-                else{
+            if(!(modalidadJuego instanceof  EliminacionDirecta)) {
+                if (!seNecesitaDesempate()) {
+                    primerLugar = participantes.get(0);
+                    segundoLugar = participantes.get(1);
+                    tercerLugar = participantes.get(2);
+                } else {
                     System.out.println("Existe al menos un empate, se necesita desempatar");
                     desempatar();
                 }
             }
+
+
         }
         else{
 
