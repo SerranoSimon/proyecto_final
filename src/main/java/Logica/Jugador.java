@@ -27,6 +27,9 @@ public class Jugador implements Participante, Comparable<Participante>{
     public void agregarPuntos(int puntos){
         this.puntos+=puntos;
     }
+    public void quitarPuntos(int puntos){
+        this.puntos-=puntos;
+    }
     public int getPuntos(){
         return puntos;
     }

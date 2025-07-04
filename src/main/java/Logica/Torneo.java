@@ -128,6 +128,7 @@ public abstract class  Torneo {
                 } else {
                     System.out.println("Existe al menos un empate, se necesita desempatar");
                     desempatar();
+                    mostrarGanadores();
                 }
             }
 
@@ -137,6 +138,14 @@ public abstract class  Torneo {
 
             System.out.println("aun no acaba el torneo");
         }
+    }
+    public void mostrarGanadores(){
+        System.out.println("PRIMER LUGAR "+primerLugar);
+        System.out.println("PRIMER SEGUNDO "+segundoLugar);
+        System.out.println("PRIMER TERCERO"+tercerLugar);
+
+
+
     }
 
 }
