@@ -2,9 +2,13 @@ package visual;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel que se hace visible cuando el usuario escoge un tipo de torneo,
+ * representa una interfaz visual que permite al usuario escribir texto correspondiente a los datos del torneo.
+ * Incluye botones que representan el tiempo de cada partida en un torneo.
+ * Incluye un botonPublicar que hace visible el PanelInscripciones.
+ */
 public class PanelDatosTorneo extends JPanel {
-    private JTextField textoFecha;
-    private JTextField textoLugar;
     private JToggleButton botonSeleccionado;
 
     public PanelDatosTorneo(Ventana ventana, String tipoTorneo) {
@@ -80,6 +84,12 @@ public class PanelDatosTorneo extends JPanel {
         add(panelCentral, BorderLayout.CENTER);
     }
 
+    /**
+     * metodo que se utiliza para hacer visible la información escogida por el usuario en PanelDatosTorneo hacia PanelTorneo
+     * @param ventana ventana de la aplicación, necesaria por sus metodos getter.
+     * @param textoLugar texto que corresponde al lugar donde se hará el torneo.
+     * @return retorna su mismo btnPublicar.
+     */
     private JButton getJButton(Ventana ventana, JTextField textoLugar) {
         JButton btnPublicar = new JButton("Publicar y recibir inscripciones");
         btnPublicar.setFont(new Font("Monospaced", Font.BOLD, 16));
@@ -103,6 +113,12 @@ public class PanelDatosTorneo extends JPanel {
         return btnPublicar;
     }
 
+    /**
+     * metodo para establecer una estética a los botones de tiempo, utiliza paintComponent y hace que cuando uno de ellos sea seleccionado, cambie su color.
+     * @param texto texto de los botones.
+     * @param color color de los botones.
+     * @return retorna el boton.
+     */
     private JToggleButton botonTiempo(String texto, Color color) {
         JToggleButton boton = new JToggleButton(texto) {
             @Override
@@ -139,6 +155,12 @@ public class PanelDatosTorneo extends JPanel {
 
         return boton;
     }
+
+    /**
+     * metodo para crear un panel donde el usuario puede escribir texto.
+     * @param texto texto indicativo para el usuario.
+     * @return retorna este panel.
+     */
     private JPanel panelEntrada(String texto) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));

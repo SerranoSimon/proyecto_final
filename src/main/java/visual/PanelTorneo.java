@@ -4,6 +4,12 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * panel donde entra la mayor parte de la logica de la aplicacion, pues representa el torneo creado,
+ * incluye el lugar del torneo, el tiempo del torneo, se utiliza un contador dependiendo del tiempo escogido,
+ * incluye dos botones importantes, uno para inciar una ronda, el cual reinicia el contador y muestra la ronda actual,
+ * el otro boton sirve para ver el estado del torneo.
+ */
 public class PanelTorneo extends JPanel {
     private String lugarTorneo;
     private String tipoTiempo;
@@ -133,6 +139,10 @@ public class PanelTorneo extends JPanel {
             }
         });
     }
+
+    /**
+     * metodo que establece tiempo real (segundos) al contador.
+     */
     private void iniciarContador() {
         switch(tipoTiempo.toLowerCase()) {
             case "blitz": tiempoRestante = 3; break;

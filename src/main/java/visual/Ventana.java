@@ -3,6 +3,10 @@ package visual;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * ventana principal de la aplicación, aquí se establece la relación entre todos los paneles y sus métodos getter.
+ * Todos los paneles existen al mismo tiempo, solo varian su visibilidad, lo que permite la modificacion de ellos mientras no son visibles por el usuario.
+ */
 public class Ventana extends JFrame {
     private PanelMenu panelMenu;
     private PanelTipoTorneo panelTipoTorneo;
@@ -26,17 +30,6 @@ public class Ventana extends JFrame {
         panelInscripciones = new PanelInscripciones(this);
         panelTorneo = new PanelTorneo("", "");
 
-        panelMenu.setAlignmentX(0.5f);
-        panelMenu.setAlignmentY(0.5f);
-        panelTipoTorneo.setAlignmentX(0.5f);
-        panelTipoTorneo.setAlignmentY(0.5f);
-        panelDatosTorneo.setAlignmentX(0.5f);
-        panelDatosTorneo.setAlignmentY(0.5f);
-        panelInscripciones.setAlignmentX(0.5f);
-        panelInscripciones.setAlignmentY(0.5f);
-        panelTorneo.setAlignmentX(0.5f);
-        panelTorneo.setAlignmentY(0.5f);
-
         mainPanel.add(panelTorneo);
         mainPanel.add(panelInscripciones);
         mainPanel.add(panelDatosTorneo);
@@ -50,10 +43,6 @@ public class Ventana extends JFrame {
 
         this.add(mainPanel);
         this.setVisible(true);
-    }
-
-    public PanelMenu getPanelMenu() {
-        return panelMenu;
     }
     public PanelTipoTorneo getPanelTipoTorneo() {
         return panelTipoTorneo;

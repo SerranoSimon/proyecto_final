@@ -4,6 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * Clase que representa un Menú Principal para la aplicación, contiene:
+ * - Título simple: "Gestor de Torneos de Ajedrez"
+ * - Dos botones:
+ *  . "Crear Torneo" Hace visible el PanelTipoTorneo e invisible el PanelMenu.
+ *  . "Salir del programa" Cierra la aplicación.
+ */
+
 public class PanelMenu extends JPanel {
     public PanelMenu(Ventana ventana) {
         setLayout(new BorderLayout());
@@ -39,6 +47,13 @@ public class PanelMenu extends JPanel {
         panelBotones.add(btnSalir);
         add(panelBotones, BorderLayout.CENTER);
     }
+
+    /**
+     * Metodo para crear los botones con una estética más amigable para el usuario usando paintComponent.
+     * @param texto texto del boton.
+     * @param colorFondo color del boton.
+     * @return retorna el boton con la nueva estética.
+     */
     private JButton crearBoton(String texto, Color colorFondo) {
         JButton boton = new JButton(texto) {
             @Override

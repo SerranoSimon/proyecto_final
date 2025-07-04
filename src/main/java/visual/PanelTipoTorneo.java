@@ -4,6 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * Panel que se hace visible cuando el usuario decide crear un nuevo torneo.
+ * Representa una interfaz visual que contiene 5 botones y el usuario debe hacer una selección.
+ * Al seleccionar uno de ellos, esta información se pasa al panelDatosTorneo y obtiene de título el texto del boton escogido.
+ */
 public class PanelTipoTorneo extends JPanel {
     public PanelTipoTorneo(Ventana ventana) {
         setLayout(new BorderLayout());
@@ -20,11 +25,11 @@ public class PanelTipoTorneo extends JPanel {
         panelBotones.setOpaque(false);
         panelBotones.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JButton btnSuizoIndividual = crearBoton("Sistema Suizo individual", new Color(70, 150, 220));
-        JButton btnSuizoEquipos = crearBoton("Sistema Suizo en equipos", new Color(200, 60, 60));
-        JButton btnElimDirecta = crearBoton("Eliminación Directa", new Color(70, 150, 220));
-        JButton btnTodosIndividual = crearBoton("Todos contra todos Individual", new Color(70, 150, 220));
-        JButton btnTodosEquipos = crearBoton("Todos contra todos en equipos", new Color(200, 60, 60));
+        JButton btnSuizoIndividual = BotonTipo("Sistema Suizo individual", new Color(70, 150, 220));
+        JButton btnSuizoEquipos = BotonTipo("Sistema Suizo en equipos", new Color(200, 60, 60));
+        JButton btnEliminacionDirecta = BotonTipo("Eliminación Directa", new Color(70, 150, 220));
+        JButton btnTodosIndividual = BotonTipo("Todos contra todos Individual", new Color(70, 150, 220));
+        JButton btnTodosEquipos = BotonTipo("Todos contra todos en equipos", new Color(200, 60, 60));
 
         ActionListener tipoTorneoListener = e -> {
             JButton boton = (JButton) e.getSource();
@@ -40,7 +45,7 @@ public class PanelTipoTorneo extends JPanel {
 
         btnSuizoIndividual.addActionListener(tipoTorneoListener);
         btnSuizoEquipos.addActionListener(tipoTorneoListener);
-        btnElimDirecta.addActionListener(tipoTorneoListener);
+        btnEliminacionDirecta.addActionListener(tipoTorneoListener);
         btnTodosIndividual.addActionListener(tipoTorneoListener);
         btnTodosEquipos.addActionListener(tipoTorneoListener);
 
@@ -49,7 +54,7 @@ public class PanelTipoTorneo extends JPanel {
         panelBotones.add(Box.createRigidArea(new Dimension(0, 20)));
         panelBotones.add(btnSuizoEquipos);
         panelBotones.add(Box.createRigidArea(new Dimension(0, 20)));
-        panelBotones.add(btnElimDirecta);
+        panelBotones.add(btnEliminacionDirecta);
         panelBotones.add(Box.createRigidArea(new Dimension(0, 20)));
         panelBotones.add(btnTodosIndividual);
         panelBotones.add(Box.createRigidArea(new Dimension(0, 20)));
@@ -58,32 +63,15 @@ public class PanelTipoTorneo extends JPanel {
 
         add(panelBotones, BorderLayout.CENTER);
 
-
-        JButton btnRegresar = getJButton(ventana);
-
-        JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        panelInferior.setOpaque(false);
-        panelInferior.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 20));
-        panelInferior.add(btnRegresar);
-        add(panelInferior, BorderLayout.SOUTH);
     }
 
-    private JButton getJButton(Ventana ventana) {
-        JButton btnRegresar = new JButton("Regresar");
-        btnRegresar.addActionListener(e -> {
-            setVisible(false);
-            ventana.getPanelMenu().setVisible(true);
-        });
-        btnRegresar.setBackground(new Color(60, 60, 70));
-        btnRegresar.setForeground(Color.WHITE);
-        btnRegresar.setFont(new Font("Arial", Font.PLAIN, 12));
-        btnRegresar.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
-        btnRegresar.setFocusPainted(false);
-        btnRegresar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        return btnRegresar;
-    }
-
-    private JButton crearBoton(String texto, Color color) {
+    /**
+     * Metodo que usa paintComponent para asignar una estética más agradable a los botones de la interfaz.
+     * @param texto texto del boton
+     * @param color color del boton
+     * @return retorna el boton
+     */
+    private JButton BotonTipo(String texto, Color color) {
         JButton boton = new JButton(texto) {
             @Override
             protected void paintComponent(Graphics g) {
@@ -91,7 +79,6 @@ public class PanelTipoTorneo extends JPanel {
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 g2.setColor(color);
                 g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
-
                 g2.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 20, 20);
                 g2.setColor(Color.WHITE);
                 FontMetrics fm = g2.getFontMetrics();

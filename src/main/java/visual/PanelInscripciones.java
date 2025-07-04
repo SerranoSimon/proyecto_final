@@ -3,6 +3,9 @@ package visual;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel interactivo donde el usuario puede actuar como organizador y permitir la entrada de ciertos jugadores al torneo.
+ */
 public class PanelInscripciones extends JPanel {
 
     public PanelInscripciones(Ventana ventana) {
