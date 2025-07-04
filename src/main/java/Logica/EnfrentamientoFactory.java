@@ -1,4 +1,8 @@
 package Logica;
+
+/**
+ * Factory para crear enfrentamiento de acuerdo al tipo de participantes que se enfrentan
+ */
 public class EnfrentamientoFactory {
 
     public Enfrentamiento crearEnfrentamiento(Participante p1, Participante p2, TipoDePartida tiempoNormal, TipoDePartida tiempoDesempate) {

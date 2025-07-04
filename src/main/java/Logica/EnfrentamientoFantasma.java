@@ -1,5 +1,8 @@
 package Logica;
 
+/**
+ * Representa un enfrentamiento donde se deja libre al participante no fantasma
+ */
 public class EnfrentamientoFantasma implements Enfrentamiento{
 Participante p1;
 Participante p2;

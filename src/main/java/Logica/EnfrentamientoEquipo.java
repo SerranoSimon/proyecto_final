@@ -1,7 +1,8 @@
 package Logica;
 
-import java.sql.SQLOutput;
-
+/**
+ * Clase que representa un enfrentamiento entre equipos
+ */
 public class EnfrentamientoEquipo implements Enfrentamiento {
 private Equipo e1;
 private Equipo e2;
@@ -15,6 +16,9 @@ private Resultado resultado;
         this.desempate=normal;
     }
 
+    /**
+     * Enfrenta los equipos hasta obtener un ganador
+     */
     @Override
     public void jugar() {
         System.out.println("ENFRENTAMIENTO DE EQUIPOS: "+e1.getNombre()+" v/s "+e2.getNombre());
@@ -49,8 +53,12 @@ private Resultado resultado;
 
     }
 
+    /**
+     *
+     * @return resultado del enfrentamiento
+     */
     @Override
     public Resultado getResultado() {
-        return null;
+        return resultado;
     }
 }

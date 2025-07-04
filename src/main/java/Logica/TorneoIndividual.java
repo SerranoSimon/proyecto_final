@@ -38,35 +38,109 @@ public class TorneoIndividual extends Torneo {
                 }
             }
             base.add(participantes.get(i));
-            System.out.println("Enfrentamientos desempate");
-            //casos de empate
+        }
+        //casos de empate 1
 
-            if(porPrimerLugar.size()==1){
+        if(porPrimerLugar.size()==1){
+            primerLugar=porPrimerLugar.get(0);
+        }
+        else if(porPrimerLugar.size()==2){
+            System.out.println("Enfrentamiento desempate");
+            Enfrentamiento enf =factory.crearEnfrentamiento(porPrimerLugar.get(0), porPrimerLugar.get(1),
+                    partidaNormal, partidaDesempate);
+            enf.jugar();
+            if(enf.getResultado()==Resultado.VICTORIA_P1){
                 primerLugar=porPrimerLugar.get(0);
-            }
-            else if(porPrimerLugar.size()==2){
-                Enfrentamiento enf =factory.crearEnfrentamiento(porPrimerLugar.get(0), porPrimerLugar.get(1),
-                        partidaNormal, partidaDesempate);
-                if(enf.getResultado()==Resultado.VICTORIA_P1){
-                    primerLugar=porPrimerLugar.get(0);
-                    segundoLugar=porPrimerLugar.get(1);
-                }
-                else{
-                    primerLugar=porPrimerLugar.get(1);
-                    segundoLugar=porSegundoLugar.get(0);
-                }
-
+                segundoLugar=porPrimerLugar.get(1);
             }
             else{
-                Torneo desempate= new TorneoIndividual(new TodosContraTodos(), partidaNormal, partidaDesempate);
-
+                primerLugar=porPrimerLugar.get(1);
+                segundoLugar=porSegundoLugar.get(0);
             }
 
         }
+        else{
+            System.out.println("Torneo desempate");
+            Torneo desempate= new TorneoIndividual(new EliminacionDirecta(), partidaNormal, partidaDesempate);
+            for(Participante p: porPrimerLugar){
+                desempate.solicitarInscripcion(p);
+                desempate.aceptarSolicitud(p);
+            }
+            desempate.actualizarNumeroMaximoRondas();
+            for(int i=0;i<desempate.numeroMaximoRondas;i++){
+                desempate.ordenarEnfrentamientos();
+                desempate.ejecutarRonda();
+            }
+            primerLugar= desempate.primerLugar;
+            segundoLugar= desempate.segundoLugar;
+            tercerLugar= desempate.tercerLugar;
 
-        System.out.println(porPrimerLugar);
-        System.out.println(porSegundoLugar);
-        System.out.println(porTercerLugar);
+        }
+
+        //casos de empate 2
+        if(segundoLugar==null && porSegundoLugar.size()==1){
+            segundoLugar=porSegundoLugar.get(0);
+        }
+        else if(segundoLugar==null && tercerLugar==null && porSegundoLugar.size()==2){
+            System.out.println("Enfrentamiento desempate");
+            Enfrentamiento enf =factory.crearEnfrentamiento(porSegundoLugar.get(0), porSegundoLugar.get(1),
+                    partidaNormal, partidaDesempate);
+            enf.jugar();
+            if(enf.getResultado()==Resultado.VICTORIA_P1){
+               segundoLugar=porSegundoLugar.get(0);
+               tercerLugar=porSegundoLugar.get(1);
+            }
+            else{
+                segundoLugar=porSegundoLugar.get(1);
+                tercerLugar=porSegundoLugar.get(0);
+            }
+        }
+        else if(segundoLugar==null && tercerLugar==null && porSegundoLugar.size()>2){
+            System.out.println("Torneo desempate");
+            Torneo desempate= new TorneoIndividual(new EliminacionDirecta(), partidaNormal, partidaDesempate);
+            for(Participante p: porSegundoLugar){
+                desempate.solicitarInscripcion(p);
+                desempate.aceptarSolicitud(p);
+            }
+            desempate.actualizarNumeroMaximoRondas();
+            for(int i=0;i<desempate.numeroMaximoRondas;i++){
+                desempate.ordenarEnfrentamientos();
+                desempate.ejecutarRonda();
+            }
+            segundoLugar= desempate.primerLugar;
+            tercerLugar= desempate.segundoLugar;
+        }
+        // casos empate 3
+        if(tercerLugar==null && porTercerLugar.size()==1){
+            tercerLugar=porTercerLugar.get(0);
+        } else if (tercerLugar==null && porTercerLugar.size()==2) {
+            System.out.println("Enfrentamiento desempate");
+            Enfrentamiento enf =factory.crearEnfrentamiento(porTercerLugar.get(0), porTercerLugar.get(1),
+                    partidaNormal, partidaDesempate);
+            enf.jugar();
+            if(enf.getResultado()==Resultado.VICTORIA_P1){
+              tercerLugar=porTercerLugar.get(0);
+            }
+            else{
+               tercerLugar=porTercerLugar.get(1);
+            }
+
+        } else if (tercerLugar==null && porTercerLugar.size()>2) {
+            System.out.println("Torneo desempate");
+            Torneo desempate= new TorneoIndividual(new EliminacionDirecta(), partidaNormal, partidaDesempate);
+            for(Participante p: porTercerLugar){
+                desempate.solicitarInscripcion(p);
+                desempate.aceptarSolicitud(p);
+            }
+            desempate.actualizarNumeroMaximoRondas();
+            for(int i=0;i<desempate.numeroMaximoRondas;i++){
+                desempate.ordenarEnfrentamientos();
+                desempate.ejecutarRonda();
+            }
+            tercerLugar= desempate.primerLugar;
+
+        }
+
 
     }
 

@@ -1,5 +1,8 @@
 package Logica;
 
+/**
+ * Clase que representa el enfrentamiento entre jugadores, implementando la interfaz Enfr
+ */
 public class EnfrentamientoJugadores implements Enfrentamiento{
     private Participante j1;
     private Participante j2;
