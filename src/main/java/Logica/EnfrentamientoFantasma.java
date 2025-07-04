@@ -1,8 +1,11 @@
 package Logica;
 
 public class EnfrentamientoFantasma implements Enfrentamiento{
-
+Participante p1;
+Participante p2;
     public EnfrentamientoFantasma(Participante p1, Participante p2) {
+        this.p1=p1;
+        this.p2=p2;
         if(p1 instanceof Fantasma){
             p2.agregarPuntos(2);
             System.out.println(p2+"Descansa");
@@ -20,6 +23,12 @@ public class EnfrentamientoFantasma implements Enfrentamiento{
 
     @Override
     public Resultado getResultado() {
-        return null;
+        if(p1 instanceof Fantasma){
+            return Resultado.VICTORIA_P2;
+        }
+        else{
+
+            return Resultado.VICTORIA_P1;
+        }
     }
 }

@@ -17,6 +17,11 @@ public class TorneoEquipos extends Torneo {
         }
     }
 
+    @Override
+    public void desempatar() {
+
+    }
+
 }
 
 

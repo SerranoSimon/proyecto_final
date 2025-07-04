@@ -50,7 +50,8 @@ public abstract class  Torneo {
     public void ejecutarRonda() throws LimiteDeRondasSuperadoException{
         numeroRonda+=1;
         if(numeroRonda<=numeroMaximoRondas) {
-            System.out.println("RONDA: "+numeroRonda);
+            System.out.println("RONDA: " +
+                    ""+numeroRonda);
             for (ArrayList<Participante> pareja : distribucion) {
                 Enfrentamiento enf = factory.crearEnfrentamiento(pareja.getFirst(), pareja.getLast(), partidaNormal, partidaDesempate);
                 enf.jugar();
@@ -80,34 +81,15 @@ public abstract class  Torneo {
         }
         return true;
     }
-    public void desempatar(){
-        ArrayList<Participante> porPrimerLugar=new ArrayList<>();
-        porPrimerLugar.add(participantes.get(0));
-        ArrayList<Participante> porSegundoLugar=new ArrayList<>();
-        ArrayList<Participante> porTercerLugar=new ArrayList<>();
-
-        // Asignar los participantes a las listas
-        int cont = 1;
-        ArrayList<Participante> base = porPrimerLugar;
-        for(int i=1;i<participantes.size();i++){
-            if(participantes.get(i).getPuntos()<participantes.get(i-1).getPuntos()){
-                cont++;
-                if(cont==2){
-                    base=porSegundoLugar;
-                }
-                if(cont==3){
-                    base=porTercerLugar;
-                }
-            }
-            base.add(participantes.get(i));
-
+    public Torneo crearTorneoDesempate(boolean esIndividual, ArrayList<Participante> empatados){
+        if(esIndividual){
+            return new TorneoIndividual(new TodosContraTodos(),partidaNormal, partidaDesempate);
         }
-
-        System.out.println(porPrimerLugar);
-        System.out.println(porSegundoLugar);
-        System.out.println(porTercerLugar);
-
+        else{
+            return new TorneoEquipos(new TodosContraTodos(), partidaNormal, partidaDesempate);
+        }
     }
+    public abstract void desempatar();
     public void establecerGanadores(){
         if(numeroRonda==numeroMaximoRondas){
             modalidadJuego.ordenarParticipantesParaMostrar(participantes,numeroRonda);

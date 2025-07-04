@@ -4,23 +4,28 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class EliminacionDirecta implements ModalidadJuego {
-
+    ArrayList<Participante> participantesCopia;
     public EliminacionDirecta(){
+
     }
 
     @Override
     public void ordenarParticipantes(ArrayList<Participante> participantes, int numeroDeRonda) {
         Collections.sort(participantes);
+        participantesCopia=(ArrayList<Participante>) participantes.clone();
+        if(participantes.size()%2!=0){
+            participantesCopia.add(new Fantasma());
+        }
     }
 
     @Override
     public ArrayList<ArrayList<Participante>> obtenerDistribucionEnfrentamientos(ArrayList<Participante> participantes) {
-        int n= participantes.size();
+        int n= participantesCopia.size();
         ArrayList<ArrayList<Participante>> distribucion=new ArrayList<>();
         for(int i=0;i<n/2;i++){
             ArrayList<Participante> arrTemp= new ArrayList<>();
-            arrTemp.add(participantes.get(i));
-            arrTemp.add(participantes.get(n/2+i));
+            arrTemp.add(participantesCopia.get(i));
+            arrTemp.add(participantesCopia.get(n/2+i));
             distribucion.add(arrTemp);
         }
 
@@ -29,7 +34,12 @@ public class EliminacionDirecta implements ModalidadJuego {
 
     @Override
     public int numeroDeRondas(int numeroDeParticipantes) {
-        return numeroDeParticipantes/2;
+        if(numeroDeParticipantes%2==0){
+            return numeroDeParticipantes/2;
+        }
+        else{
+            return (int) Math.ceil(Math.log(numeroDeParticipantes) / Math.log(2));
+        }
     }
 
     @Override
