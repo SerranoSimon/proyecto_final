@@ -10,9 +10,10 @@ import java.awt.*;
  */
 public class PanelDatosTorneo extends JPanel {
     private JToggleButton botonSeleccionado;
+    private JTextField textoFecha;
+    private JTextField textoLugar;
 
     public PanelDatosTorneo(Ventana ventana, String tipoTorneo) {
-
         setLayout(new BorderLayout());
         setBackground(new Color(30, 30, 40));
 
@@ -57,7 +58,7 @@ public class PanelDatosTorneo extends JPanel {
         panelCentral.add(Box.createRigidArea(new Dimension(0, 40)));
 
         JPanel panelFecha = panelEntrada("Ingrese fecha y hora:");
-        JTextField textoFecha = new JTextField(20);
+        this.textoFecha = new JTextField(20);
         textoFecha.setMaximumSize(new Dimension(400, 30));
         textoFecha.setFont(new Font("Monospaced", Font.PLAIN, 14));
         textoFecha.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -66,31 +67,42 @@ public class PanelDatosTorneo extends JPanel {
         panelCentral.add(Box.createRigidArea(new Dimension(0, 20)));
 
         JPanel panelLugar = panelEntrada("Ingrese lugar del torneo:");
-        JTextField textoLugar = new JTextField(20);
+        this.textoLugar = new JTextField(20);
         textoLugar.setMaximumSize(new Dimension(400, 30));
         textoLugar.setFont(new Font("Monospaced", Font.PLAIN, 14));
         textoLugar.setAlignmentX(Component.CENTER_ALIGNMENT);
         panelLugar.add(textoLugar);
         panelCentral.add(panelLugar);
 
-        JButton btnPublicar = getJButton(ventana,textoLugar);
+        JButton btnPublicar = getJButton(ventana);
         btnPublicar.setMaximumSize(new Dimension(300, 50));
         btnPublicar.addActionListener(e -> {
-            ventana.getPanelInscripciones().setVisible(true);
-            setVisible(false);
+            try {
+                validarDatosCompletos();
+                String tiempo = botonSeleccionado.getText();
+
+                ventana.getPanelTorneo().setVisible(false);
+                ventana.getPanelTorneo().removeAll();
+                ventana.getPanelTorneo().add(new PanelTorneo(textoLugar.getText(), tiempo));
+                ventana.getPanelTorneo().revalidate();
+                ventana.getPanelTorneo().repaint();
+
+                setVisible(false);
+                ventana.getPanelInscripciones().setVisible(true);
+
+            } catch (DatosInsuficientesException ex) {
+                JOptionPane.showMessageDialog(this,
+                        ex.getMessage(),
+                        "Datos incompletos",
+                        JOptionPane.WARNING_MESSAGE);
+            }
         });
         panelCentral.add(btnPublicar);
         panelCentral.add(Box.createVerticalGlue());
         add(panelCentral, BorderLayout.CENTER);
     }
 
-    /**
-     * metodo que se utiliza para hacer visible la información escogida por el usuario en PanelDatosTorneo hacia PanelTorneo
-     * @param ventana ventana de la aplicación, necesaria por sus metodos getter.
-     * @param textoLugar texto que corresponde al lugar donde se hará el torneo.
-     * @return retorna su mismo btnPublicar.
-     */
-    private JButton getJButton(Ventana ventana, JTextField textoLugar) {
+    private JButton getJButton(Ventana ventana) {
         JButton btnPublicar = new JButton("Publicar y recibir inscripciones");
         btnPublicar.setFont(new Font("Monospaced", Font.BOLD, 16));
         btnPublicar.setBackground(new Color(70, 150, 220));
@@ -100,25 +112,9 @@ public class PanelDatosTorneo extends JPanel {
         btnPublicar.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         btnPublicar.setFocusPainted(false);
 
-        btnPublicar.addActionListener(e -> {
-            String tiempo = botonSeleccionado != null ? botonSeleccionado.getText() : "";
-            ventana.getPanelTorneo().setVisible(false);
-            ventana.getPanelTorneo().removeAll();
-            ventana.getPanelTorneo().add(new PanelTorneo(textoLugar.getText(), tiempo));
-            ventana.getPanelTorneo().revalidate();
-            ventana.getPanelTorneo().repaint();
-            setVisible(false);
-            ventana.getPanelInscripciones().setVisible(true);
-        });
         return btnPublicar;
     }
 
-    /**
-     * metodo para establecer una estética a los botones de tiempo, utiliza paintComponent y hace que cuando uno de ellos sea seleccionado, cambie su color.
-     * @param texto texto de los botones.
-     * @param color color de los botones.
-     * @return retorna el boton.
-     */
     private JToggleButton botonTiempo(String texto, Color color) {
         JToggleButton boton = new JToggleButton(texto) {
             @Override
@@ -156,11 +152,6 @@ public class PanelDatosTorneo extends JPanel {
         return boton;
     }
 
-    /**
-     * metodo para crear un panel donde el usuario puede escribir texto.
-     * @param texto texto indicativo para el usuario.
-     * @return retorna este panel.
-     */
     private JPanel panelEntrada(String texto) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -173,5 +164,29 @@ public class PanelDatosTorneo extends JPanel {
         txt.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
         panel.add(txt);
         return panel;
+    }
+
+    /**
+     * Metodo para validar que los datos no estén vacíos.
+     * Se utiliza StringBuilder para mostrar al usuario todos los problemas encontrados en la validación.
+     * Se van mostrando en pantalla con append().
+     * @throws DatosInsuficientesException
+     */
+    private void validarDatosCompletos() throws DatosInsuficientesException {
+        StringBuilder errores = new StringBuilder();
+
+        if (botonSeleccionado == null) {
+            errores.append("- El tiempo de partida es requerido\n");
+        }
+        if (textoLugar.getText().trim().isEmpty()) {
+            errores.append("- El lugar del torneo es requerido\n");
+        }
+        if (textoFecha.getText().trim().isEmpty()) {
+            errores.append("- La fecha y hora son requeridas\n");
+        }
+
+        if (errores.length() > 0) {
+            throw new DatosInsuficientesException("Datos incompletos:\n" + errores.toString());
+        }
     }
 }
