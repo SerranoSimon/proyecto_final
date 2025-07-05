@@ -51,7 +51,6 @@ public class TodosContraTodos implements ModalidadJuego {
             for(int i=1;i<n/2-1;i++){
                 arrayRotado.add(primeraMitad.get(i));
 
-                System.out.println(arrayRotado);
             }
             for(int j=1;j<n/2;j++){
                 arrayRotado.add(segundaMitad.get(j));
@@ -118,6 +117,10 @@ public class TodosContraTodos implements ModalidadJuego {
 
     public ArrayList<Participante> getParticipantesCopia() {
         return participantesCopia;
+    }
+    @Override
+    public String toString() {
+        return "Todos contra todos";
     }
 
 

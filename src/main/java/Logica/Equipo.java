@@ -90,6 +90,6 @@ public class Equipo implements Participante {
 
     @Override
     public String toString() {
-        return nombre+"| puntos: "+puntos+", ELO: "+ELOEquipo;
+        return "Equipo "+nombre+"| puntos: "+puntos+"  ELO: "+ELOEquipo;
     }
 }

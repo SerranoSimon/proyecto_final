@@ -165,6 +165,10 @@ public class TorneoEquipos extends Torneo {
 
 
     }
+    @Override
+    public String toString() {
+        return "Torneo por equipos "+modalidadJuego;
+    }
 
 }
 

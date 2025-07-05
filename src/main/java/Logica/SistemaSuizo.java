@@ -105,5 +105,9 @@ public class SistemaSuizo implements ModalidadJuego {
         }
         return enfFantasma;
     }
+    @Override
+    public String toString() {
+        return "Sistema Suizo";
+    }
 
 }

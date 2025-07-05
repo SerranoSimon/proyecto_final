@@ -79,8 +79,7 @@ public class TorneoIndividual extends Torneo {
             Torneo desempate= new TorneoIndividual(new EliminacionDirecta(), partidaNormal, partidaDesempate);
             desempate.torneoDeDesempate=true;
             for(Participante p: porPrimerLugar){
-                desempate.solicitarInscripcion(p);
-                desempate.aceptarSolicitud(p);
+               desempate.agregarParticipante(p);
             }
             desempate.actualizarNumeroMaximoRondas();
             for(int i=0;i<desempate.numeroMaximoRondas;i++){
@@ -116,8 +115,7 @@ public class TorneoIndividual extends Torneo {
             Torneo desempate= new TorneoIndividual(new EliminacionDirecta(), partidaNormal, partidaDesempate);
             desempate.torneoDeDesempate=true;
             for(Participante p: porSegundoLugar){
-                desempate.solicitarInscripcion(p);
-                desempate.aceptarSolicitud(p);
+               desempate.agregarParticipante(p);
             }
             desempate.actualizarNumeroMaximoRondas();
             for(int i=0;i<desempate.numeroMaximoRondas;i++){
@@ -147,8 +145,7 @@ public class TorneoIndividual extends Torneo {
             Torneo desempate= new TorneoIndividual(new EliminacionDirecta(), partidaNormal, partidaDesempate);
             desempate.torneoDeDesempate=true;
             for(Participante p: porTercerLugar){
-                desempate.solicitarInscripcion(p);
-                desempate.aceptarSolicitud(p);
+                desempate.agregarParticipante(p);
             }
             desempate.actualizarNumeroMaximoRondas();
             for(int i=0;i<desempate.numeroMaximoRondas;i++){
@@ -162,4 +159,8 @@ public class TorneoIndividual extends Torneo {
 
     }
 
+    @Override
+    public String toString() {
+        return "Torneo Individual "+modalidadJuego;
+    }
 }

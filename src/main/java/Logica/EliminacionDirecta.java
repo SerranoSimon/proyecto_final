@@ -75,4 +75,9 @@ public class EliminacionDirecta implements ModalidadJuego {
     public ArrayList<Participante> getParticipantesCopia() {
         return participantesCopia;
     }
+
+    @Override
+    public String toString() {
+        return "EliminacionDirecta";
+    }
 }

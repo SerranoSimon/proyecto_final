@@ -228,9 +228,9 @@ public abstract class  Torneo {
      * printea los ganadores.
      */
     public void mostrarGanadores(){
-        System.out.println("PRIMER LUGAR "+primerLugar);
-        System.out.println("PRIMER SEGUNDO "+segundoLugar);
-        System.out.println("PRIMER TERCERO"+tercerLugar);
+        System.out.println("PRIMER LUGAR: "+primerLugar);
+        System.out.println("SEGUNDO LUGAR: "+segundoLugar);
+        System.out.println("TERCERO LUGAR: "+tercerLugar);
 
 
 
