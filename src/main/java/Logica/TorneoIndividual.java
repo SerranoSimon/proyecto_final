@@ -77,6 +77,7 @@ public class TorneoIndividual extends Torneo {
         else{
             System.out.println("Torneo desempate");
             Torneo desempate= new TorneoIndividual(new EliminacionDirecta(), partidaNormal, partidaDesempate);
+            desempate.torneoDeDesempate=true;
             for(Participante p: porPrimerLugar){
                 desempate.solicitarInscripcion(p);
                 desempate.aceptarSolicitud(p);
@@ -113,6 +114,7 @@ public class TorneoIndividual extends Torneo {
         else if(segundoLugar==null && tercerLugar==null && porSegundoLugar.size()>2){
             System.out.println("Torneo desempate");
             Torneo desempate= new TorneoIndividual(new EliminacionDirecta(), partidaNormal, partidaDesempate);
+            desempate.torneoDeDesempate=true;
             for(Participante p: porSegundoLugar){
                 desempate.solicitarInscripcion(p);
                 desempate.aceptarSolicitud(p);
@@ -143,6 +145,7 @@ public class TorneoIndividual extends Torneo {
         } else if (tercerLugar==null && porTercerLugar.size()>2) {
             System.out.println("Torneo desempate");
             Torneo desempate= new TorneoIndividual(new EliminacionDirecta(), partidaNormal, partidaDesempate);
+            desempate.torneoDeDesempate=true;
             for(Participante p: porTercerLugar){
                 desempate.solicitarInscripcion(p);
                 desempate.aceptarSolicitud(p);

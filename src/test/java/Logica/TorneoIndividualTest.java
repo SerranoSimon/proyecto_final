@@ -57,6 +57,7 @@ class TorneoIndividualTest {
         torneo.agregarParticipante(j1);
         torneo.agregarParticipante(j2);
         torneo.agregarParticipante(j3);
+        torneo.agregarParticipante(j4);
         assertEquals(j1,torneo.participantes.get(0));
         assertEquals(j2,torneo.participantes.get(1));
         assertEquals(j3,torneo.participantes.get(2));
@@ -68,6 +69,8 @@ class TorneoIndividualTest {
         torneo.agregarParticipante(j1);
         torneo.agregarParticipante(j2);
         torneo.agregarParticipante(j3);
+        torneo.agregarParticipante(j4);
+
         torneo.numeroRonda=2;
         j1.agregarPuntos(1);
         j2.agregarPuntos(1);

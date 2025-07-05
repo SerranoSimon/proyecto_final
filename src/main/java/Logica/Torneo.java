@@ -20,6 +20,7 @@ public abstract class  Torneo {
     protected Participante segundoLugar;
     protected Participante tercerLugar;
     protected boolean ordenado;
+    protected boolean torneoDeDesempate;
 
     /**
      * Constructor que inicializa las variables del torneo
@@ -38,6 +39,7 @@ public abstract class  Torneo {
        this.numeroRonda=0;
        this.disputaTercerLugar=new ArrayList<>();
        this.ordenado=false;
+       this.torneoDeDesempate=false;
 
    }
 
@@ -108,8 +110,8 @@ public abstract class  Torneo {
      * @throws LimitesDeParticipantesException si se quiere inicar el torneo sin los participantes suficientes
      */
     public void ejecutarRonda() throws LimiteDeRondasSuperadoException, OrdenarEnfrentamientosNoEjecutadoException, LimitesDeParticipantesException{
-        if(participantes.size()<4 && numeroRonda==0){ //revisamos si podemos inicar el torneo
-            throw new LimitesDeParticipantesException("El minimo de participantes para inicar son 4");
+        if(participantes.size()<4 && numeroRonda==0 && !torneoDeDesempate){ //revisamos si podemos inicar el torneo
+            throw new LimitesDeParticipantesException("El minimo de participantes para iniciar son 4");
         }
         if(ordenado){
             ordenado=false;
