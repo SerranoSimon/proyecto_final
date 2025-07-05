@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class SistemaSuizo implements ModalidadJuego {
+    private boolean ordenado = false;
     public SistemaSuizo(){
     }
     @Override
     public void ordenarParticipantes(ArrayList<Participante> participantes,
                                        int numeroDeRonda) {
+        if(ordenado){
+            throw new IllegalStateException("El método ordenarEnfrentamientos ya se ha ejecutado previamente.");
+        }
+
         if(numeroDeRonda==1){
             Collections.sort(participantes);
         }
@@ -23,7 +28,7 @@ public class SistemaSuizo implements ModalidadJuego {
         ArrayList<ArrayList<Participante>> distribucion=new ArrayList<>();
         ArrayList<Participante> participantesCopia= (ArrayList<Participante>) participantes.clone(); //shallow copy
         if(participantes.size()%2!=0){
-            distribucion.add(crearEnfrentamientoFantasma(participantesCopia));
+            distribucion.add(crearEnfrentamientoFantasma(participantesCopia)); //usamos la copia para agregar el fantasma
         }
         for(int i=0; i< participantesCopia.size();i+=2){
             ArrayList<Participante> arrTemp=new ArrayList<>();
@@ -42,7 +47,7 @@ public class SistemaSuizo implements ModalidadJuego {
     @Override
     public void ordenarParticipantesParaMostrar(ArrayList<Participante> participantes,
                                                 int numeroDeRonda) {
-        ordenarParticipantes(participantes, numeroDeRonda);
+        ordenarParticipantes(participantes, numeroDeRonda+1);
     }
 
     public ArrayList<Participante> crearEnfrentamientoFantasma(ArrayList<Participante> participantes){
@@ -54,8 +59,6 @@ public class SistemaSuizo implements ModalidadJuego {
                 participantes.get(participantes.size()-1-i).setTuvoDescanso(true);
                 participantes.remove(participantes.size()-1-i);
                 break;
-
-
             }
         }
         return enfFantasma;

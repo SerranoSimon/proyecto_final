@@ -11,15 +11,22 @@ public class Equipo implements Participante {
     private boolean tuvoDescanso;
 
 
-    public Equipo(String nombre, ArrayList<Participante> jugadores){
+    public Equipo(String nombre, ArrayList<Participante> jugadores) throws LimitesDeJugadoresPorEquipoException{
         this.nombre=nombre;
-        this.jugadores=jugadores;
+        if(2<=jugadores.size() && jugadores.size()<=4){
+            this.jugadores=jugadores;
+        }
+        else{
+            throw new LimitesDeJugadoresPorEquipoException("Un equipo debe tener entre 2 y 4 jugadores");
+        }
+
         for(Participante j: jugadores){
             ELOEquipo+=j.getELO();
         }
         ELOEquipo=ELOEquipo/ jugadores.size();
         Collections.sort(jugadores);
         this.tuvoDescanso=false;
+        this.puntos=0;
 
     }
 

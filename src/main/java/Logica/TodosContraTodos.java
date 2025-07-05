@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class TodosContraTodos implements ModalidadJuego {
-    ArrayList<Participante> participantesCopia;
+    private ArrayList<Participante> participantesCopia;
     public TodosContraTodos() {
 
     }
@@ -52,14 +52,14 @@ public class TodosContraTodos implements ModalidadJuego {
     }
 
     @Override
-    public ArrayList<ArrayList<Participante>> obtenerDistribucionEnfrentamientos(ArrayList<Participante> participantes) {
+    public ArrayList<ArrayList<Participante>> obtenerDistribucionEnfrentamientos (ArrayList<Participante> participantes)  {
+
         //no usamos participantes en este metodo para esta modalidad, sino su copia.
         ArrayList<ArrayList<Participante>> distribucion=new ArrayList<>();
         int n=participantesCopia.size();
         for(int j=0;j<n/2;j++){
             ArrayList<Participante> enfrentamiento=new ArrayList<>();
             enfrentamiento.add(participantesCopia.get(j));
-            //enfrentamiento.add(participantesRonda.get(n-1-j));
             enfrentamiento.add(participantesCopia.get(j+n/2));
             distribucion.add(enfrentamiento);
         }
@@ -88,5 +88,11 @@ public class TodosContraTodos implements ModalidadJuego {
             participantes.sort(new ComparadorPorPuntos());
         }
     }
+
+    public ArrayList<Participante> getParticipantesCopia() {
+        return participantesCopia;
+    }
+
+
 
 }

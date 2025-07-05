@@ -10,10 +10,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class EnfrentamientoFactoryTest {
-static Jugador j1;
-static Jugador j2;
-static Equipo e1;
-static Equipo e2;
+static Participante j1;
+static Participante j2;
+static Participante j3;
+static  Participante j4;
+static Participante e1;
+static Participante e2;
 static Fantasma  f;
 static EnfrentamientoFactory factory;
 
@@ -21,8 +23,10 @@ static EnfrentamientoFactory factory;
     static void setUp() {
         j1=new Jugador("Benjamin","Poblete","benjaminp@gmail.com",1800);
         j2= new Jugador("Scarlet","Valdebenito","scarletv@gmail.com",1000);
-        e1=new Equipo("e1",new ArrayList<>(List.of(j1)));
-        e2=new Equipo("e1",new ArrayList<>(List.of(j2)));
+        j3= new Jugador("Fernando","Saez","fernandos@gmail.com",1000);
+        j4=new Jugador("Pilar","Oyarzun","pilaro@gmail.com",900);
+        e1=new Equipo("e1",new ArrayList<>(List.of(j1,j2)));
+        e2=new Equipo("e1",new ArrayList<>(List.of(j3,j3)));
         f=new Fantasma();
         factory=new EnfrentamientoFactory();
 

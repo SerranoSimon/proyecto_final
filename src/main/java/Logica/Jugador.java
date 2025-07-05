@@ -14,6 +14,7 @@ public class Jugador implements Participante, Comparable<Participante>{
         this.correo=correo;
         this.ELO=ELO;
         this.tuvoDescanso=false;
+        this.puntos=0;
 
     }
     @Override

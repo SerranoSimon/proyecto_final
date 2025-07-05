@@ -8,17 +8,21 @@ public class TorneoEquipos extends Torneo {
         super(modalidadJuego,partidaNormal,partidaDesempate);
 
     }
+
     @Override
-    public void agregarParticipante(Participante participante) {
+    public void agregarParticipante(Participante participante) throws LimitesDeParticipantesException,TipoDeParticipanteException {
+        if(participantes.size()>6){
+            throw new LimitesDeParticipantesException("No se pueden agregar más de 6 equipos al torneo");
+        }
         if (participante instanceof Equipo) {
             participantes.add(participante);
         } else {
-            System.out.println("El participante debe ser un equipo.");
+           throw new TipoDeParticipanteException("El participante debe ser un equipo");
         }
     }
 
     @Override
-    public void desempatar(){
+    public void desempatar() throws OrdenarEnfrentamientosNoEjecutadoException {
         ArrayList<Participante> porPrimerLugar=new ArrayList<>();
         porPrimerLugar.add(participantes.get(0));
         ArrayList<Participante> porSegundoLugar=new ArrayList<>();

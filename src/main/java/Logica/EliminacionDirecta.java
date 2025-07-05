@@ -8,7 +8,7 @@ import java.util.Collections;
  * participantes para operar su logica
  */
 public class EliminacionDirecta implements ModalidadJuego {
-    ArrayList<Participante> participantesCopia;
+    private ArrayList<Participante> participantesCopia;
     public EliminacionDirecta(){
 
     }
@@ -69,5 +69,9 @@ public class EliminacionDirecta implements ModalidadJuego {
     @Override
     public void ordenarParticipantesParaMostrar(ArrayList<Participante> participantes, int numeroDeRonda) {
         Collections.sort(participantes);
+    }
+
+    public ArrayList<Participante> getParticipantesCopia() {
+        return participantesCopia;
     }
 }

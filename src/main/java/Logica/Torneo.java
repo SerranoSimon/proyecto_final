@@ -16,6 +16,7 @@ public abstract class  Torneo {
     protected Participante primerLugar;
     protected Participante segundoLugar;
     protected Participante tercerLugar;
+    protected boolean ordenado;
    public Torneo(ModalidadJuego modalidadJuego,TipoDePartida partidaNormal, TipoDePartida partidaDesempate){
        this.solicitudesInscripcion=new ArrayList<>();
        this.participantes=new ArrayList<>();
@@ -26,7 +27,10 @@ public abstract class  Torneo {
        this.factory = new EnfrentamientoFactory();
        this.numeroRonda=0;
        this.disputaTercerLugar=new ArrayList<>();
+       this.ordenado=false;
+
    }
+
     public void solicitarInscripcion(Participante participante) {
         solicitudesInscripcion.add(participante);
         System.out.println("Solicitud de inscripción recibida para: " + participante);
@@ -43,61 +47,78 @@ public abstract class  Torneo {
     public void actualizarNumeroMaximoRondas(){
        numeroMaximoRondas=modalidadJuego.numeroDeRondas(participantes.size());
     }
-    public void ordenarEnfrentamientos(){
-        modalidadJuego.ordenarParticipantes(participantes,numeroRonda+1);
-        distribucion=modalidadJuego.obtenerDistribucionEnfrentamientos(participantes);
+    public void ordenarEnfrentamientos() throws LimiteDeRondasSuperadoException {
+       if(numeroRonda==numeroMaximoRondas){
+           throw new LimiteDeRondasSuperadoException("Las rondas han acabado");
+       }
+       if(!ordenado){
+           ordenado=true;
+           modalidadJuego.ordenarParticipantes(participantes,numeroRonda+1);
+           distribucion=modalidadJuego.obtenerDistribucionEnfrentamientos(participantes);}
+       else{
+           throw new RuntimeException("ya ha sido ordenado");
+       }
     }
-    public abstract void agregarParticipante(Participante participante);
-    public void ejecutarRonda() throws LimiteDeRondasSuperadoException{
+    public abstract void agregarParticipante(Participante participante) throws LimiteDeRondasSuperadoException;
+    public void ejecutarRonda() throws LimiteDeRondasSuperadoException, OrdenarEnfrentamientosNoEjecutadoException, LimitesDeParticipantesException{
+        if(participantes.size()<3 && numeroRonda==0){
+            throw new LimitesDeParticipantesException("El minimo de participantes para inicar son 3");
+        }
+        if(ordenado){
+            ordenado=false;
         numeroRonda+=1;
         if(numeroRonda<=numeroMaximoRondas) {
             System.out.println("RONDA: " +
-                    ""+numeroRonda);
+                    "" + numeroRonda);
             for (ArrayList<Participante> pareja : distribucion) {
                 Enfrentamiento enf = factory.crearEnfrentamiento(pareja.getFirst(), pareja.getLast(), partidaNormal, partidaDesempate);
                 enf.jugar();
                 if (modalidadJuego instanceof EliminacionDirecta) {
                     if (enf.getResultado() == Resultado.VICTORIA_P1) {
                         participantes.remove(pareja.getLast());
-                        if(numeroRonda==numeroMaximoRondas-1){
+                        if (numeroRonda == numeroMaximoRondas - 1) {
                             disputaTercerLugar.add(pareja.getLast());
                         }
-                        if(numeroRonda==numeroMaximoRondas){
-                            primerLugar=pareja.getFirst();
-                            segundoLugar=pareja.getLast();
+                        if (numeroRonda == numeroMaximoRondas) {
+                            primerLugar = pareja.getFirst();
+                            segundoLugar = pareja.getLast();
                         }
                     } else {
                         participantes.remove(pareja.getFirst());
-                        if(numeroRonda==numeroMaximoRondas-1){
+                        if (numeroRonda == numeroMaximoRondas - 1) {
                             disputaTercerLugar.add(pareja.getFirst());
                         }
-                        if(numeroRonda==numeroMaximoRondas){
-                            primerLugar=pareja.getLast();
-                            segundoLugar=pareja.getFirst();
+                        if (numeroRonda == numeroMaximoRondas) {
+                            primerLugar = pareja.getLast();
+                            segundoLugar = pareja.getFirst();
                         }
                     }
                 }
             }
-            if(numeroRonda==numeroMaximoRondas && modalidadJuego instanceof EliminacionDirecta){
+            if (numeroRonda == numeroMaximoRondas && modalidadJuego instanceof EliminacionDirecta) {
                 System.out.println("Disputa tercer lugar eliminacion directa");
                 Enfrentamiento enf = factory.crearEnfrentamiento(disputaTercerLugar.getFirst(), disputaTercerLugar.getLast(), partidaNormal, partidaDesempate);
                 enf.jugar();
                 if (enf.getResultado() == Resultado.VICTORIA_P1) {
-                   tercerLugar=disputaTercerLugar.getFirst();
+                    tercerLugar = disputaTercerLugar.getFirst();
                 } else {
-                    tercerLugar=disputaTercerLugar.getLast();
+                    tercerLugar = disputaTercerLugar.getLast();
                 }
 
             }
-
-
         }
         else{
             throw new LimiteDeRondasSuperadoException("Las rondas ya han acabado");
         }
+
+
+        }
+        else{
+            throw new OrdenarEnfrentamientosNoEjecutadoException("No se han ordenado los enfrentamientos");
+        }
     }
     public void verEstado(){
-        modalidadJuego.ordenarParticipantesParaMostrar(participantes,numeroRonda);
+        modalidadJuego.ordenarParticipantesParaMostrar(this.participantes,this.numeroRonda);
         System.out.println(participantes);
     }
     public boolean seNecesitaDesempate(){
@@ -108,16 +129,8 @@ public abstract class  Torneo {
         }
         return true;
     }
-    public Torneo crearTorneoDesempate(boolean esIndividual, ArrayList<Participante> empatados){
-        if(esIndividual){
-            return new TorneoIndividual(new TodosContraTodos(),partidaNormal, partidaDesempate);
-        }
-        else{
-            return new TorneoEquipos(new TodosContraTodos(), partidaNormal, partidaDesempate);
-        }
-    }
-    public abstract void desempatar();
-    public void establecerGanadores(){
+    public abstract void desempatar() throws OrdenarEnfrentamientosNoEjecutadoException;
+    public void establecerGanadores() throws OrdenarEnfrentamientosNoEjecutadoException {
         if(numeroRonda==numeroMaximoRondas){
             modalidadJuego.ordenarParticipantesParaMostrar(participantes,numeroRonda);
             if(!(modalidadJuego instanceof  EliminacionDirecta)) {
@@ -128,7 +141,7 @@ public abstract class  Torneo {
                 } else {
                     System.out.println("Existe al menos un empate, se necesita desempatar");
                     desempatar();
-                    mostrarGanadores();
+                    System.out.println("Se ha desempatado");
                 }
             }
 
