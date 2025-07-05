@@ -2,6 +2,9 @@ package Logica;
 
 import java.util.ArrayList;
 
+/**
+ * clase que representa un torneo de equipos que hereda de torneo
+ */
 public class TorneoEquipos extends Torneo {
 
     public TorneoEquipos(ModalidadJuego modalidadJuego,TipoDePartida partidaNormal, TipoDePartida partidaDesempate) {
@@ -9,6 +12,12 @@ public class TorneoEquipos extends Torneo {
 
     }
 
+    /**
+     * al agregar los participantes se revisa que todos sean equipos
+     * @param participante participante que se va a agregar
+     * @throws LimitesDeParticipantesException no pueden haber más de 6 equipos en un torneo
+     * @throws TipoDeParticipanteException si un participante no es equipo.
+     */
     @Override
     public void agregarParticipante(Participante participante) throws LimitesDeParticipantesException,TipoDeParticipanteException {
         if(participantes.size()>6){
@@ -21,6 +30,12 @@ public class TorneoEquipos extends Torneo {
         }
     }
 
+    /**
+     * Se contemplan los casos de empate, si empatan 2 se hace un enfrentamiento, de lo contrario se crea
+     * un torneo por equipos de eliminacion directa para asegurarnos de ya no tener desempates.
+     * @throws OrdenarEnfrentamientosNoEjecutadoException si no se ordenan los enfrentamientos, sin embargo
+     * en el codigo del metodo ya se llama a ordenarEnfrentamientos().
+     */
     @Override
     public void desempatar() throws OrdenarEnfrentamientosNoEjecutadoException {
         ArrayList<Participante> porPrimerLugar=new ArrayList<>();

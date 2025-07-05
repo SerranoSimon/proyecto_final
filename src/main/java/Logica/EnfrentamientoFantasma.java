@@ -21,7 +21,6 @@ Participante p2;
 
     @Override
     public void jugar() {
-
     }
 
     @Override

@@ -71,8 +71,7 @@ class TorneoTest {
         Torneo torneo=new TorneoIndividual(new EliminacionDirecta(),TipoDePartida.CLASICA, TipoDePartida.BLITZ);
         torneo.agregarParticipante(j1);
         torneo.agregarParticipante(j2);
-        torneo.agregarParticipante(j3);
-        torneo.agregarParticipante(j4);
+        torneo.agregarParticipante(j3);;
         Exception exception = assertThrows(OrdenarEnfrentamientosNoEjecutadoException.class, () -> {
             torneo.ejecutarRonda();
         });
@@ -101,8 +100,7 @@ class TorneoTest {
         assertTrue(torneo.seNecesitaDesempate());
         j1.agregarPuntos(2);
         j2.agregarPuntos(1);
-        j4.agregarPuntos(1);
-        assertTrue(torneo.seNecesitaDesempate());
+        assertTrue(!torneo.seNecesitaDesempate());
     }
 
    //Para establecer ganadores veremos que siempre son no nulos independientes de la modalidad

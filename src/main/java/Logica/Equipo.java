@@ -3,6 +3,11 @@ package Logica;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Clase que representa un Equipo e implementa Participante, contiene un nombre de equipo,
+ * una ArrayList de jugadores, un ELO promediado por sus jugadores, el puntaje y si tuvo descanso para
+ * saber si dejarlo libre para los torneos con numero impar de participantes.
+ */
 public class Equipo implements Participante {
     private String nombre;
     private ArrayList<Participante> jugadores;
@@ -10,7 +15,12 @@ public class Equipo implements Participante {
     private int puntos;
     private boolean tuvoDescanso;
 
-
+    /**
+     * Constructor que inicializa con los datos dados y verifica que el equipo sea entre 2 y 4 jugadores
+     * @param nombre nombre del equipo
+     * @param jugadores arraylist de los jugadores que lo componen
+     * @throws LimitesDeJugadoresPorEquipoException error si se la cantidad de jugadores no es la indicada
+     */
     public Equipo(String nombre, ArrayList<Participante> jugadores) throws LimitesDeJugadoresPorEquipoException{
         this.nombre=nombre;
         if(2<=jugadores.size() && jugadores.size()<=4){

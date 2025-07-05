@@ -1,5 +1,8 @@
 package Logica;
-//Patron composite?
+
+/**
+ * interfaz que define los metodos de cualquier Participante.
+ */
 public interface Participante extends Comparable<Participante>{
     int getPuntos();
     String getNombre();

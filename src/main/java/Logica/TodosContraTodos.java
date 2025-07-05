@@ -3,12 +3,25 @@ package Logica;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Clase que representa la modalidad Todos contra todos, implementa ModalidadJuego.
+ */
 public class TodosContraTodos implements ModalidadJuego {
     private ArrayList<Participante> participantesCopia;
     public TodosContraTodos() {
 
     }
+    /**
+     * ordena los participantes solo una vez antes de cada ronda, si es la primera ronda.
+     * Para las rondas posteriores lo que se hace es una especie de rotacion de la copia de la lista
+     * de participantes(puede incluir fantasma)
+     * ej. [a,b,c,d] lo vemos como
+     *      a b       a c       a d
+     *      c d  ->    d b  ->  b c
 
+     * @param participantes participantes los cuales ordenar
+     * @param numeroDeRonda numero de ronda para la cual se quiere ordenar
+     */
     @Override
     public void ordenarParticipantes(ArrayList<Participante> participantes, int numeroDeRonda) {
         if(numeroDeRonda==1){
@@ -19,7 +32,7 @@ public class TodosContraTodos implements ModalidadJuego {
             }
         }
         else {
-            //vamos a hacer una especie de rotacion
+            //rotacion
             ArrayList<Participante> arrayRotado=new ArrayList<>();
             int n=participantesCopia.size();
             ArrayList<Participante> primeraMitad=new ArrayList<>();
@@ -51,6 +64,15 @@ public class TodosContraTodos implements ModalidadJuego {
         }
     }
 
+    /**
+     * Para ordenar los enfrentamientos se enfrenta el primero de la mitad superior con el primero de la mitad inferior.
+     * Si volvemos a nuestro esquema con el ej. [a,b,c,d]
+     *                                           a b
+     *                                           c d
+     * se enfrenta el de abajo con el de arriba teniendo la distribucion como [[a,c],[b,d]]
+     * @param participantes participantes ya ordenados los cuales enfrentar .
+     * @return Arraylist de enfrentamientos.
+     */
     @Override
     public ArrayList<ArrayList<Participante>> obtenerDistribucionEnfrentamientos (ArrayList<Participante> participantes)  {
 
@@ -68,7 +90,12 @@ public class TodosContraTodos implements ModalidadJuego {
 
     }
 
-
+    /**
+     * Si el numero de participantes(n) es par, se necesitan n-1 rondas, si es impar
+     * se agrega un fantasma quedando (n-1)+1=n rondas.
+     * @param numeroDeParticipantes numero de participantes del torneo.
+     * @return numero de rondas necesarias para llevar a cabo el torneo.
+     */
     @Override
     public int numeroDeRondas(int numeroDeParticipantes) {
         if(numeroDeParticipantes%2==0){

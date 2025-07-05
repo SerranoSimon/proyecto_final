@@ -1,5 +1,8 @@
 package Logica;
 
+/**
+ * Clase que representa un participante Fantasma, es decir que jugar con el es un enfrentamiento libre (Descanso).
+ */
 public class Fantasma implements Participante{
     @Override
     public int getPuntos() {

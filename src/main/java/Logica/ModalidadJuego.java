@@ -2,6 +2,9 @@ package Logica;
 
 import java.util.ArrayList;
 
+/**
+ * interfaz que define los metodos de cualquier modalidad de juego
+ */
 public interface ModalidadJuego {
     void ordenarParticipantes(ArrayList<Participante> participantes,
                                 int numeroDeRonda);
