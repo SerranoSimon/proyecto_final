@@ -3,9 +3,6 @@ package visual;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Panel interactivo donde el usuario puede actuar como organizador y permitir la entrada de ciertos jugadores al torneo.
- */
 public class PanelInscripciones extends JPanel {
 
     public PanelInscripciones(Ventana ventana) {
@@ -28,6 +25,11 @@ public class PanelInscripciones extends JPanel {
 
         JButton btnIniciar = Boton("Iniciar Torneo", new Color(70, 150, 220));
         btnIniciar.addActionListener(e -> {
+            ventana.getPanelTorneo().setVisible(false);
+            ventana.getPanelTorneo().removeAll();
+            ventana.getPanelTorneo().add(new PanelTorneo(ventana.getDatosTorneo()));
+            ventana.getPanelTorneo().revalidate();
+            ventana.getPanelTorneo().repaint();
             ventana.getPanelTorneo().setVisible(true);
             setVisible(false);
         });

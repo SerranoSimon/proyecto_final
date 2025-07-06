@@ -4,42 +4,37 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * panel donde entra la mayor parte de la logica de la aplicacion, pues representa el torneo creado,
- * incluye el lugar del torneo, el tiempo del torneo, se utiliza un contador dependiendo del tiempo escogido,
- * incluye dos botones importantes, uno para inciar una ronda, el cual reinicia el contador y muestra la ronda actual,
- * el otro boton sirve para ver el estado del torneo.
- */
 public class PanelTorneo extends JPanel {
-    private String lugarTorneo;
-    private String tipoTiempo;
+    private DatosTorneo datosTorneo;
     private Timer timer;
     private int tiempoRestante;
     private JLabel contadorLabel;
     private JButton btnIniciarRonda;
 
-    public PanelTorneo(String lugar, String tiempo) {
-        this.lugarTorneo = lugar;
-        this.tipoTiempo = tiempo;
+    public PanelTorneo(DatosTorneo datosTorneo) {
+        this.datosTorneo = datosTorneo;
         setBackground(Color.LIGHT_GRAY);
         setLayout(new BorderLayout());
 
-        JPanel panelSuperior = new JPanel(new GridLayout(1, 2));
+        JPanel panelSuperior = new JPanel(new GridLayout(1, 3));
         panelSuperior.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         panelSuperior.setOpaque(false);
 
-        JLabel Lugar = new JLabel("Lugar del torneo: " + lugarTorneo);
-        Lugar.setFont(new Font("Monospaced", Font.PLAIN, 16));
-        panelSuperior.add(Lugar);
+        JLabel lugar = new JLabel("Lugar: " + datosTorneo.getTorneoLugar());
+        lugar.setFont(new Font("Monospaced", Font.PLAIN, 16));
+        panelSuperior.add(lugar);
 
         contadorLabel = new JLabel("Tiempo: " + tiempoRestante + "s", SwingConstants.CENTER);
         contadorLabel.setFont(new Font("Arial", Font.BOLD, 18));
         contadorLabel.setForeground(Color.BLUE);
         panelSuperior.add(contadorLabel);
 
-        JLabel Tipo = new JLabel("Tipo de torneo: " + tipoTiempo, SwingConstants.RIGHT);
-        Tipo.setFont(new Font("Monospaced", Font.PLAIN, 16));
-        panelSuperior.add(Tipo);
+        JLabel infoTorneo = new JLabel(
+                datosTorneo.getModalidadTorneo() + " - " + datosTorneo.getTorneoTiempo() + " - " + datosTorneo.getTipoParticipantes(),
+                SwingConstants.RIGHT
+        );
+        infoTorneo.setFont(new Font("Monospaced", Font.PLAIN, 16));
+        panelSuperior.add(infoTorneo);
 
         add(panelSuperior, BorderLayout.NORTH);
 
@@ -129,7 +124,7 @@ public class PanelTorneo extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 tiempoRestante--;
-                contadorLabel.setText("contador: " + tiempoRestante + "s");
+                contadorLabel.setText("tiempo: " + tiempoRestante + "s");
 
                 if (tiempoRestante <= 0) {
                     timer.stop();
@@ -140,18 +135,16 @@ public class PanelTorneo extends JPanel {
         });
     }
 
-    /**
-     * metodo que establece tiempo real (segundos) al contador.
-     */
     private void iniciarContador() {
-        switch(tipoTiempo.toLowerCase()) {
-            case "blitz": tiempoRestante = 3; break;
-            case "rápido": tiempoRestante = 15; break;
-            case "clásico": tiempoRestante = 90; break;
-        }
-        contadorLabel.setText("Tiempo: " + tiempoRestante + "s");
-        contadorLabel.setForeground(Color.BLUE);
-        timer.start();
-        btnIniciarRonda.setEnabled(false);
+            switch(datosTorneo.getTorneoTiempo().toLowerCase()) {
+                case "blitz": tiempoRestante = 3; break;
+                case "rápido": tiempoRestante = 15; break;
+                case "clásico": tiempoRestante = 90; break;
+                default: tiempoRestante = 30;
+            }
+            contadorLabel.setText("tiempo: " + tiempoRestante + "s");
+            contadorLabel.setForeground(Color.BLUE);
+            timer.start();
+            btnIniciarRonda.setEnabled(false);
     }
 }
