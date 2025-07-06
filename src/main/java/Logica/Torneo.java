@@ -6,6 +6,8 @@ import java.util.ArrayList;
  * Clase abstracta que moldea un torneo de ajedrez.
  */
 public abstract class  Torneo {
+    protected String fecha;
+    protected String lugar;
     protected ArrayList<Participante> participantes;
     protected ArrayList<Participante> solicitudesInscripcion;
     protected ArrayList<ArrayList<Participante>> distribucion;
@@ -258,4 +260,19 @@ public abstract class  Torneo {
         return this.participantes;
     }
 
+    public String getFecha() {
+        return fecha;
+    }
+
+    public String getLugar() {
+        return lugar;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public void setLugar(String lugar) {
+        this.lugar = lugar;
+    }
 }
