@@ -1,12 +1,16 @@
 package visual;
 
+import Logica.ModalidadJuego;
+import Logica.Participante;
+import Logica.TipoDePartida;
+
 public class DatosTorneo {
     private String torneoFecha;
     private String torneoLugar;
-    private String modalidadTorneo;
+    private ModalidadJuego modalidadTorneo;
     private String tipoParticipantes;
-    private String torneoTiempo;
-    private String torneoDesempate;
+    private TipoDePartida tiempoNormal;
+    private TipoDePartida tiempoDesempate;
 
     public DatosTorneo() {
     }
@@ -24,25 +28,25 @@ public class DatosTorneo {
         this.torneoLugar = lugar;
     }
 
-    public String getModalidadTorneo() {
+    public ModalidadJuego getModalidadTorneo() {
         return modalidadTorneo;
     }
-    public void setModalidadTorneo(String modalidad) {
+    public void setModalidadTorneo(ModalidadJuego modalidad) {
         this.modalidadTorneo = modalidad;
     }
 
-    public String getTorneoTiempo() {
-        return torneoTiempo;
+    public TipoDePartida getTorneoTiempoNormal() {
+        return tiempoNormal;
     }
-    public void setTorneoTiempo(String tiempo) {
-        this.torneoTiempo = tiempo;
+    public void setTorneoTiempoNormal(TipoDePartida tiempoNormal) {
+        this.tiempoNormal = tiempoNormal;
     }
 
-    public String getTorneoDesempate() {
-        return torneoDesempate;
+    public TipoDePartida getTiempoDesempate() {
+        return tiempoDesempate;
     }
-    public void setTorneoDesempate(String desempate) {
-        this.torneoDesempate = desempate;
+    public void setTorneoTiempoDesempate(TipoDePartida tiempoDesempate) {
+        this.tiempoDesempate = tiempoDesempate;
     }
     public String getTipoParticipantes() {
         return tipoParticipantes;
