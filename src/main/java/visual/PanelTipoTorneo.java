@@ -291,7 +291,6 @@ public class PanelTipoTorneo extends JPanel {
 
         return btnContinuar;
     }
-
     private boolean validarSelecciones() {
         return datosTorneo.getModalidadTorneo() != null &&
                 datosTorneo.getTipoParticipantes() != null &&
