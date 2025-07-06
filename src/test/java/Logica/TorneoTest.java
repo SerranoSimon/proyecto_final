@@ -54,18 +54,14 @@ class TorneoTest {
         torneo1.numeroRonda=0;
         torneo1.numeroMaximoRondas=1;
         torneo1.ordenarEnfrentamientos();
-        Exception exception1 = assertThrows(RuntimeException.class, () -> {
-           torneo1.ordenarEnfrentamientos();
-        });
+        Exception exception1 = assertThrows(RuntimeException.class, torneo1::ordenarEnfrentamientos);
     }
     @Test
     void ordenarEnfrentamientosDespuesDeUltimaRonda () {
         Torneo torneo1=new TorneoIndividual(new SistemaSuizo(),TipoDePartida.CLASICA,TipoDePartida.RAPIDA);
         torneo1.numeroRonda=1;
         torneo1.numeroMaximoRondas=1;
-        Exception exception1 = assertThrows(LimiteDeRondasSuperadoException.class, () -> {
-            torneo1.ordenarEnfrentamientos();
-        });
+        Exception exception1 = assertThrows(LimiteDeRondasSuperadoException.class, torneo1::ordenarEnfrentamientos);
     }
 
 
@@ -115,7 +111,7 @@ class TorneoTest {
         torneoSistemaSuizo.agregarParticipante(j2);
         torneoSistemaSuizo.agregarParticipante(j3);
         torneoSistemaSuizo.agregarParticipante(j4);
-        torneoSistemaSuizo.actualizarNumeroMaximoRondas();
+        torneoSistemaSuizo.iniciar();
         torneoSistemaSuizo.ordenarEnfrentamientos();
         torneoSistemaSuizo.ejecutarRonda();
         torneoSistemaSuizo.ordenarEnfrentamientos();
@@ -132,7 +128,7 @@ class TorneoTest {
         torneoTodosContraTodos.agregarParticipante(j2);
         torneoTodosContraTodos.agregarParticipante(j3);
         torneoTodosContraTodos.agregarParticipante(j4);
-        torneoTodosContraTodos.actualizarNumeroMaximoRondas();
+        torneoTodosContraTodos.iniciar();
         torneoTodosContraTodos.ordenarEnfrentamientos();
         torneoTodosContraTodos.ejecutarRonda();
         torneoTodosContraTodos.ordenarEnfrentamientos();
@@ -151,7 +147,7 @@ class TorneoTest {
         torneoEliminacionDirecta.agregarParticipante(e2);
         torneoEliminacionDirecta.agregarParticipante(e3);
         torneoEliminacionDirecta.agregarParticipante(e4);
-        torneoEliminacionDirecta.actualizarNumeroMaximoRondas();
+        torneoEliminacionDirecta.iniciar();
         torneoEliminacionDirecta.ordenarEnfrentamientos();
         torneoEliminacionDirecta.ejecutarRonda();
         torneoEliminacionDirecta.ordenarEnfrentamientos();
@@ -161,5 +157,14 @@ class TorneoTest {
         assertNotNull(torneoEliminacionDirecta.primerLugar);
         assertNotNull(torneoEliminacionDirecta.segundoLugar);
         assertNotNull(torneoEliminacionDirecta.tercerLugar);
+    }
+    @Test
+    void IniciarConMenosParticipantes(){
+        Torneo torneoSistemaSuizo= new TorneoIndividual(new SistemaSuizo(),TipoDePartida.CLASICA, TipoDePartida.BLITZ);
+        torneoSistemaSuizo.agregarParticipante(j1);
+        torneoSistemaSuizo.agregarParticipante(j2);
+        torneoSistemaSuizo.agregarParticipante(j3);
+        Exception exception = assertThrows(LimitesDeParticipantesException.class, torneoSistemaSuizo::iniciar);
+
     }
 }

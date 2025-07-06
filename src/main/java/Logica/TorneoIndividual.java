@@ -64,6 +64,9 @@ public class TorneoIndividual extends Torneo {
             Enfrentamiento enf =factory.crearEnfrentamiento(porPrimerLugar.get(0), porPrimerLugar.get(1),
                     partidaNormal, partidaDesempate);
             enf.jugar();
+            if(porSegundoLugar.size()==1){
+                tercerLugar=porSegundoLugar.get(0);
+            }
             if(enf.getResultado()==Resultado.VICTORIA_P1){
                 primerLugar=porPrimerLugar.get(0);
                 segundoLugar=porPrimerLugar.get(1);
@@ -75,13 +78,12 @@ public class TorneoIndividual extends Torneo {
 
         }
         else{
-            System.out.println("Torneo desempate");
             Torneo desempate= new TorneoIndividual(new EliminacionDirecta(), partidaNormal, partidaDesempate);
             desempate.torneoDeDesempate=true;
             for(Participante p: porPrimerLugar){
                desempate.agregarParticipante(p);
             }
-            desempate.actualizarNumeroMaximoRondas();
+            desempate.iniciar();
             for(int i=0;i<desempate.numeroMaximoRondas;i++){
                 desempate.ordenarEnfrentamientos();
                 desempate.ejecutarRonda();
@@ -111,13 +113,12 @@ public class TorneoIndividual extends Torneo {
             }
         }
         else if(segundoLugar==null && tercerLugar==null && porSegundoLugar.size()>2){
-            System.out.println("Torneo desempate");
             Torneo desempate= new TorneoIndividual(new EliminacionDirecta(), partidaNormal, partidaDesempate);
             desempate.torneoDeDesempate=true;
             for(Participante p: porSegundoLugar){
                desempate.agregarParticipante(p);
             }
-            desempate.actualizarNumeroMaximoRondas();
+            desempate.iniciar();
             for(int i=0;i<desempate.numeroMaximoRondas;i++){
                 desempate.ordenarEnfrentamientos();
                 desempate.ejecutarRonda();
@@ -141,13 +142,12 @@ public class TorneoIndividual extends Torneo {
             }
 
         } else if (tercerLugar==null && porTercerLugar.size()>2) {
-            System.out.println("Torneo desempate");
             Torneo desempate= new TorneoIndividual(new EliminacionDirecta(), partidaNormal, partidaDesempate);
             desempate.torneoDeDesempate=true;
             for(Participante p: porTercerLugar){
                 desempate.agregarParticipante(p);
             }
-            desempate.actualizarNumeroMaximoRondas();
+            desempate.iniciar();
             for(int i=0;i<desempate.numeroMaximoRondas;i++){
                 desempate.ordenarEnfrentamientos();
                 desempate.ejecutarRonda();

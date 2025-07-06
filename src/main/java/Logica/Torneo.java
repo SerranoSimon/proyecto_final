@@ -72,18 +72,26 @@ public abstract class  Torneo {
     }
 
     /**
-     * una vez que agregamos a todos los participantes, con este metodo determinamos el numero
-     * de rondas que se deben jugar.
+     * Da la bienvenida al torneo y determina el numero maximo de jugadores.
      */
-    public void actualizarNumeroMaximoRondas(){
-       numeroMaximoRondas=modalidadJuego.numeroDeRondas(participantes.size());
+    public void iniciar() {
+        if (!torneoDeDesempate) {
+            System.out.println("Bienvenidos al torneo ");
+            if (participantes.size() < 4) { //revisamos si podemos inicar el torneo
+                throw new LimitesDeParticipantesException("El minimo de participantes para iniciar son 4");
+            }
+        }
+        else {
+            System.out.println("Torneo de desempate ");
+        }
+        numeroMaximoRondas = modalidadJuego.numeroDeRondas(participantes.size());
     }
 
     /**
      * prepara los enfrentamientos para una futura ronda
      * @throws LimiteDeRondasSuperadoException si se quiere preparar una ronda futura cuando ya se jugó la ultima.
      */
-    public void ordenarEnfrentamientos() throws LimiteDeRondasSuperadoException {
+    public void ordenarEnfrentamientos(){
        if(numeroRonda==numeroMaximoRondas){
            throw new LimiteDeRondasSuperadoException("Las rondas han acabado");
        }
@@ -94,6 +102,20 @@ public abstract class  Torneo {
        else{
            throw new RuntimeException("ya ha sido ordenado");
        }
+    }
+
+    /**
+     * Metodo para obtener los futuros enfrentamientos
+     * @return un arraylist que contiene los enfrentamientos (los cuales son arraylist de participantes).
+     * @throws OrdenarEnfrentamientosNoEjecutadoException si se desea obtener los proximos enfrentamientos sin ordenar.
+     */
+    public ArrayList<ArrayList<Participante>> obtenerProximosEnfrentamientos() throws OrdenarEnfrentamientosNoEjecutadoException {
+        if(ordenado){
+            return distribucion;
+        }
+        else{
+            throw new OrdenarEnfrentamientosNoEjecutadoException("No has ordenado los enfrentamientos");
+        }
     }
 
     /**
@@ -110,9 +132,6 @@ public abstract class  Torneo {
      * @throws LimitesDeParticipantesException si se quiere inicar el torneo sin los participantes suficientes
      */
     public void ejecutarRonda() throws LimiteDeRondasSuperadoException, OrdenarEnfrentamientosNoEjecutadoException, LimitesDeParticipantesException{
-        if(participantes.size()<4 && numeroRonda==0 && !torneoDeDesempate){ //revisamos si podemos inicar el torneo
-            throw new LimitesDeParticipantesException("El minimo de participantes para iniciar son 4");
-        }
         if(ordenado){
             ordenado=false;
         numeroRonda+=1;

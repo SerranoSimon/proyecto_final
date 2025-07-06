@@ -38,7 +38,7 @@ public class MainEjemplos {
         torneo1.aceptarSolicitud(e3);
         torneo1.aceptarSolicitud(e4);
         //ACTUALIZAR NUMERO DE RONDAS
-        torneo1.actualizarNumeroMaximoRondas();
+        torneo1.iniciar();
         //ronda 1
         torneo1.verEstado(); //ver la tabla
         torneo1.ordenarEnfrentamientos();
@@ -71,7 +71,7 @@ public class MainEjemplos {
         torneo2.agregarParticipante(j5);
         torneo2.agregarParticipante(j6);
 
-        torneo2.actualizarNumeroMaximoRondas();
+        torneo2.iniciar();
          //ronda 1
         torneo2.verEstado();
         torneo2.ordenarEnfrentamientos();
@@ -108,8 +108,7 @@ public class MainEjemplos {
         torneo3.agregarParticipante(j4);
         torneo3.agregarParticipante(j5);
 
-        torneo3.actualizarNumeroMaximoRondas();
-
+        torneo3.iniciar();
         //ronda 1
         torneo3.verEstado();
         torneo3.ordenarEnfrentamientos();
@@ -134,6 +133,33 @@ public class MainEjemplos {
         torneo3.verEstado();
         torneo3.establecerGanadores();
         torneo3.mostrarGanadores();
+
+        //ejemplo donde empatan todos
+        //iniciamos de nuevo
+        j1=new Jugador("Benjamin","Poblete","benjaminp@gmail.com",1800);
+        j2= new Jugador("Scarlet","Valdebenito","scarletv@gmail.com",1800);
+        j3= new Jugador("Fernando","Saez","fernandos@gmail.com",1800);
+        j4=new Jugador("Pilar","Oyarzun","pilaro@gmail.com",1800);
+        j5=new Jugador("Marcelo","Leiva","marcelol@gmail.com",1800);
+        Torneo torneo4=new TorneoIndividual(new TodosContraTodos(),TipoDePartida.CLASICA, TipoDePartida.BLITZ);
+        System.out.println("ejemplo 4");
+        torneo4.agregarParticipante(j1);
+        torneo4.agregarParticipante(j2);
+        torneo4.agregarParticipante(j3);
+        torneo4.agregarParticipante(j4);
+        torneo4.agregarParticipante(j5);
+        torneo4.iniciar();
+        j1.agregarPuntos(1);
+        j2.agregarPuntos(1);
+        j3.agregarPuntos(1);
+        j4.agregarPuntos(1);
+        j5.agregarPuntos(1);
+        torneo4.numeroRonda=5;
+        torneo4.verEstado();
+        torneo4.establecerGanadores();
+        torneo4.mostrarGanadores();
+
+
 
 
 

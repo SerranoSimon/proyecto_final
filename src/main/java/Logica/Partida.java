@@ -13,7 +13,7 @@ public class Partida {
      * Constructor de la partida
      * @param blancas el participante que jugará con blancas
      * @param negras el participante que jugará con negras
-     * @param tipoDePartida el tipo de partida (blitz, clasica, normal)
+     * @param tipoDePartida el tipo de partida (blitz, clasica, rapida)
      */
     public Partida(Participante blancas, Participante negras, TipoDePartida tipoDePartida){
         this.blancas=blancas;

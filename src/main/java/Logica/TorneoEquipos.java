@@ -68,6 +68,9 @@ public class TorneoEquipos extends Torneo {
             Enfrentamiento enf =factory.crearEnfrentamiento(porPrimerLugar.get(0), porPrimerLugar.get(1),
                     partidaNormal, partidaDesempate);
             enf.jugar();
+            if(porSegundoLugar.size()==1){
+                tercerLugar=porSegundoLugar.get(0);
+            }
             if(enf.getResultado()==Resultado.VICTORIA_P1){
                 primerLugar=porPrimerLugar.get(0);
                 segundoLugar=porPrimerLugar.get(1);
@@ -79,14 +82,12 @@ public class TorneoEquipos extends Torneo {
 
         }
         else{
-            System.out.println("Torneo desempate");
             Torneo desempate= new TorneoEquipos(new EliminacionDirecta(), partidaNormal, partidaDesempate);
             desempate.torneoDeDesempate=true;
             for(Participante p: porPrimerLugar){
-                desempate.solicitarInscripcion(p);
-                desempate.aceptarSolicitud(p);
+                desempate.agregarParticipante(p);
             }
-            desempate.actualizarNumeroMaximoRondas();
+            desempate.iniciar();
             for(int i=0;i<desempate.numeroMaximoRondas;i++){
                 desempate.ordenarEnfrentamientos();
                 desempate.ejecutarRonda();
@@ -120,10 +121,9 @@ public class TorneoEquipos extends Torneo {
             Torneo desempate= new TorneoEquipos(new EliminacionDirecta(), partidaNormal, partidaDesempate);
             desempate.torneoDeDesempate=true;
             for(Participante p: porSegundoLugar){
-                desempate.solicitarInscripcion(p);
-                desempate.aceptarSolicitud(p);
+                desempate.agregarParticipante(p);
             }
-            desempate.actualizarNumeroMaximoRondas();
+            desempate.iniciar();
             for(int i=0;i<desempate.numeroMaximoRondas;i++){
                 desempate.ordenarEnfrentamientos();
                 desempate.ejecutarRonda();
@@ -151,10 +151,9 @@ public class TorneoEquipos extends Torneo {
             Torneo desempate= new TorneoEquipos(new EliminacionDirecta(), partidaNormal, partidaDesempate);
             desempate.torneoDeDesempate=true;
             for(Participante p: porTercerLugar){
-                desempate.solicitarInscripcion(p);
-                desempate.aceptarSolicitud(p);
+               desempate.agregarParticipante(p);
             }
-            desempate.actualizarNumeroMaximoRondas();
+            desempate.iniciar();
             for(int i=0;i<desempate.numeroMaximoRondas;i++){
                 desempate.ordenarEnfrentamientos();
                 desempate.ejecutarRonda();
