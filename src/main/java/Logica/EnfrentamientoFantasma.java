@@ -10,18 +10,17 @@ Participante p2;
         this.p1=p1;
         this.p2=p2;
         if(p1 instanceof Fantasma){
-            p2.agregarPuntos(2);
-            System.out.println(p2+"Descansa");
+            p2.agregarPuntos(1);
+            System.out.println(p2+" Descansa");
         }
         else{
-            p1.agregarPuntos(2);
-            System.out.println(p1+"Descansa");
+            p1.agregarPuntos(1);
+            System.out.println(p1+" Descansa");
         }
     }
 
     @Override
     public void jugar() {
-
     }
 
     @Override

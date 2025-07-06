@@ -11,6 +11,7 @@ class TorneoTest {
     Participante e1;
     Participante e2;
     Participante e3;
+    Participante e4;
     Participante j1;
     Participante j2;
     Participante j3;
@@ -39,9 +40,11 @@ class TorneoTest {
         ArrayList<Participante> jugadores1=new ArrayList<>(List.of(j1, j2));
         ArrayList<Participante> jugadores2=new ArrayList<>(List.of(j3, j4));
         ArrayList<Participante> jugadores3=new ArrayList<>(List.of(j5, j6));
+        ArrayList<Participante> jugadores4=new ArrayList<>(List.of(j7, j8));
         e1=new Equipo("Equipo 1",jugadores1);
         e2=new Equipo("Equipo 2",jugadores2);
         e3=new Equipo("Equipo 3",jugadores3);
+        e4=new Equipo("Equipo 4",jugadores3);
 
     }
 
@@ -51,18 +54,14 @@ class TorneoTest {
         torneo1.numeroRonda=0;
         torneo1.numeroMaximoRondas=1;
         torneo1.ordenarEnfrentamientos();
-        Exception exception1 = assertThrows(RuntimeException.class, () -> {
-           torneo1.ordenarEnfrentamientos();
-        });
+        Exception exception1 = assertThrows(RuntimeException.class, torneo1::ordenarEnfrentamientos);
     }
     @Test
     void ordenarEnfrentamientosDespuesDeUltimaRonda () {
         Torneo torneo1=new TorneoIndividual(new SistemaSuizo(),TipoDePartida.CLASICA,TipoDePartida.RAPIDA);
         torneo1.numeroRonda=1;
         torneo1.numeroMaximoRondas=1;
-        Exception exception1 = assertThrows(LimiteDeRondasSuperadoException.class, () -> {
-            torneo1.ordenarEnfrentamientos();
-        });
+        Exception exception1 = assertThrows(LimiteDeRondasSuperadoException.class, torneo1::ordenarEnfrentamientos);
     }
 
 
@@ -71,7 +70,7 @@ class TorneoTest {
         Torneo torneo=new TorneoIndividual(new EliminacionDirecta(),TipoDePartida.CLASICA, TipoDePartida.BLITZ);
         torneo.agregarParticipante(j1);
         torneo.agregarParticipante(j2);
-        torneo.agregarParticipante(j3);
+        torneo.agregarParticipante(j3);;
         torneo.agregarParticipante(j4);
         Exception exception = assertThrows(OrdenarEnfrentamientosNoEjecutadoException.class, () -> {
             torneo.ejecutarRonda();
@@ -101,8 +100,7 @@ class TorneoTest {
         assertTrue(torneo.seNecesitaDesempate());
         j1.agregarPuntos(2);
         j2.agregarPuntos(1);
-        j4.agregarPuntos(1);
-        assertTrue(torneo.seNecesitaDesempate());
+        assertTrue(!torneo.seNecesitaDesempate());
     }
 
    //Para establecer ganadores veremos que siempre son no nulos independientes de la modalidad
@@ -113,7 +111,7 @@ class TorneoTest {
         torneoSistemaSuizo.agregarParticipante(j2);
         torneoSistemaSuizo.agregarParticipante(j3);
         torneoSistemaSuizo.agregarParticipante(j4);
-        torneoSistemaSuizo.actualizarNumeroMaximoRondas();
+        torneoSistemaSuizo.iniciar();
         torneoSistemaSuizo.ordenarEnfrentamientos();
         torneoSistemaSuizo.ejecutarRonda();
         torneoSistemaSuizo.ordenarEnfrentamientos();
@@ -130,7 +128,7 @@ class TorneoTest {
         torneoTodosContraTodos.agregarParticipante(j2);
         torneoTodosContraTodos.agregarParticipante(j3);
         torneoTodosContraTodos.agregarParticipante(j4);
-        torneoTodosContraTodos.actualizarNumeroMaximoRondas();
+        torneoTodosContraTodos.iniciar();
         torneoTodosContraTodos.ordenarEnfrentamientos();
         torneoTodosContraTodos.ejecutarRonda();
         torneoTodosContraTodos.ordenarEnfrentamientos();
@@ -148,7 +146,8 @@ class TorneoTest {
         torneoEliminacionDirecta.agregarParticipante(e1);
         torneoEliminacionDirecta.agregarParticipante(e2);
         torneoEliminacionDirecta.agregarParticipante(e3);
-        torneoEliminacionDirecta.actualizarNumeroMaximoRondas();
+        torneoEliminacionDirecta.agregarParticipante(e4);
+        torneoEliminacionDirecta.iniciar();
         torneoEliminacionDirecta.ordenarEnfrentamientos();
         torneoEliminacionDirecta.ejecutarRonda();
         torneoEliminacionDirecta.ordenarEnfrentamientos();
@@ -158,5 +157,14 @@ class TorneoTest {
         assertNotNull(torneoEliminacionDirecta.primerLugar);
         assertNotNull(torneoEliminacionDirecta.segundoLugar);
         assertNotNull(torneoEliminacionDirecta.tercerLugar);
+    }
+    @Test
+    void IniciarConMenosParticipantes(){
+        Torneo torneoSistemaSuizo= new TorneoIndividual(new SistemaSuizo(),TipoDePartida.CLASICA, TipoDePartida.BLITZ);
+        torneoSistemaSuizo.agregarParticipante(j1);
+        torneoSistemaSuizo.agregarParticipante(j2);
+        torneoSistemaSuizo.agregarParticipante(j3);
+        Exception exception = assertThrows(LimitesDeParticipantesException.class, torneoSistemaSuizo::iniciar);
+
     }
 }

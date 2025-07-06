@@ -28,7 +28,8 @@ public class EliminacionDirecta implements ModalidadJuego {
     }
 
     /**
-     * Clase que distribuye los enfrentamientos considerando que se ordenaron
+     * Clase que distribuye los enfrentamientos considerando que se ordenaron, enfrenta al mejor de la primera mitad
+     * con el mejor de la segunda mitad.
      * @param participantes participantes los cuales se quiere hacer los enfrentamientos
      * @return ArrayList que tiene los enfrentamientos de cada ronda
      */
@@ -73,5 +74,10 @@ public class EliminacionDirecta implements ModalidadJuego {
 
     public ArrayList<Participante> getParticipantesCopia() {
         return participantesCopia;
+    }
+
+    @Override
+    public String toString() {
+        return "EliminacionDirecta";
     }
 }

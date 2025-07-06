@@ -1,7 +1,7 @@
 package Logica;
 
 /**
- * Clase que representa el enfrentamiento entre jugadores, implementando la interfaz Enfr
+ * Clase que representa el enfrentamiento entre jugadores, implementando la interfaz Enfrentamiento
  */
 public class EnfrentamientoJugadores implements Enfrentamiento{
     private Participante j1;
@@ -18,8 +18,16 @@ public class EnfrentamientoJugadores implements Enfrentamiento{
 
 
     }
-    private int asignarPuntos(Resultado resultado, boolean esJ1){
-        if(esJ1){
+
+    /**
+     * metodo que le asigna puntaje al jugador que ganó el enfrentamiento
+     * @param resultado si fue tablas(empate), un jugador ganó o ganó el otro el enfrentamiento
+     * @param juegaConBlancas booleano para saber a qué jugador asignarle puntos, en funcion de si es el que
+     *                        juega con blancas o no.
+     * @return 2 puntos si gana, 1 si empata y 0 si pierde.
+     */
+    private int asignarPuntos(Resultado resultado, boolean juegaConBlancas){
+        if(juegaConBlancas){
             return switch (resultado){
                 case Resultado.TABLAS -> 1;
                 case Resultado.VICTORIA_P1 -> 2;
@@ -32,6 +40,10 @@ public class EnfrentamientoJugadores implements Enfrentamiento{
             case Resultado.VICTORIA_P2 -> 2;
         };
     }
+
+    /**
+     * Crea partidas, se alterna el que juega con blancas
+     */
     public void jugar(){
         System.out.println("ENFRENTAMIENTO: "+j1.getNombre()+" v/s "+j2.getNombre());
         int puntosJ1=0;
@@ -44,14 +56,28 @@ public class EnfrentamientoJugadores implements Enfrentamiento{
 
         Partida p2=new Partida(j2,j1,normal);
         p2.jugar();
-        puntosJ1+=asignarPuntos(p2.getResultado(),true);
-        puntosJ2+=asignarPuntos(p2.getResultado(),false);
-
+        puntosJ1+=asignarPuntos(p2.getResultado(),false);
+        puntosJ2+=asignarPuntos(p2.getResultado(),true);
+        //Si empatan que vayan cambiando el lado (blancas o negras) hasta salir del desempate
+        boolean a=true;
+        boolean b=false;
         while (puntosJ1==puntosJ2){
-            Partida pDesempate=new Partida(j1,j2,desempate);
-            pDesempate.jugar();
-            puntosJ1+=asignarPuntos(pDesempate.getResultado(),true);
-            puntosJ2+=asignarPuntos(pDesempate.getResultado(),false);
+            if(a) {
+                Partida pDesempate = new Partida(j1, j2, desempate);
+                b=true;
+                a=false;
+                pDesempate.jugar();
+                puntosJ1+=asignarPuntos(pDesempate.getResultado(),true);
+                puntosJ2+=asignarPuntos(pDesempate.getResultado(),false);
+            }
+            if(b){
+                Partida pDesempate = new Partida(j2, j1, desempate);
+                b=false;
+                a=true;
+                pDesempate.jugar();
+                puntosJ1+=asignarPuntos(pDesempate.getResultado(),false);
+                puntosJ2+=asignarPuntos(pDesempate.getResultado(),true);
+            }
 
         }
         if(puntosJ1>puntosJ2){
