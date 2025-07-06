@@ -245,17 +245,7 @@ public abstract class  Torneo {
             System.out.println("aun no acaba el torneo");
         }
     }
-    /**
-     * printea los ganadores.
-     */
-    public void mostrarGanadores(){
-        System.out.println("PRIMER LUGAR: "+primerLugar);
-        System.out.println("SEGUNDO LUGAR: "+segundoLugar);
-        System.out.println("TERCERO LUGAR: "+tercerLugar);
 
-
-
-    }
     public ArrayList<Participante> getParticipantes() {
         return this.participantes;
     }

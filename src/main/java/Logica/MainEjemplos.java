@@ -50,7 +50,9 @@ public class MainEjemplos {
         torneo1.verEstado();
         //se termina el torneo
         torneo1.establecerGanadores();
-        torneo1.mostrarGanadores();
+        System.out.println("PRIMER LUGAR: "+torneo1.primerLugar);
+        System.out.println("SEGUNDO LUGAR: "+torneo1.segundoLugar);
+        System.out.println("TERCER LUGAR: "+torneo1.tercerLugar);
          //iniciamos de nuevo
          j1=new Jugador("Benjamin","Poblete","benjaminp@gmail.com",1800);
          j2= new Jugador("Scarlet","Valdebenito","scarletv@gmail.com",1800);
@@ -86,7 +88,9 @@ public class MainEjemplos {
         torneo2.ejecutarRonda();
         torneo2.verEstado();
         torneo2.establecerGanadores();
-        torneo2.mostrarGanadores(); //como en eliminacion directa no importan los puntos, al definir los nuevos
+        System.out.println("PRIMER LUGAR: "+torneo2.primerLugar);
+        System.out.println("SEGUNDO LUGAR: "+torneo2.segundoLugar);
+        System.out.println("TERCER LUGAR: "+torneo2.tercerLugar); //como en eliminacion directa no importan los puntos, al definir los nuevos
                                     //lugares, no miramos el puntaje.
 
         //iniciamos de nuevo
@@ -132,7 +136,9 @@ public class MainEjemplos {
 
         torneo3.verEstado();
         torneo3.establecerGanadores();
-        torneo3.mostrarGanadores();
+        System.out.println("PRIMER LUGAR: "+torneo3.primerLugar);
+        System.out.println("SEGUNDO LUGAR: "+torneo3.segundoLugar);
+        System.out.println("TERCER LUGAR: "+torneo3.tercerLugar);
 
         //ejemplo donde empatan todos
         //iniciamos de nuevo
@@ -157,7 +163,9 @@ public class MainEjemplos {
         torneo4.numeroRonda=5;
         torneo4.verEstado();
         torneo4.establecerGanadores();
-        torneo4.mostrarGanadores();
+        System.out.println("PRIMER LUGAR: "+torneo4.primerLugar);
+        System.out.println("SEGUNDO LUGAR: "+torneo4.segundoLugar);
+        System.out.println("TERCER LUGAR: "+torneo4.tercerLugar);
 
 
 
