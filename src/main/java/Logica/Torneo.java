@@ -254,5 +254,8 @@ public abstract class  Torneo {
 
 
     }
+    public ArrayList<Participante> getParticipantes() {
+        return this.participantes;
+    }
 
 }
