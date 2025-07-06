@@ -62,6 +62,9 @@ public class Jugador implements Participante, Comparable<Participante>{
     public String getNombre() {
         return nombre;
     }
+    public String getApellido(){
+        return apellido;
+    }
 
     @Override
     public String toString() {
