@@ -1,9 +1,18 @@
 package visual;
 
+import Logica.Participante;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
-public class PanelEnfrentamientoJugadores extends JPanel {
+public class PanelEnfrentamientosJugadores extends JPanel {
+    private Participante p1;
+    private Participante p2;
+    public PanelEnfrentamientosJugadores(ArrayList<Participante>  enf){
+        p1=enf.getFirst();
+        p2=enf.getLast();
+    }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

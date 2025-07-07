@@ -19,6 +19,8 @@ public class Partida {
         this.blancas=blancas;
         this.negras=negras;
         this.tipoDePartida=tipoDePartida;
+        System.out.println("  Blancas: "+blancas.getNombre());
+        System.out.println("  Negras: "+negras.getNombre());
     }
 
     /**
@@ -30,12 +32,15 @@ public class Partida {
         char r= ResultadoJuego.drawResult(blancas.getELO(),negras.getELO());
         if(r=='w'){
             resultado= Resultado.VICTORIA_P1;
+            System.out.println("Gana partida: "+blancas.getNombre());
         }
         else if(r=='b'){
             resultado= Resultado.VICTORIA_P2;
+            System.out.println("Gana partida: "+negras.getNombre());
         }
         else{
             resultado= Resultado.TABLAS;
+            System.out.println("Tablas");
         }
     }
     public Resultado getResultado(){

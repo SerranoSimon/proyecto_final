@@ -64,14 +64,6 @@ public abstract class  Torneo {
         System.out.println(participante + " ha sido aceptado en el torneo.");
     }
 
-    /**
-     * metodo para rechazar un participante que solicitó inscribirse
-     * @param participante participante que se desea rechazar
-     */
-    public void rechazarSolicitud(Participante participante) {
-        solicitudesInscripcion.remove(participante);
-        System.out.println(participante + " ha sido rechazado.");
-    }
 
     /**
      * Da la bienvenida al torneo y determina el numero maximo de jugadores.
@@ -169,8 +161,8 @@ public abstract class  Torneo {
             if (numeroRonda == numeroMaximoRondas && modalidadJuego instanceof EliminacionDirecta) {
                 System.out.println("Disputa tercer lugar eliminacion directa");
                 Enfrentamiento enfTercerLugar = factory.crearEnfrentamiento(disputaTercerLugar.getFirst(), disputaTercerLugar.getLast(), partidaNormal, partidaDesempate);
-                enf.jugar();
-                if (enf.getResultado() == Resultado.VICTORIA_P1) {
+                enfTercerLugar.jugar();
+                if (enfTercerLugar.getResultado() == Resultado.VICTORIA_P1) {
                     tercerLugar = disputaTercerLugar.getFirst();
                 } else {
                     tercerLugar = disputaTercerLugar.getLast();
@@ -189,9 +181,9 @@ public abstract class  Torneo {
     /**
      * Metodo para ver el estado actual del torneo( "tabla" de posiciones de los participantes)
      */
-    public void verEstado(){
+    public ArrayList<Participante> verEstado(){
         modalidadJuego.ordenarParticipantesParaMostrar(this.participantes,this.numeroRonda);
-        System.out.println(participantes);
+       return participantes;
     }
 
     /**
