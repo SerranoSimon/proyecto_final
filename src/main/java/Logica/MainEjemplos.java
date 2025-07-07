@@ -40,14 +40,11 @@ public class MainEjemplos {
         //ACTUALIZAR NUMERO DE RONDAS
         torneo1.iniciar();
         //ronda 1
-        torneo1.verEstado(); //ver la tabla
         torneo1.ordenarEnfrentamientos();
         torneo1.ejecutarRonda();
         //ronda 2
-        torneo1.verEstado();
         torneo1.ordenarEnfrentamientos();
         torneo1.ejecutarRonda();
-        torneo1.verEstado();
         //se termina el torneo
         torneo1.establecerGanadores();
         System.out.println("PRIMER LUGAR: "+torneo1.primerLugar);
@@ -161,14 +158,11 @@ public class MainEjemplos {
         j4.agregarPuntos(1);
         j5.agregarPuntos(1);
         torneo4.numeroRonda=5;
-        torneo4.verEstado();
         torneo4.establecerGanadores();
+        System.out.println(torneo4.verEstado());
         System.out.println("PRIMER LUGAR: "+torneo4.primerLugar);
         System.out.println("SEGUNDO LUGAR: "+torneo4.segundoLugar);
         System.out.println("TERCER LUGAR: "+torneo4.tercerLugar);
-
-
-
 
 
     }

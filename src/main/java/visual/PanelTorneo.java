@@ -60,7 +60,7 @@ public class PanelTorneo extends JPanel {
         panelDeEnfrentamientos.setLayout(new GridLayout(3,3));
         add(panelDeEnfrentamientos, BorderLayout.CENTER);
 
-        panelDeEnfrentamientos.add(new PanelEnfrentamientoJugadores(), BorderLayout.CENTER);
+       // panelDeEnfrentamientos.add(new PanelEnfrentamientosJugadores(), BorderLayout.CENTER);
 
 
         btnEstado = new JButton("Ver estado del torneo");

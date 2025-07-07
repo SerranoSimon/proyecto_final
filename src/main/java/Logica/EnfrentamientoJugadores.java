@@ -9,6 +9,7 @@ public class EnfrentamientoJugadores implements Enfrentamiento{
     private TipoDePartida normal;
     private TipoDePartida desempate;
     private Resultado resultado;
+    private int tiempoPartidasJugadas;
 
     public EnfrentamientoJugadores(Participante j1, Participante j2, TipoDePartida normal, TipoDePartida desempate){
         this.j1=j1;
@@ -48,25 +49,29 @@ public class EnfrentamientoJugadores implements Enfrentamiento{
         System.out.println("ENFRENTAMIENTO: "+j1.getNombre()+" v/s "+j2.getNombre());
         int puntosJ1=0;
         int puntosJ2=0;
-
         Partida p1=new Partida(j1,j2,normal);
         p1.jugar();
+        tiempoPartidasJugadas+=normal.getMinutos();
         puntosJ1+=asignarPuntos(p1.getResultado(),true);
         puntosJ2+=asignarPuntos(p1.getResultado(),false);
 
         Partida p2=new Partida(j2,j1,normal);
         p2.jugar();
+        tiempoPartidasJugadas+=normal.getMinutos();
         puntosJ1+=asignarPuntos(p2.getResultado(),false);
         puntosJ2+=asignarPuntos(p2.getResultado(),true);
         //Si empatan que vayan cambiando el lado (blancas o negras) hasta salir del desempate
         boolean a=true;
         boolean b=false;
         while (puntosJ1==puntosJ2){
+            System.out.println("Partidas de desempate");
             if(a) {
+
                 Partida pDesempate = new Partida(j1, j2, desempate);
                 b=true;
                 a=false;
                 pDesempate.jugar();
+                tiempoPartidasJugadas+=desempate.getMinutos();
                 puntosJ1+=asignarPuntos(pDesempate.getResultado(),true);
                 puntosJ2+=asignarPuntos(pDesempate.getResultado(),false);
             }
@@ -75,6 +80,7 @@ public class EnfrentamientoJugadores implements Enfrentamiento{
                 b=false;
                 a=true;
                 pDesempate.jugar();
+                tiempoPartidasJugadas+=desempate.getMinutos();
                 puntosJ1+=asignarPuntos(pDesempate.getResultado(),false);
                 puntosJ2+=asignarPuntos(pDesempate.getResultado(),true);
             }
@@ -83,14 +89,19 @@ public class EnfrentamientoJugadores implements Enfrentamiento{
         if(puntosJ1>puntosJ2){
             resultado= Resultado.VICTORIA_P1;
             j1.agregarPuntos(2);
-            System.out.println("GANADOR: "+j1.getNombre());
+            System.out.println("GANA EL ENFRENTAMIENTO: "+j1.getNombre());
         }
         else{
             resultado= Resultado.VICTORIA_P2;
             j2.agregarPuntos(2);
-            System.out.println("GANADOR: "+j2.getNombre());
+            System.out.println("GANA EL ENFRENTAMIENTO: "+j2.getNombre());
         }
     }
+
+    public int getTiempoPartidasJugadas() {
+        return tiempoPartidasJugadas;
+    }
+
     @Override
     public Resultado getResultado(){
         return resultado;
