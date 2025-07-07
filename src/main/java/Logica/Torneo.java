@@ -93,7 +93,7 @@ public abstract class  Torneo {
      * prepara los enfrentamientos para una futura ronda
      * @throws LimiteDeRondasSuperadoException si se quiere preparar una ronda futura cuando ya se jugó la ultima.
      */
-    public void ordenarEnfrentamientos(){
+    public void ordenarEnfrentamientos() throws EnfrentamientosYaOrdenadosException, LimiteDeRondasSuperadoException{
        if(numeroRonda==numeroMaximoRondas){
            throw new LimiteDeRondasSuperadoException("Las rondas han acabado");
        }
@@ -102,7 +102,7 @@ public abstract class  Torneo {
            modalidadJuego.ordenarParticipantes(participantes,numeroRonda+1);
            distribucion=modalidadJuego.obtenerDistribucionEnfrentamientos(participantes);}
        else{
-           throw new RuntimeException("ya ha sido ordenado");
+           throw new EnfrentamientosYaOrdenadosException("ya ha sido ordenado");
        }
     }
 
@@ -137,7 +137,6 @@ public abstract class  Torneo {
         if(ordenado){
             ordenado=false;
         numeroRonda+=1;
-        if(numeroRonda<=numeroMaximoRondas) {
             System.out.println("RONDA: " +
                     "" + numeroRonda);
             for (ArrayList<Participante> pareja : distribucion) {
@@ -166,10 +165,10 @@ public abstract class  Torneo {
                         }
                     }
                 }
-            }
+
             if (numeroRonda == numeroMaximoRondas && modalidadJuego instanceof EliminacionDirecta) {
                 System.out.println("Disputa tercer lugar eliminacion directa");
-                Enfrentamiento enf = factory.crearEnfrentamiento(disputaTercerLugar.getFirst(), disputaTercerLugar.getLast(), partidaNormal, partidaDesempate);
+                Enfrentamiento enfTercerLugar = factory.crearEnfrentamiento(disputaTercerLugar.getFirst(), disputaTercerLugar.getLast(), partidaNormal, partidaDesempate);
                 enf.jugar();
                 if (enf.getResultado() == Resultado.VICTORIA_P1) {
                     tercerLugar = disputaTercerLugar.getFirst();
@@ -178,9 +177,6 @@ public abstract class  Torneo {
                 }
 
             }
-        }
-        else{
-            throw new LimiteDeRondasSuperadoException("Las rondas ya han acabado");
         }
 
 

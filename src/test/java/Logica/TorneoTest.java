@@ -54,7 +54,7 @@ class TorneoTest {
         torneo1.numeroRonda=0;
         torneo1.numeroMaximoRondas=1;
         torneo1.ordenarEnfrentamientos();
-        Exception exception1 = assertThrows(RuntimeException.class, torneo1::ordenarEnfrentamientos);
+        Exception exception1 = assertThrows(EnfrentamientosYaOrdenadosException.class, torneo1::ordenarEnfrentamientos);
     }
     @Test
     void ordenarEnfrentamientosDespuesDeUltimaRonda () {
@@ -66,7 +66,7 @@ class TorneoTest {
 
 
     @Test
-    void ejecutarRondaSinOrdenar() throws OrdenarEnfrentamientosNoEjecutadoException {
+    void ejecutarRondaSinOrdenar() {
         Torneo torneo=new TorneoIndividual(new EliminacionDirecta(),TipoDePartida.CLASICA, TipoDePartida.BLITZ);
         torneo.agregarParticipante(j1);
         torneo.agregarParticipante(j2);

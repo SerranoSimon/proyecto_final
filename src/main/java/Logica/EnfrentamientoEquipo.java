@@ -6,6 +6,8 @@ package Logica;
 public class EnfrentamientoEquipo implements Enfrentamiento {
 private Equipo e1;
 private Equipo e2;
+private EnfrentamientoJugadores enf1;
+private EnfrentamientoJugadores enf2;
 private TipoDePartida normal;
 private TipoDePartida desempate;
 private Resultado resultado;
@@ -25,11 +27,17 @@ private Resultado resultado;
         int puntosE1=0;
         int puntosE2=0;
         while(puntosE1==puntosE2) {
+
             for (int i = 0; i < e1.getJugadores().size(); i++) {
                 Participante j1 = e1.getJugadores().get(i);
                 Participante j2 = e2.getJugadores().get(i);
                 EnfrentamientoJugadores enf =
                         new EnfrentamientoJugadores(j1, j2, normal, desempate);
+                if (i == 0) {
+                    enf1 = enf;
+                } else {
+                    enf2 = enf;
+                }
                 enf.jugar();
                 if (enf.getResultado() == Resultado.VICTORIA_P1) {
                     puntosE1 += 2;
@@ -37,6 +45,8 @@ private Resultado resultado;
                     puntosE2 += 2;
                 }
             }
+
+
         }
         if(puntosE1>puntosE2){
             e1.agregarPuntos(2);

@@ -21,11 +21,8 @@ public class Equipo implements Participante {
      * @param jugadores arraylist de los jugadores que lo componen
      * @throws LimitesDeJugadoresPorEquipoException error si se la cantidad de jugadores no es la indicada
      */
-    public Equipo(String nombre, ArrayList<Participante> jugadores) throws LimitesDeJugadoresPorEquipoException{
+    public Equipo(String nombre, ArrayList<Participante> jugadores){
         this.nombre=nombre;
-        if(jugadores.size()!=2 ){
-            throw new LimitesDeJugadoresPorEquipoException("Un equipo debe tener solo 2 jugadores");
-        }
         this.jugadores=jugadores;
 
         for(Participante j: jugadores){
