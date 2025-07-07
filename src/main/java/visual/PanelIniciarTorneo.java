@@ -1,9 +1,15 @@
 package visual;
 
+import Logica.Torneo;
+import Logica.TorneoEquipos;
+import Logica.TorneoIndividual;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class PanelIniciarTorneo extends JPanel {
+    private Torneo torneo;
     public PanelIniciarTorneo(Ventana ventana) {
         setLayout(new BorderLayout());
         setBackground(new Color(30, 30, 40));

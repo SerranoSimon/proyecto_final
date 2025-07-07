@@ -1,9 +1,6 @@
 package visual;
 
-import Logica.EliminacionDirecta;
-import Logica.SistemaSuizo;
-import Logica.TipoDePartida;
-import Logica.TodosContraTodos;
+import Logica.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +11,7 @@ public class PanelTipoTorneo extends JPanel {
     private JToggleButton botonTiempoNormal;
     private JToggleButton botonTiempoDesempate;
     private DatosTorneo datosTorneo;
+    private Torneo torneo;
 
     public PanelTipoTorneo(Ventana ventana, DatosTorneo datosTorneo) {
         this.datosTorneo = datosTorneo;
@@ -309,6 +307,12 @@ public class PanelTipoTorneo extends JPanel {
 
         btnContinuar.addActionListener(e -> {
             if (validarSelecciones()) {
+                if(Objects.equals(datosTorneo.getModalidadTorneo(), "Individual")){
+                    torneo=new TorneoIndividual(datosTorneo.getModalidadTorneo(), datosTorneo.getTorneoTiempoNormal(), datosTorneo.getTiempoDesempate());
+                }
+                else{
+                    torneo=new TorneoEquipos(datosTorneo.getModalidadTorneo(), datosTorneo.getTorneoTiempoNormal(), datosTorneo.getTiempoDesempate());
+                }
                 ventana.getPanelDatosTorneo().setVisible(true);
                 setVisible(false);
             } else {
