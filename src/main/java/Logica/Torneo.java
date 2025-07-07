@@ -211,7 +211,7 @@ public abstract class  Torneo {
      * Establece los ganadores, si hay empate se genera un desempate.
      * @throws OrdenarEnfrentamientosNoEjecutadoException desempatar puede mostrar tal excepcion.
      */
-    public void establecerGanadores() throws OrdenarEnfrentamientosNoEjecutadoException {
+    public void establecerGanadores() throws  ExisteEmpateException {
         if(numeroRonda==numeroMaximoRondas){
             modalidadJuego.ordenarParticipantesParaMostrar(participantes,numeroRonda);
             if(!(modalidadJuego instanceof  EliminacionDirecta)) {
@@ -220,9 +220,7 @@ public abstract class  Torneo {
                     segundoLugar = participantes.get(1);
                     tercerLugar = participantes.get(2);
                 } else {
-                    System.out.println("Existe al menos un empate, se necesita desempatar");
-                    desempatar();
-                    System.out.println("Se ha desempatado");
+                    throw new ExisteEmpateException("Existe al menos un desempate");
                 }
             }
 

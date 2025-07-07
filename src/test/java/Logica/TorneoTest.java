@@ -116,7 +116,11 @@ class TorneoTest {
         torneoSistemaSuizo.ejecutarRonda();
         torneoSistemaSuizo.ordenarEnfrentamientos();
         torneoSistemaSuizo.ejecutarRonda();
-        torneoSistemaSuizo.establecerGanadores();
+        try{
+        torneoSistemaSuizo.establecerGanadores();}
+        catch (ExisteEmpateException ex){
+            torneoSistemaSuizo.desempatar();
+        }
         assertNotNull(torneoSistemaSuizo.primerLugar);
         assertNotNull(torneoSistemaSuizo.segundoLugar);
         assertNotNull(torneoSistemaSuizo.tercerLugar);
@@ -136,6 +140,11 @@ class TorneoTest {
         torneoTodosContraTodos.ordenarEnfrentamientos();
         torneoTodosContraTodos.ejecutarRonda();
         torneoTodosContraTodos.establecerGanadores();
+        try{
+            torneoTodosContraTodos.establecerGanadores();}
+        catch (ExisteEmpateException ex){
+            torneoTodosContraTodos.desempatar();
+        }
         assertNotNull(torneoTodosContraTodos.primerLugar);
         assertNotNull(torneoTodosContraTodos.segundoLugar);
         assertNotNull(torneoTodosContraTodos.tercerLugar);

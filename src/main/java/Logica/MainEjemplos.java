@@ -84,7 +84,11 @@ public class MainEjemplos {
         torneo2.ordenarEnfrentamientos();
         torneo2.ejecutarRonda();
         torneo2.verEstado();
-        torneo2.establecerGanadores();
+        try{
+        torneo2.establecerGanadores();}
+        catch (ExisteEmpateException ex){
+            torneo2.desempatar();
+        }
         System.out.println("PRIMER LUGAR: "+torneo2.primerLugar);
         System.out.println("SEGUNDO LUGAR: "+torneo2.segundoLugar);
         System.out.println("TERCER LUGAR: "+torneo2.tercerLugar); //como en eliminacion directa no importan los puntos, al definir los nuevos
@@ -130,9 +134,13 @@ public class MainEjemplos {
         torneo3.verEstado();
         torneo3.ordenarEnfrentamientos();
         torneo3.ejecutarRonda();
-
         torneo3.verEstado();
-        torneo3.establecerGanadores();
+        try{
+            torneo3.establecerGanadores();}
+        catch (ExisteEmpateException ex){
+            torneo3.desempatar();
+        }
+
         System.out.println("PRIMER LUGAR: "+torneo3.primerLugar);
         System.out.println("SEGUNDO LUGAR: "+torneo3.segundoLugar);
         System.out.println("TERCER LUGAR: "+torneo3.tercerLugar);
@@ -158,7 +166,11 @@ public class MainEjemplos {
         j4.agregarPuntos(1);
         j5.agregarPuntos(1);
         torneo4.numeroRonda=5;
-        torneo4.establecerGanadores();
+        try{
+            torneo4.establecerGanadores();}
+        catch (ExisteEmpateException ex){
+            torneo4.desempatar();
+        }
         System.out.println(torneo4.verEstado());
         System.out.println("PRIMER LUGAR: "+torneo4.primerLugar);
         System.out.println("SEGUNDO LUGAR: "+torneo4.segundoLugar);
