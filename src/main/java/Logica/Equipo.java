@@ -23,12 +23,10 @@ public class Equipo implements Participante {
      */
     public Equipo(String nombre, ArrayList<Participante> jugadores) throws LimitesDeJugadoresPorEquipoException{
         this.nombre=nombre;
-        if(2<=jugadores.size() && jugadores.size()<=4){
-            this.jugadores=jugadores;
+        if(jugadores.size()!=2 ){
+            throw new LimitesDeJugadoresPorEquipoException("Un equipo debe tener solo 2 jugadores");
         }
-        else{
-            throw new LimitesDeJugadoresPorEquipoException("Un equipo debe tener entre 2 y 4 jugadores");
-        }
+        this.jugadores=jugadores;
 
         for(Participante j: jugadores){
             ELOEquipo+=j.getELO();
