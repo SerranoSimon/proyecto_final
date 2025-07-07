@@ -23,21 +23,21 @@ public class PanelInscripciones extends JPanel {
         panelCentral.add(Box.createVerticalGlue());
         add(panelCentral, BorderLayout.CENTER);
 
-        JButton btnIniciar = Boton("Iniciar Torneo", new Color(70, 150, 220));
-        btnIniciar.addActionListener(e -> {
+        JButton btnContinuar = Boton("Continuar", new Color(70, 150, 220));
+        btnContinuar.addActionListener(e -> {
             ventana.getPanelTorneo().setVisible(false);
             ventana.getPanelTorneo().removeAll();
             ventana.getPanelTorneo().add(new PanelTorneo(ventana.getDatosTorneo()));
             ventana.getPanelTorneo().revalidate();
             ventana.getPanelTorneo().repaint();
-            ventana.getPanelTorneo().setVisible(true);
+            ventana.getPanelIniciarTorneo().setVisible(true);
             setVisible(false);
         });
 
         JPanel panelBoton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         panelBoton.setOpaque(false);
         panelBoton.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 20));
-        panelBoton.add(btnIniciar);
+        panelBoton.add(btnContinuar);
         add(panelBoton, BorderLayout.SOUTH);
     }
 

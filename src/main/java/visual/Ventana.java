@@ -8,6 +8,7 @@ public class Ventana extends JFrame {
     private PanelTipoTorneo panelTipoTorneo;
     private PanelDatosTorneo panelDatosTorneo;
     private PanelInscripciones panelInscripciones;
+    private PanelIniciarTorneo panelIniciarTorneo;
     private PanelTorneo panelTorneo;
     private DatosTorneo datosTorneo;
 
@@ -26,9 +27,11 @@ public class Ventana extends JFrame {
         panelTipoTorneo = new PanelTipoTorneo(this, datosTorneo);
         panelDatosTorneo = new PanelDatosTorneo(this, datosTorneo);
         panelInscripciones = new PanelInscripciones(this);
+        panelIniciarTorneo = new PanelIniciarTorneo(this);
         panelTorneo = new PanelTorneo(datosTorneo);
 
         mainPanel.add(panelTorneo);
+        mainPanel.add(panelIniciarTorneo);
         mainPanel.add(panelInscripciones);
         mainPanel.add(panelDatosTorneo);
         mainPanel.add(panelTipoTorneo);
@@ -37,6 +40,7 @@ public class Ventana extends JFrame {
         panelTipoTorneo.setVisible(false);
         panelDatosTorneo.setVisible(false);
         panelInscripciones.setVisible(false);
+        panelIniciarTorneo.setVisible(false);
         panelTorneo.setVisible(false);
 
         this.add(mainPanel);
@@ -53,6 +57,9 @@ public class Ventana extends JFrame {
     }
     public PanelInscripciones getPanelInscripciones() {
         return panelInscripciones;
+    }
+    public PanelIniciarTorneo getPanelIniciarTorneo() {
+        return panelIniciarTorneo;
     }
     public DatosTorneo getDatosTorneo() {
         return datosTorneo;
