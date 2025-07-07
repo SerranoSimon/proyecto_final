@@ -3,9 +3,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
+
+import Logica.*;
 
 public class PanelTorneo extends JPanel {
     private DatosTorneo datosTorneo;
+    protected Torneo torneo;
     private Timer timer;
     private int tiempoRestante;
     private JLabel contadorLabel;
@@ -13,6 +17,12 @@ public class PanelTorneo extends JPanel {
 
     public PanelTorneo(DatosTorneo datosTorneo) {
         this.datosTorneo = datosTorneo;
+        if(Objects.equals(datosTorneo.getModalidadTorneo(), "Individual")){
+            torneo=new TorneoIndividual(datosTorneo.getModalidadTorneo(), datosTorneo.getTorneoTiempoNormal(), datosTorneo.getTiempoDesempate());
+        }
+        else{
+            torneo=new TorneoEquipos(datosTorneo.getModalidadTorneo(), datosTorneo.getTorneoTiempoNormal(), datosTorneo.getTiempoDesempate());
+        }
         setBackground(Color.LIGHT_GRAY);
         setLayout(new BorderLayout());
 
@@ -30,7 +40,7 @@ public class PanelTorneo extends JPanel {
         panelSuperior.add(contadorLabel);
 
         JLabel infoTorneo = new JLabel(
-                datosTorneo.getModalidadTorneo() + " - " + datosTorneo.getTorneoTiempo() + " - " + datosTorneo.getTipoParticipantes(),
+                datosTorneo.getModalidadTorneo() + " - " + datosTorneo.getTorneoTiempoNormal() + " - " + datosTorneo.getTipoParticipantes(),
                 SwingConstants.RIGHT
         );
         infoTorneo.setFont(new Font("Monospaced", Font.PLAIN, 16));
@@ -110,7 +120,7 @@ public class PanelTorneo extends JPanel {
         btnIniciarRonda.setBackground(new Color(60, 180, 75));
         btnIniciarRonda.setForeground(Color.WHITE);
         btnIniciarRonda.setFocusPainted(false);
-        btnIniciarRonda.addActionListener(e -> iniciarContador());
+        //btnIniciarRonda.addActionListener(e -> iniciarContador());
 
         JPanel panelBoton = new JPanel(new GridLayout(1, 2, 10, 0));
         panelBoton.setBorder(BorderFactory.createEmptyBorder(20, 100, 20, 100));
@@ -134,9 +144,9 @@ public class PanelTorneo extends JPanel {
             }
         });
     }
-
+    /*
     private void iniciarContador() {
-            switch(datosTorneo.getTorneoTiempo().toLowerCase()) {
+            switch(datosTorneo.getTorneoTiempoNormal()) {
                 case "blitz": tiempoRestante = 3; break;
                 case "rápido": tiempoRestante = 15; break;
                 case "clásico": tiempoRestante = 90; break;
@@ -146,5 +156,5 @@ public class PanelTorneo extends JPanel {
             contadorLabel.setForeground(Color.BLUE);
             timer.start();
             btnIniciarRonda.setEnabled(false);
-    }
+    } */
 }

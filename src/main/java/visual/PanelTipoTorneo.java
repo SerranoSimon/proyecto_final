@@ -1,16 +1,24 @@
 package visual;
 
+import Logica.EliminacionDirecta;
+import Logica.SistemaSuizo;
+import Logica.TipoDePartida;
+import Logica.TodosContraTodos;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class PanelTipoTorneo extends JPanel {
-    private JToggleButton botonTiempoPrincipal;
+    private JToggleButton botonTiempoNormal;
     private JToggleButton botonTiempoDesempate;
     private DatosTorneo datosTorneo;
 
     public PanelTipoTorneo(Ventana ventana, DatosTorneo datosTorneo) {
         this.datosTorneo = datosTorneo;
+        this.botonTiempoNormal=new JToggleButton();
+        this.botonTiempoDesempate=new JToggleButton();
         setLayout(new BorderLayout());
         setBackground(new Color(30, 30, 40));
 
@@ -152,11 +160,25 @@ public class PanelTipoTorneo extends JPanel {
         ActionListener listener = e -> {
             JToggleButton boton = (JToggleButton) e.getSource();
             if (esPrincipal) {
-                botonTiempoPrincipal = boton;
-                datosTorneo.setTorneoTiempo(boton.getText());
+                if(botonTiempoNormal.getText().equals("Clásico")){
+                    datosTorneo.setTorneoTiempoNormal(TipoDePartida.CLASICA);
+                } else if (botonTiempoNormal.getText().equals("Rápido")) {
+                    datosTorneo.setTorneoTiempoNormal(TipoDePartida.RAPIDA);
+                    
+                }
+                else{
+                    datosTorneo.setTorneoTiempoNormal(TipoDePartida.BLITZ);
+                }
             } else {
-                botonTiempoDesempate = boton;
-                datosTorneo.setTorneoDesempate(boton.getText());
+                if(botonTiempoDesempate.getText().equals("Clásico")){
+                    datosTorneo.setTorneoTiempoDesempate(TipoDePartida.CLASICA);
+                } else if (botonTiempoDesempate.getText().equals("Rápido")) {
+                    datosTorneo.setTorneoTiempoDesempate(TipoDePartida.RAPIDA);
+
+                }
+                else{
+                    datosTorneo.setTorneoTiempoDesempate(TipoDePartida.BLITZ);
+                }
             }
         };
 
@@ -194,7 +216,14 @@ public class PanelTipoTorneo extends JPanel {
         boton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         boton.addActionListener(e -> {
-            datosTorneo.setModalidadTorneo(texto);
+            if(Objects.equals(texto, "Sistema Suizo")){
+                datosTorneo.setModalidadTorneo(new SistemaSuizo());
+            } else if (Objects.equals(texto, "Eliminación Directa")) {
+                datosTorneo.setModalidadTorneo(new EliminacionDirecta());
+            }
+            else{
+                datosTorneo.setModalidadTorneo(new TodosContraTodos());
+            }
         });
 
         return boton;
@@ -231,7 +260,7 @@ public class PanelTipoTorneo extends JPanel {
         boton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         boton.addActionListener(e -> {
-            datosTorneo.setTipoParticipantes(texto);
+           datosTorneo.setTipoParticipantes(texto);
         });
         return boton;
     }
@@ -294,7 +323,7 @@ public class PanelTipoTorneo extends JPanel {
     private boolean validarSelecciones() {
         return datosTorneo.getModalidadTorneo() != null &&
                 datosTorneo.getTipoParticipantes() != null &&
-                botonTiempoPrincipal != null &&
+                botonTiempoNormal != null &&
                 botonTiempoDesempate != null;
     }
 }
