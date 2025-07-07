@@ -47,8 +47,8 @@ public class PanelDatosTorneo extends JPanel {
                 validarDatosCompletos();
                 datosTorneo.setTorneoFecha(textoFecha.getText());
                 datosTorneo.setTorneoLugar(textoLugar.getText());
-
                 ventana.getPanelInscripciones().setVisible(true);
+                ventana.getPanelInscripciones().generarParticipantes();
                 setVisible(false);
 
             } catch (DatosInsuficientesException ex) {
