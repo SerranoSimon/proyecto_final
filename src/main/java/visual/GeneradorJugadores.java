@@ -6,9 +6,11 @@ import java.util.Random;
 
 public class GeneradorJugadores {
     private ArrayList<Jugador> jugadores;
+    private ArrayList<Equipo> equipos;
 
     public GeneradorJugadores() {
         this.jugadores = new ArrayList<>();
+        this.equipos = new ArrayList<>();
         generarJugadores();
     }
     private void generarJugadores() {
@@ -36,5 +38,18 @@ public class GeneradorJugadores {
             seleccionados.add(Jugadores.get(i));
         }
         return seleccionados;
+    }
+    public ArrayList<Equipo> generarEquipos() {
+        equipos.clear();
+        ArrayList<Jugador> jugadoresEquipo = new ArrayList<>(jugadores);
+
+        for (int i = 0; i < jugadoresEquipo.size() - 1; i += 2) {
+            ArrayList<Participante> miembrosEquipo = new ArrayList<>();
+            miembrosEquipo.add(jugadoresEquipo.get(i));
+            miembrosEquipo.add(jugadoresEquipo.get(i+1));
+
+            equipos.add(new Equipo("Equipo " + (i/2 + 1), miembrosEquipo));
+        }
+        return new ArrayList<>(equipos);
     }
 }
