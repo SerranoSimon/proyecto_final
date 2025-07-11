@@ -6,11 +6,13 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class PanelInscripciones extends JPanel {
+    private PanelDatosTorneo panelDatosTorneo;
     private DatosTorneo datosTorneo;
     private JPanel panelParticipantes;
 
-    public PanelInscripciones(Ventana ventana, DatosTorneo datosTorneo) {
-        this.datosTorneo = datosTorneo;
+    public PanelInscripciones(Ventana ventana) {
+        panelDatosTorneo=ventana.getPanelDatosTorneo();
+        datosTorneo=ventana.getDatosTorneo();
         setLayout(new BorderLayout());
         setBackground(new Color(30, 30, 40));
 
@@ -77,6 +79,12 @@ public class PanelInscripciones extends JPanel {
         btnAceptar.setForeground(Color.WHITE);
         btnAceptar.setFocusPainted(false);
         btnAceptar.setPreferredSize(new Dimension(100, 35));
+        btnAceptar.addActionListener(e -> {
+            panelDatosTorneo.getTorneo().agregarParticipante(participante);
+            panelParticipantes.remove(panel);
+            panelParticipantes.repaint();
+            panelParticipantes.revalidate();
+        });
 
         panel.add(btnAceptar, BorderLayout.EAST);
         return panel;

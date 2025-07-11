@@ -26,7 +26,7 @@ public class Ventana extends JFrame {
         panelMenu = new PanelMenu(this);
         panelTipoTorneo = new PanelTipoTorneo(this, datosTorneo);
         panelDatosTorneo = new PanelDatosTorneo(this, datosTorneo);
-        panelInscripciones = new PanelInscripciones(this, datosTorneo);
+        panelInscripciones = new PanelInscripciones(this);
         panelIniciarTorneo = new PanelIniciarTorneo(this);
         panelTorneo = new PanelTorneo(datosTorneo);
 

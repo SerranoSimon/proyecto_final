@@ -1,11 +1,17 @@
 package visual;
+import Logica.Torneo;
+import Logica.TorneoEquipos;
+import Logica.TorneoIndividual;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class PanelDatosTorneo extends JPanel {
     private JTextField textoFecha;
     private JTextField textoLugar;
     private DatosTorneo datosTorneo;
+    private Torneo torneo;
 
     public PanelDatosTorneo(Ventana ventana, DatosTorneo datosTorneo) {
         this.datosTorneo = datosTorneo;
@@ -47,6 +53,14 @@ public class PanelDatosTorneo extends JPanel {
                 validarDatosCompletos();
                 datosTorneo.setTorneoFecha(textoFecha.getText());
                 datosTorneo.setTorneoLugar(textoLugar.getText());
+                if(Objects.equals(datosTorneo.getTipoParticipantes(), "Individual")){
+                    torneo=new TorneoIndividual(datosTorneo.getModalidadTorneo(), datosTorneo.getTorneoTiempoNormal(), datosTorneo.getTiempoDesempate());
+
+                }
+                else{
+                    torneo=new TorneoEquipos(datosTorneo.getModalidadTorneo(), datosTorneo.getTorneoTiempoNormal(), datosTorneo.getTiempoDesempate());
+
+                }
                 ventana.getPanelInscripciones().setVisible(true);
                 ventana.getPanelInscripciones().generarParticipantes();
                 setVisible(false);
@@ -103,5 +117,8 @@ public class PanelDatosTorneo extends JPanel {
         if (errores.length() > 0) {
             throw new DatosInsuficientesException("Datos incompletos:\n" + errores.toString());
         }
+    }
+    public Torneo getTorneo() {
+        return torneo;
     }
 }

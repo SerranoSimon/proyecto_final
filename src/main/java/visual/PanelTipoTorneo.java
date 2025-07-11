@@ -307,12 +307,6 @@ public class PanelTipoTorneo extends JPanel {
 
         btnContinuar.addActionListener(e -> {
             if (validarSelecciones()) {
-                if(Objects.equals(datosTorneo.getModalidadTorneo(), "Individual")){
-                    torneo=new TorneoIndividual(datosTorneo.getModalidadTorneo(), datosTorneo.getTorneoTiempoNormal(), datosTorneo.getTiempoDesempate());
-                }
-                else{
-                    torneo=new TorneoEquipos(datosTorneo.getModalidadTorneo(), datosTorneo.getTorneoTiempoNormal(), datosTorneo.getTiempoDesempate());
-                }
                 ventana.getPanelDatosTorneo().setVisible(true);
                 setVisible(false);
             } else {
@@ -330,4 +324,5 @@ public class PanelTipoTorneo extends JPanel {
                 botonTiempoNormal != null &&
                 botonTiempoDesempate != null;
     }
+
 }
