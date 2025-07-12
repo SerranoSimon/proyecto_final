@@ -145,27 +145,6 @@ public class PanelTorneo extends JPanel implements Observer {
             try {
                 torneo.establecerGanadores();
 
-                Participante primerLugar = torneo.getPrimerLugar();
-                Participante segundoLugar = torneo.getSegundoLugar();
-                Participante tercerLugar = torneo.getTercerLugar();
-
-                PanelGanadores panelGanadores = new PanelGanadores(primerLugar, segundoLugar, tercerLugar);
-
-                JPanel nuevoPanelCentral = new JPanel(new BorderLayout());
-                nuevoPanelCentral.add(panelGanadores, BorderLayout.CENTER);
-
-                remove(panelDeEnfrentamientos);
-                add(nuevoPanelCentral, BorderLayout.CENTER);
-                revalidate();
-                repaint();
-
-                panelGanadores.getCerrarButton().addActionListener(ev -> {
-                    remove(nuevoPanelCentral);
-                    add(panelDeEnfrentamientos, BorderLayout.CENTER);
-                    revalidate();
-                    repaint();
-                });
-
             } catch ( ExisteEmpateException ex) {
                 JOptionPane.showMessageDialog(this,"Ok para desempatar",
                         ex.getMessage(), JOptionPane.WARNING_MESSAGE);
@@ -177,9 +156,23 @@ public class PanelTorneo extends JPanel implements Observer {
                     throw new RuntimeException(exc);
                 }
             }
-            System.out.println("PRIMER LUGAR: "+torneo.getPrimerLugar());
-            System.out.println("SEGUNDO LUGAR: "+torneo.getSegundoLugar());
-            System.out.println("TERCER LUGAR: "+torneo.getTercerLugar());
+            Participante primerLugar = torneo.getPrimerLugar();
+            Participante segundoLugar = torneo.getSegundoLugar();
+            Participante tercerLugar = torneo.getTercerLugar();
+
+            PanelGanadores panelGanadores = new PanelGanadores(primerLugar, segundoLugar, tercerLugar);
+
+            JPanel nuevoPanelCentral = new JPanel(new BorderLayout());
+            nuevoPanelCentral.add(panelGanadores, BorderLayout.CENTER);
+
+            remove(panelDeEnfrentamientos);
+            add(nuevoPanelCentral, BorderLayout.CENTER);
+            btnEstablecerGanadores.setEnabled(false);
+            btnOrdenarEnfrentamientos.setEnabled(false);
+            btnIniciarRonda.setEnabled(false);
+            btnEstado.setEnabled(false);
+            revalidate();
+            repaint();
 
         });
 

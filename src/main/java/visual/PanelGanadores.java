@@ -52,7 +52,7 @@ public class PanelGanadores extends JPanel {
         btnCerrar.setForeground(Color.WHITE);
         btnCerrar.setFocusPainted(false);
         btnCerrar.setPreferredSize(new Dimension(120, 40));
-
+        btnCerrar.addActionListener(e -> System.exit(0));
         JPanel panelBoton = new JPanel();
         panelBoton.setOpaque(false);
         panelBoton.add(btnCerrar);
