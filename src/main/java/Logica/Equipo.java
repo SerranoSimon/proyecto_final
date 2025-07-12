@@ -45,6 +45,11 @@ public class Equipo implements Participante {
     }
 
     @Override
+    public String getApellido() {
+        return "";
+    }
+
+    @Override
     public int getELO() {
         return ELOEquipo;
     }
@@ -84,6 +89,12 @@ public class Equipo implements Participante {
 
     @Override
     public String toString() {
-        return "Equipo "+nombre+"| puntos: "+puntos+"  ELO: "+ELOEquipo;
+        String JugadoresString= "";
+
+        for(Participante e:jugadores){
+            JugadoresString=JugadoresString+e.toString().substring(0,e.toString().length() )+", ";
+        }
+        return "[Equipo "+nombre+": "+JugadoresString.substring(0, JugadoresString.length() - 2)+"]";
+
     }
 }

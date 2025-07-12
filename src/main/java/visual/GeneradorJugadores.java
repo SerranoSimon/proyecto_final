@@ -48,7 +48,7 @@ public class GeneradorJugadores {
             miembrosEquipo.add(jugadoresEquipo.get(i));
             miembrosEquipo.add(jugadoresEquipo.get(i+1));
 
-            equipos.add(new Equipo("Equipo " + (i/2 + 1), miembrosEquipo));
+            equipos.add(new Equipo("Equipo"+(i/2 + 1), miembrosEquipo));
         }
         return new ArrayList<>(equipos);
     }

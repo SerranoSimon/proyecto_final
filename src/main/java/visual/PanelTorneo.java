@@ -3,7 +3,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.awt.*;
-import java.util.Objects;
 
 import Logica.*;
 
@@ -50,18 +49,16 @@ public class PanelTorneo extends JPanel {
 
 
         JPanel panelDeEnfrentamientos=new JPanel();
-        panelDeEnfrentamientos.setLayout(new GridLayout(3,3));
+        panelDeEnfrentamientos.setLayout(new GridLayout(3,2));
         add(panelDeEnfrentamientos, BorderLayout.CENTER);
 
-       // panelDeEnfrentamientos.add(new PanelEnfrentamientosJugadores(), BorderLayout.CENTER);
-
-
+       //BOTON VER ESTADO
         btnEstado = new JButton("Ver estado del torneo");
         btnEstado.setFont(new Font("Monospaced", Font.BOLD, 16));
         btnEstado.setBackground(new Color(70, 150, 220));
         btnEstado.setForeground(Color.WHITE);
         btnEstado.setFocusPainted(false);
-
+        //BOTON INICIAR RONDA
         btnIniciarRonda = new JButton("Iniciar Ronda");
         btnIniciarRonda.setFont(new Font("Arial", Font.BOLD, 16));
         btnIniciarRonda.setBackground(new Color(60, 180, 75));
@@ -69,14 +66,20 @@ public class PanelTorneo extends JPanel {
         btnIniciarRonda.setFocusPainted(false);
         btnIniciarRonda.addActionListener(e -> {
             try {
+                panelDeEnfrentamientos.removeAll();
                 torneo.ejecutarRonda();
+                for(Enfrentamiento enf: torneo.getEnfrentamientosJugadosPorRonda()){
+                    panelDeEnfrentamientos.add(new PanelEnfrentamiento(enf));
+                }
             } catch (OrdenarEnfrentamientosNoEjecutadoException ex) {
                 JOptionPane.showMessageDialog(this,  ex.getMessage(),
                         "Error", JOptionPane.ERROR_MESSAGE);
 
             }
+            panelDeEnfrentamientos.repaint();
+            panelDeEnfrentamientos.revalidate();
         });
-
+        //BOTON ORDENAR ENFRENTAMIENTOS
         btnOrdenarEnfrentamientos= new JButton("Ordenar Enfrentamientos");
         btnOrdenarEnfrentamientos.setFont(new Font("Arial", Font.BOLD, 16));
         btnOrdenarEnfrentamientos.setBackground(new Color(60, 180, 75));
@@ -85,11 +88,13 @@ public class PanelTorneo extends JPanel {
         btnOrdenarEnfrentamientos.addActionListener(e -> {
             try {
                 torneo.ordenarEnfrentamientos();
+
             } catch (EnfrentamientosYaOrdenadosException | LimiteDeRondasSuperadoException ex) {
                 JOptionPane.showMessageDialog(this,  ex.getMessage(),
                         "Error", JOptionPane.ERROR_MESSAGE);
 
             }
+
         });
 
 

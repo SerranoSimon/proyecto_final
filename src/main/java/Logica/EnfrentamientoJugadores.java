@@ -6,6 +6,7 @@ package Logica;
 public class EnfrentamientoJugadores implements Enfrentamiento{
     private Participante j1;
     private Participante j2;
+    private Participante ganador;
     private TipoDePartida normal;
     private TipoDePartida desempate;
     private Resultado resultado;
@@ -89,21 +90,40 @@ public class EnfrentamientoJugadores implements Enfrentamiento{
         if(puntosJ1>puntosJ2){
             resultado= Resultado.VICTORIA_P1;
             j1.agregarPuntos(2);
+            ganador=j1;
             System.out.println("GANA EL ENFRENTAMIENTO: "+j1.getNombre());
+
         }
         else{
             resultado= Resultado.VICTORIA_P2;
             j2.agregarPuntos(2);
+            ganador=j2;
             System.out.println("GANA EL ENFRENTAMIENTO: "+j2.getNombre());
         }
     }
-
+    @Override
     public int getTiempoPartidasJugadas() {
         return tiempoPartidasJugadas;
     }
 
+
+
     @Override
     public Resultado getResultado(){
         return resultado;
+    }
+
+    @Override
+    public Participante getP1() {
+        return j1;
+    }
+
+    @Override
+    public Participante getP2() {
+        return j2;
+    }
+    @Override
+    public Participante getGanador() {
+        return ganador;
     }
 }

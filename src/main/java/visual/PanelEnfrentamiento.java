@@ -1,17 +1,55 @@
 package visual;
 
+import Logica.Enfrentamiento;
 import Logica.Participante;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
+import java.awt.event.MouseEvent;
+import javax.swing.ToolTipManager;
 
-public class PanelEnfrentamientosJugadores extends JPanel {
+public class PanelEnfrentamiento extends JPanel {
     private Participante p1;
     private Participante p2;
-    public PanelEnfrentamientosJugadores(ArrayList<Participante>  enf){
-        p1=enf.getFirst();
-        p2=enf.getLast();
+    private Enfrentamiento enfrentamiento;
+    private boolean mostrarGanador;
+    public PanelEnfrentamiento(Enfrentamiento enf){
+        enfrentamiento=enf;
+        p1=enf.getP1();
+        p2=enf.getP2();
+        ToolTipManager.sharedInstance().registerComponent(this);
+        Timer timer = new Timer(enf.getTiempoPartidasJugadas()*1000, e -> {
+            mostrarGanador = true;
+            repaint();
+        });
+        timer.setRepeats(false);
+        timer.start();
+
+    }
+    @Override
+    public String getToolTipText(MouseEvent e) {
+        int x = e.getX();
+        int y = e.getY();
+
+        int mesaX = getWidth() / 4 + (getWidth() / 4);
+        int mesaY = getHeight() / 2 - 30;
+
+        //Coordenadas Participante 1 (izquierda)
+        Rectangle jugador1 = new Rectangle(mesaX - 100, mesaY - 30, 25, 25);
+        //Coordenadas Participante 2 (derecha)
+        Rectangle jugador2 = new Rectangle(mesaX + 75, mesaY - 30, 25, 25);
+        //Coordendas mesa
+        Rectangle mesaRect = new Rectangle(mesaX - 60, mesaY - 10, 120, 70);
+
+        if (jugador1.contains(x, y)) {
+            return p1.toString();
+        } else if (jugador2.contains(x, y)) {
+            return p2.toString();
+        } else if (mesaRect.contains(x, y)) {
+            return mostrarGanador ? "Terminado" : "En juego";
+        }
+
+        return null;
     }
     @Override
     protected void paintComponent(Graphics g) {
@@ -64,6 +102,13 @@ public class PanelEnfrentamientosJugadores extends JPanel {
 
         g2.setColor(new Color(200, 200, 200, 100));
         g2.fillOval(mesaX - 50, getHeight()/2 + 40, 100, 20);
+
+        if (mostrarGanador) {
+            Participante ganador= enfrentamiento.getGanador();
+            g2.setColor(Color.BLACK);
+            g2.setFont(new Font("Arial", Font.BOLD, 16));
+            g2.drawString("Ganador: " + ganador.toString(), getWidth() / 2 - 60, 25);
+        }
 
     }
 

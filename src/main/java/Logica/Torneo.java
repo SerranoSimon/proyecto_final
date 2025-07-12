@@ -11,6 +11,7 @@ public abstract class  Torneo {
     protected ArrayList<Participante> participantes;
     protected ArrayList<Participante> solicitudesInscripcion;
     protected ArrayList<ArrayList<Participante>> distribucion;
+    private ArrayList<Enfrentamiento> enfrentamientosJugadosPorRonda;
     protected int numeroRonda;
     protected int numeroMaximoRondas;
     protected EnfrentamientoFactory factory;
@@ -34,6 +35,7 @@ public abstract class  Torneo {
        this.solicitudesInscripcion=new ArrayList<>();
        this.participantes=new ArrayList<>();
        this.distribucion=new ArrayList<>();
+       this.enfrentamientosJugadosPorRonda=new ArrayList<>();
        this.modalidadJuego=modalidadJuego;
        this.partidaNormal=partidaNormal;
        this.partidaDesempate=partidaDesempate;
@@ -109,12 +111,14 @@ public abstract class  Torneo {
     public void ejecutarRonda() throws LimiteDeRondasSuperadoException, OrdenarEnfrentamientosNoEjecutadoException, LimitesDeParticipantesException{
         if(ordenado){
             ordenado=false;
-        numeroRonda+=1;
+            numeroRonda+=1;
             System.out.println("RONDA: " +
                     "" + numeroRonda);
+            enfrentamientosJugadosPorRonda=new ArrayList<>();
             for (ArrayList<Participante> pareja : distribucion) {
                 Enfrentamiento enf = factory.crearEnfrentamiento(pareja.getFirst(), pareja.getLast(), partidaNormal, partidaDesempate);
                 enf.jugar();
+                enfrentamientosJugadosPorRonda.add(enf);
                 if (modalidadJuego instanceof EliminacionDirecta) {
                     if (enf.getResultado() == Resultado.VICTORIA_P1) {
                         participantes.remove(pareja.getLast());
@@ -143,6 +147,7 @@ public abstract class  Torneo {
                 System.out.println("Disputa tercer lugar eliminacion directa");
                 Enfrentamiento enfTercerLugar = factory.crearEnfrentamiento(disputaTercerLugar.getFirst(), disputaTercerLugar.getLast(), partidaNormal, partidaDesempate);
                 enfTercerLugar.jugar();
+                enfrentamientosJugadosPorRonda.add(enfTercerLugar);
                 if (enfTercerLugar.getResultado() == Resultado.VICTORIA_P1) {
                     tercerLugar = disputaTercerLugar.getFirst();
                 } else {
@@ -151,6 +156,7 @@ public abstract class  Torneo {
 
             }
         }
+
 
 
         }
@@ -225,11 +231,19 @@ public abstract class  Torneo {
         return lugar;
     }
 
+    public ArrayList<ArrayList<Participante>> getDistribucion() {
+        return distribucion;
+    }
+
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
     public void setLugar(String lugar) {
         this.lugar = lugar;
+    }
+
+    public ArrayList<Enfrentamiento> getEnfrentamientosJugadosPorRonda() {
+        return enfrentamientosJugadosPorRonda;
     }
 }

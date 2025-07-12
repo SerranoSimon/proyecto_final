@@ -68,6 +68,6 @@ public class Jugador implements Participante, Comparable<Participante>{
 
     @Override
     public String toString() {
-        return  "Jugador "+nombre+"| puntos: "+puntos+"  ELO: "+ELO;
+        return  "Jugador: "+nombre+" "+apellido;
     }
 }

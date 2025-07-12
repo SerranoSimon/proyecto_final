@@ -15,6 +15,11 @@ public class Fantasma implements Participante{
     }
 
     @Override
+    public String getApellido() {
+        return "";
+    }
+
+    @Override
     public int getELO() {
         return 0;
     }

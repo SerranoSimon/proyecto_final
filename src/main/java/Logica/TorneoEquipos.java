@@ -20,7 +20,7 @@ public class TorneoEquipos extends Torneo {
      */
     @Override
     public void agregarParticipante(Participante participante) throws LimitesDeParticipantesException,TipoDeParticipanteException {
-        if(participantes.size()>6){
+        if(participantes.size()>=6){
             throw new LimitesDeParticipantesException("No se pueden agregar más de 6 equipos al torneo");
         }
         if (participante instanceof Equipo) {

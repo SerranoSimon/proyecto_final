@@ -6,8 +6,7 @@ package Logica;
 public class EnfrentamientoEquipo implements Enfrentamiento {
 private Equipo e1;
 private Equipo e2;
-private EnfrentamientoJugadores enf1;
-private EnfrentamientoJugadores enf2;
+private Participante ganador;
 private TipoDePartida normal;
 private TipoDePartida desempate;
 private Resultado resultado;
@@ -38,13 +37,8 @@ private int tiempoPartidasJugadas;
                 Participante j2 = e2.getJugadores().get(i);
                 EnfrentamientoJugadores enf =
                         new EnfrentamientoJugadores(j1, j2, normal, desempate);
-                tiempoPartidasJugadas+=enf.getTiempoPartidasJugadas();
-                if (i == 0) {
-                    enf1 = enf;
-                } else {
-                    enf2 = enf;
-                }
                 enf.jugar();
+                tiempoPartidasJugadas+=enf.getTiempoPartidasJugadas();
                 if (enf.getResultado() == Resultado.VICTORIA_P1) {
                     puntosE1 += 2;
                 } else {
@@ -57,11 +51,13 @@ private int tiempoPartidasJugadas;
         if(puntosE1>puntosE2){
             e1.agregarPuntos(2);
             resultado=Resultado.VICTORIA_P1;
+            ganador=e1;
             System.out.println("GANA EQUIPO: "+e1);
         }
         else{
             e2.agregarPuntos(2);
             resultado=Resultado.VICTORIA_P2;
+            ganador=e2;
             System.out.println("GANA EQUIPO: "+e2);
         }
 
@@ -78,6 +74,21 @@ private int tiempoPartidasJugadas;
         return resultado;
     }
 
+    @Override
+    public Participante getP1() {
+        return e1;
+    }
+
+    @Override
+    public Participante getP2() {
+        return e2;
+    }
+
+    @Override
+    public Participante getGanador() {
+        return ganador;
+    }
+    @Override
     public int getTiempoPartidasJugadas() {
         return tiempoPartidasJugadas;
     }
