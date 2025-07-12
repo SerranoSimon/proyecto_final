@@ -17,6 +17,7 @@ public class PanelTorneo extends JPanel implements Observer {
     private JButton btnOrdenarEnfrentamientos;
     private JButton btnVerProximosEnfrentamientos;
     private JButton btnEstado;
+    private JButton btnVerHistorial;
     private JPanel panelDeEnfrentamientos;
     private ArrayList<PanelEnfrentamiento> panelesEnfrentamientos;
     private boolean todosTerminados = false;
@@ -102,6 +103,15 @@ public class PanelTorneo extends JPanel implements Observer {
 
             }
 
+        });
+        //BOTON VER HISTORIAL
+        btnVerHistorial = new JButton("Ver historial");
+        btnVerHistorial.setFont(new Font("Arial", Font.BOLD, 16));
+        btnVerHistorial.setBackground(new Color(60, 180, 75));
+        btnVerHistorial.setForeground(Color.WHITE);
+        btnVerHistorial.setFocusPainted(false);
+        btnVerHistorial.addActionListener(e -> {
+            //accion
         });
 
 
