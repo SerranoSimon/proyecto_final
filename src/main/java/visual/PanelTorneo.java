@@ -144,6 +144,28 @@ public class PanelTorneo extends JPanel implements Observer {
         btnEstablecerGanadores.addActionListener(e -> {
             try {
                 torneo.establecerGanadores();
+
+                Participante primerLugar = torneo.getPrimerLugar();
+                Participante segundoLugar = torneo.getSegundoLugar();
+                Participante tercerLugar = torneo.getTercerLugar();
+
+                PanelGanadores panelGanadores = new PanelGanadores(primerLugar, segundoLugar, tercerLugar);
+
+                JPanel nuevoPanelCentral = new JPanel(new BorderLayout());
+                nuevoPanelCentral.add(panelGanadores, BorderLayout.CENTER);
+
+                remove(panelDeEnfrentamientos);
+                add(nuevoPanelCentral, BorderLayout.CENTER);
+                revalidate();
+                repaint();
+
+                panelGanadores.getCerrarButton().addActionListener(ev -> {
+                    remove(nuevoPanelCentral);
+                    add(panelDeEnfrentamientos, BorderLayout.CENTER);
+                    revalidate();
+                    repaint();
+                });
+
             } catch ( ExisteEmpateException ex) {
                 JOptionPane.showMessageDialog(this,"Ok para desempatar",
                         ex.getMessage(), JOptionPane.WARNING_MESSAGE);
@@ -161,9 +183,6 @@ public class PanelTorneo extends JPanel implements Observer {
 
         });
 
-
-
-        //panel inferior de botones
         JPanel panelBoton = new JPanel(new GridLayout(1, 3, 10, 0));
         panelBoton.setBorder(BorderFactory.createEmptyBorder(20, 100, 20, 100));
         panelBoton.setOpaque(false);
