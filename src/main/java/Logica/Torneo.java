@@ -53,7 +53,6 @@ public abstract class  Torneo {
      */
     public void iniciar() {
         if (!torneoDeDesempate) {
-            System.out.println("Bienvenidos al torneo ");
             if (participantes.size() < 4) { //revisamos si podemos inicar el torneo
                 throw new LimitesDeParticipantesException("El minimo de participantes para iniciar son 4");
             }

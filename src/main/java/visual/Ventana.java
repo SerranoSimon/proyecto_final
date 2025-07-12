@@ -16,7 +16,7 @@ public class Ventana extends JFrame {
     public Ventana() {
         this.datosTorneo = new DatosTorneo();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setSize(1280, 720);
+        this.setSize(1920, 1080);
         this.setResizable(false);
         this.setTitle("Gestor de Torneos de Ajedrez");
 

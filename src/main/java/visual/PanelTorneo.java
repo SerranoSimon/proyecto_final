@@ -154,7 +154,6 @@ public class PanelTorneo extends JPanel implements Observer {
                 } catch (OrdenarEnfrentamientosNoEjecutadoException exc) {
                     throw new RuntimeException(exc);
                 }
-
             }
             System.out.println("PRIMER LUGAR: "+torneo.getPrimerLugar());
             System.out.println("SEGUNDO LUGAR: "+torneo.getSegundoLugar());
