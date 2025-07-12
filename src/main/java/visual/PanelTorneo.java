@@ -86,6 +86,8 @@ public class PanelTorneo extends JPanel implements Observer {
                     panelesEnfrentamientos.add(p);
                     panelDeEnfrentamientos.add(p);
                 }
+                btnEstado.setEnabled(false);
+                btnIniciarRonda.setEnabled(false);
             } catch (OrdenarEnfrentamientosNoEjecutadoException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(),
                         "Error", JOptionPane.ERROR_MESSAGE);
@@ -189,6 +191,8 @@ public class PanelTorneo extends JPanel implements Observer {
 
         if (todosTerminados) {
             btnOrdenarEnfrentamientos.setEnabled(true);
+            btnEstado.setEnabled(true);
+            btnIniciarRonda.setEnabled(true);
         }
         if(torneo.getNumeroMaximoRondas()== torneo.getNumeroRonda()){
             btnEstablecerGanadores.setEnabled(true);

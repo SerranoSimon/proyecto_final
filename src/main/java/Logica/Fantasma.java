@@ -43,4 +43,9 @@ public class Fantasma implements Participante{
     public void setTuvoDescanso(boolean tuvoDescanso) {
 
     }
+
+    @Override
+    public String toString() {
+        return "";
+    }
 }
