@@ -62,6 +62,13 @@ public class PanelTorneo extends JPanel implements Observer {
         btnEstado.setBackground(new Color(70, 150, 220));
         btnEstado.setForeground(Color.WHITE);
         btnEstado.setFocusPainted(false);
+        btnEstado.addActionListener(e -> {
+            ArrayList<Participante> participantes = torneo.verEstado(); // primero ver estado del torneo
+
+            JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(PanelTorneo.this);
+            PanelEstadoTorneo panelEstado = new PanelEstadoTorneo(parentFrame, participantes);
+            panelEstado.mostrar();
+        });
         //BOTON INICIAR RONDA
         btnIniciarRonda = new JButton("Iniciar Ronda");
         btnIniciarRonda.setFont(new Font("Arial", Font.BOLD, 16));
