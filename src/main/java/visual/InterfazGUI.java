@@ -5,6 +5,7 @@ package visual;
  */
 public class InterfazGUI {
     public static void main(String[] args) {
+        Runtime.getRuntime().addShutdownHook(new Thread(PanelConsola::restaurarConsola));
         Ventana a = new Ventana();
         a.setTitle("Gestor de torneos");
     }

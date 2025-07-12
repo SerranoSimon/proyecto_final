@@ -1,49 +1,98 @@
-
 package visual;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.OutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-public class PanelConsola extends JPanel {
-    private JTextArea textArea;
-    private PrintStream originalSystemOut;
 
-    public PanelConsola() {
+public class PanelConsola {
+    private static JDialog ventana;
+    private static PanelConsola instance;
+    private JTextArea areaTexto;
+    private ByteArrayOutputStream baos;
+    private PrintStream originalOut;
+    private PrintStream customOut;
 
-        textArea = new JTextArea();
-        textArea.setEditable(false);
-        textArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
-        textArea.setBackground(Color.BLACK);
-        textArea.setForeground(Color.GREEN);
-
-
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        setLayout(new BorderLayout());
-        add(scrollPane, BorderLayout.CENTER);
-
-
-        redirectSystemOutput();
+    private PanelConsola() {
     }
 
-    private void redirectSystemOutput() {
-        PrintStream printStream = new PrintStream(new OutputStream() {
+    public static PanelConsola getInstance() {
+        if (instance == null) {
+            instance = new PanelConsola();
+        }
+        return instance;
+    }
+
+    public void mostrarConsola(JFrame parent) {
+        if (ventana == null) {
+            crearVentana(parent);
+            Consola();
+        }
+        ventana.setVisible(true);
+    }
+
+    private void crearVentana(JFrame parent) {
+        ventana = new JDialog(parent, "Historial del torneo", false);
+        ventana.setSize(700, 500);
+        ventana.setLocationRelativeTo(parent);
+        ventana.setLayout(new BorderLayout());
+        ventana.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+
+
+        areaTexto = new JTextArea();
+        areaTexto.setEditable(false);
+        areaTexto.setFont(new Font("Monospaced", Font.PLAIN, 12));
+        areaTexto.setBackground(new Color(30, 30, 40));
+        areaTexto.setForeground(Color.WHITE);
+
+        JScrollPane scrollPane = new JScrollPane(areaTexto);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        ventana.add(scrollPane, BorderLayout.CENTER);
+
+        JButton btnCerrar = new JButton("Cerrar");
+        btnCerrar.setBackground(Color.RED);
+        btnCerrar.setForeground(Color.WHITE);
+        btnCerrar.setFocusPainted(false);
+        btnCerrar.addActionListener(e -> ventana.setVisible(false));
+
+        JPanel panelBoton = new JPanel();
+        panelBoton.add(btnCerrar);
+        ventana.add(panelBoton, BorderLayout.SOUTH);
+    }
+
+    private void Consola() {
+
+        originalOut = System.out;
+
+        baos = new ByteArrayOutputStream();
+        customOut = new PrintStream(baos) {
             @Override
-            public void write(int b) {
-                textArea.append(String.valueOf((char) b));
-                textArea.setCaretPosition(textArea.getDocument().getLength());
+            public void print(String s) {
+                super.print(s);
+                SwingUtilities.invokeLater(() -> {
+                    areaTexto.append(s);
+                    areaTexto.setCaretPosition(areaTexto.getDocument().getLength());
+                });
             }
-        });
 
-        originalSystemOut = System.out;
-        System.setOut(printStream);
-        System.setErr(printStream);
+            @Override
+            public void println(String s) {
+                super.println(s);
+                SwingUtilities.invokeLater(() -> {
+                    areaTexto.append(s + "\n");
+                    areaTexto.setCaretPosition(areaTexto.getDocument().getLength());
+                });
+            }
+        };
+
+        System.setOut(customOut);
+        System.setErr(customOut);
     }
 
-    public void restoreOriginalSystemOutput() {
-        System.setOut(originalSystemOut);
-        System.setErr(originalSystemOut);
+    public static void restaurarConsola() {
+        if (instance != null && instance.originalOut != null) {
+            System.setOut(instance.originalOut);
+            System.setErr(instance.originalOut);
+        }
     }
 }

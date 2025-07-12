@@ -129,7 +129,9 @@ public class PanelTorneo extends JPanel implements Observer {
         btnVerHistorial.setForeground(Color.WHITE);
         btnVerHistorial.setFocusPainted(false);
         btnVerHistorial.addActionListener(e -> {
-            //accion
+            PanelConsola panelConsola = PanelConsola.getInstance();
+            JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(PanelTorneo.this);
+            panelConsola.mostrarConsola(parentFrame);
         });
 
         //BOTON ESTABLECER GANADORES
@@ -170,6 +172,7 @@ public class PanelTorneo extends JPanel implements Observer {
         panelBoton.add(btnEstado);
         panelBoton.add(btnIniciarRonda);
         panelBoton.add(btnOrdenarEnfrentamientos);
+        panelBoton.add(btnVerHistorial);
         panelBoton.add(btnEstablecerGanadores);
         add(panelBoton, BorderLayout.SOUTH);
 
