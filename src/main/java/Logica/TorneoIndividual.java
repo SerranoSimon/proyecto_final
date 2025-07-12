@@ -1,5 +1,6 @@
 package Logica;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class TorneoIndividual extends Torneo {
@@ -155,6 +156,7 @@ public class TorneoIndividual extends Torneo {
             tercerLugar= desempate.primerLugar;
 
         }
+        System.out.println("Se ha desempatado");
 
 
     }

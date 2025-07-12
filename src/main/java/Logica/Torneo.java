@@ -199,7 +199,6 @@ public abstract class  Torneo {
      * @throws OrdenarEnfrentamientosNoEjecutadoException desempatar puede mostrar tal excepcion.
      */
     public void establecerGanadores() throws  ExisteEmpateException {
-        if(numeroRonda==numeroMaximoRondas){
             modalidadJuego.ordenarParticipantesParaMostrar(participantes,numeroRonda);
             if(!(modalidadJuego instanceof  EliminacionDirecta)) {
                 if (!seNecesitaDesempate()) {
@@ -211,11 +210,6 @@ public abstract class  Torneo {
                 }
             }
 
-        }
-        else{
-
-            System.out.println("aun no acaba el torneo");
-        }
     }
 
 
@@ -245,5 +239,25 @@ public abstract class  Torneo {
 
     public ArrayList<Enfrentamiento> getEnfrentamientosJugadosPorRonda() {
         return enfrentamientosJugadosPorRonda;
+    }
+
+    public int getNumeroRonda() {
+        return numeroRonda;
+    }
+
+    public int getNumeroMaximoRondas() {
+        return numeroMaximoRondas;
+    }
+
+    public Participante getPrimerLugar() {
+        return primerLugar;
+    }
+
+    public Participante getSegundoLugar() {
+        return segundoLugar;
+    }
+
+    public Participante getTercerLugar() {
+        return tercerLugar;
     }
 }

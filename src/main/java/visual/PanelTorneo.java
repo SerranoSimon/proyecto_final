@@ -16,6 +16,7 @@ public class PanelTorneo extends JPanel implements Observer {
     private JButton btnIniciarRonda;
     private JButton btnOrdenarEnfrentamientos;
     private JButton btnVerProximosEnfrentamientos;
+    private JButton btnEstablecerGanadores;
     private JButton btnEstado;
     private JButton btnVerHistorial;
     private JPanel panelDeEnfrentamientos;
@@ -120,6 +121,35 @@ public class PanelTorneo extends JPanel implements Observer {
             //accion
         });
 
+        //BOTON ESTABLECER GANADORES
+        btnEstablecerGanadores = new JButton("Establecer ganadores");
+        btnEstablecerGanadores.setFont(new Font("Arial", Font.BOLD, 16));
+        btnEstablecerGanadores.setBackground(new Color(60, 180, 75));
+        btnEstablecerGanadores.setForeground(Color.WHITE);
+        btnEstablecerGanadores.setFocusPainted(false);
+        btnEstablecerGanadores.setEnabled(false);
+        btnEstablecerGanadores.addActionListener(e -> {
+            try {
+                torneo.establecerGanadores();
+            } catch ( ExisteEmpateException ex) {
+                JOptionPane.showMessageDialog(this,"Ok para desempatar",
+                        ex.getMessage(), JOptionPane.WARNING_MESSAGE);
+                try {
+                    torneo.desempatar();
+                    btnEstablecerGanadores.setEnabled(false);
+
+                } catch (OrdenarEnfrentamientosNoEjecutadoException exc) {
+                    throw new RuntimeException(exc);
+                }
+
+            }
+            System.out.println("PRIMER LUGAR: "+torneo.getPrimerLugar());
+            System.out.println("SEGUNDO LUGAR: "+torneo.getSegundoLugar());
+            System.out.println("TERCER LUGAR: "+torneo.getTercerLugar());
+
+        });
+
+
 
         //panel inferior de botones
         JPanel panelBoton = new JPanel(new GridLayout(1, 3, 10, 0));
@@ -129,6 +159,7 @@ public class PanelTorneo extends JPanel implements Observer {
         panelBoton.add(btnEstado);
         panelBoton.add(btnIniciarRonda);
         panelBoton.add(btnOrdenarEnfrentamientos);
+        panelBoton.add(btnEstablecerGanadores);
         add(panelBoton, BorderLayout.SOUTH);
 
         timer = new Timer(1000, new ActionListener() {
@@ -158,6 +189,9 @@ public class PanelTorneo extends JPanel implements Observer {
 
         if (todosTerminados) {
             btnOrdenarEnfrentamientos.setEnabled(true);
+        }
+        if(torneo.getNumeroMaximoRondas()== torneo.getNumeroRonda()){
+            btnEstablecerGanadores.setEnabled(true);
         }
     }
 
