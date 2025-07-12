@@ -19,7 +19,6 @@ public class Equipo implements Participante {
      * Constructor que inicializa con los datos dados y verifica que el equipo sea entre 2 y 4 jugadores
      * @param nombre nombre del equipo
      * @param jugadores arraylist de los jugadores que lo componen
-     * @throws LimitesDeJugadoresPorEquipoException error si se la cantidad de jugadores no es la indicada
      */
     public Equipo(String nombre, ArrayList<Participante> jugadores){
         this.nombre=nombre;

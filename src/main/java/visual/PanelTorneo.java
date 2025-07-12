@@ -19,14 +19,10 @@ public class PanelTorneo extends JPanel {
     private JButton btnEstado;
     private JPanel panelDeEnfrentamientos;
 
-    public PanelTorneo(DatosTorneo datosTorneo) {
-        this.datosTorneo = datosTorneo;
-        if(Objects.equals(datosTorneo.getModalidadTorneo(), "Individual")){
-            torneo=new TorneoIndividual(datosTorneo.getModalidadTorneo(), datosTorneo.getTorneoTiempoNormal(), datosTorneo.getTiempoDesempate());
-        }
-        else{
-            torneo=new TorneoEquipos(datosTorneo.getModalidadTorneo(), datosTorneo.getTorneoTiempoNormal(), datosTorneo.getTiempoDesempate());
-        }
+    public PanelTorneo(Ventana ventana) {
+        this.datosTorneo = ventana.getDatosTorneo();
+        torneo=ventana.getPanelDatosTorneo().getTorneo();
+
         setBackground(Color.LIGHT_GRAY);
         setLayout(new BorderLayout());
 
@@ -52,9 +48,6 @@ public class PanelTorneo extends JPanel {
 
         add(panelSuperior, BorderLayout.NORTH);
 
-        this.panelDeEnfrentamientos=new JPanel();
-        panelDeEnfrentamientos.setLayout(new GridLayout(3,3));
-        add(panelDeEnfrentamientos, BorderLayout.CENTER);
 
         JPanel panelDeEnfrentamientos=new JPanel();
         panelDeEnfrentamientos.setLayout(new GridLayout(3,3));

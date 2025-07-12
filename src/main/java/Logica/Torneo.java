@@ -45,25 +45,6 @@ public abstract class  Torneo {
 
    }
 
-    /**
-     * Metodo para solicitar la inscripcion para el torneo
-     * @param participante participante que desea inscribirse
-     */
-    public void solicitarInscripcion(Participante participante) {
-        solicitudesInscripcion.add(participante);
-        System.out.println("Solicitud de inscripción recibida para: " + participante);
-    }
-
-    /**
-     * metodo para aceptar a un participante en el torneo (asumimos que solicitó inscribirse)
-     * @param participante participante que se quiere aceptar en el torne
-     */
-    public void aceptarSolicitud(Participante participante) {
-        solicitudesInscripcion.remove(participante);
-        agregarParticipante(participante);
-        System.out.println(participante + " ha sido aceptado en el torneo.");
-    }
-
 
     /**
      * Da la bienvenida al torneo y determina el numero maximo de jugadores.
@@ -230,6 +211,7 @@ public abstract class  Torneo {
             System.out.println("aun no acaba el torneo");
         }
     }
+
 
     public ArrayList<Participante> getParticipantes() {
         return this.participantes;

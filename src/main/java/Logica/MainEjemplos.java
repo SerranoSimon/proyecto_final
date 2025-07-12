@@ -28,16 +28,11 @@ public class MainEjemplos {
         //creamos torneo
         Torneo torneo1= new TorneoEquipos(new EliminacionDirecta(), TipoDePartida.CLASICA, TipoDePartida.RAPIDA);
         System.out.println(torneo1);
-        //solicamos e inscribimos equipos
-        torneo1.solicitarInscripcion(e1);
-        torneo1.solicitarInscripcion(e2);
-        torneo1.solicitarInscripcion(e3);
-        torneo1.solicitarInscripcion(e4);
-        torneo1.aceptarSolicitud(e1);
-        torneo1.aceptarSolicitud(e2);
-        torneo1.aceptarSolicitud(e3);
-        torneo1.aceptarSolicitud(e4);
-        //ACTUALIZAR NUMERO DE RONDAS
+        //inscribimos equipos
+        torneo1.agregarParticipante(e1);
+        torneo1.agregarParticipante(e2);
+        torneo1.agregarParticipante(e3);
+        torneo1.agregarParticipante(e4);
         torneo1.iniciar();
         //ronda 1
         torneo1.ordenarEnfrentamientos();

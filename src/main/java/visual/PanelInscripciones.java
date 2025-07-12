@@ -33,15 +33,22 @@ public class PanelInscripciones extends JPanel {
         scrollPane.setPreferredSize(new Dimension(800, 400));
         add(scrollPane, BorderLayout.CENTER);
 
-        JButton btnContinuar = Boton("Continuar", new Color(70, 150, 220));
+        JButton btnContinuar = Boton("Iniciar torneo", new Color(70, 150, 220));
         btnContinuar.addActionListener(e -> {
-            ventana.getPanelTorneo().setVisible(false);
-            ventana.getPanelTorneo().removeAll();
-            ventana.getPanelTorneo().add(new PanelTorneo(ventana.getDatosTorneo()));
-            ventana.getPanelTorneo().revalidate();
-            ventana.getPanelTorneo().repaint();
-            ventana.getPanelIniciarTorneo().setVisible(true);
-            setVisible(false);
+            int cantidadParticipantes = ventana.getPanelDatosTorneo().getTorneo().getParticipantes().size();
+            if (cantidadParticipantes < 4) {
+                JOptionPane.showMessageDialog(this,
+                        "El mínimo de participantes es 4. Tienes  " + cantidadParticipantes + ".",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            ventana.crearPanelTorneo();
+            ventana.getPanelTorneo().torneo.iniciar();
+            ventana.getPanelInscripciones().setVisible(false);
+            ventana.getPanelTorneo().setVisible(true);
+            ventana.getPanelTorneo().setVisible(true);
+            this.setVisible(false);
         });
 
         JPanel panelBoton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -51,44 +58,7 @@ public class PanelInscripciones extends JPanel {
         add(panelBoton, BorderLayout.SOUTH);
     }
 
-    public JPanel PanelParticipante(Participante participante) {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout(10, 0));
-        panel.setBorder(BorderFactory.createEmptyBorder(5, 20, 5, 20));
-        panel.setBackground(new Color(50, 50, 60));
-        panel.setMaximumSize(new Dimension(700, 60));
 
-
-        String info;
-        if (participante instanceof Jugador) {
-            Jugador j = (Jugador) participante;
-            info = j.getNombre() + " " + j.getApellido() + " - ELO: " + j.getELO();
-        } else {
-            Equipo e = (Equipo) participante;
-            info = e.getNombre() + " - ELO:" + e.getELO() + " ";
-        }
-
-        JLabel labelInfo = new JLabel(info);
-        labelInfo.setFont(new Font("Arial", Font.PLAIN, 16));
-        labelInfo.setForeground(Color.WHITE);
-        panel.add(labelInfo, BorderLayout.CENTER);
-
-        JButton btnAceptar = new JButton("Aceptar");
-        btnAceptar.setFont(new Font("Arial", Font.PLAIN, 14));
-        btnAceptar.setBackground(new Color(70, 180, 70));
-        btnAceptar.setForeground(Color.WHITE);
-        btnAceptar.setFocusPainted(false);
-        btnAceptar.setPreferredSize(new Dimension(100, 35));
-        btnAceptar.addActionListener(e -> {
-            panelDatosTorneo.getTorneo().agregarParticipante(participante);
-            panelParticipantes.remove(panel);
-            panelParticipantes.repaint();
-            panelParticipantes.revalidate();
-        });
-
-        panel.add(btnAceptar, BorderLayout.EAST);
-        return panel;
-    }
 
     private JButton Boton(String texto, Color color) {
         JButton boton = new JButton(texto) {
@@ -126,7 +96,7 @@ public class PanelInscripciones extends JPanel {
         }
 
         for (Participante participante : participantes) {
-            panelParticipantes.add(PanelParticipante(participante));
+            panelParticipantes.add(new PanelParticipante(participante, panelDatosTorneo.getTorneo()));
             panelParticipantes.add(Box.createRigidArea(new Dimension(0, 10)));
         }
         panelParticipantes.revalidate();
