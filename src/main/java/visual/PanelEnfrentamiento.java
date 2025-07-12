@@ -6,9 +6,13 @@ import Logica.Participante;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ToolTipManager;
 
 public class PanelEnfrentamiento extends JPanel {
+    private List<Observer> observers = new ArrayList<>();
+    private boolean terminado;
     private Participante p1;
     private Participante p2;
     private Enfrentamiento enfrentamiento;
@@ -20,11 +24,21 @@ public class PanelEnfrentamiento extends JPanel {
         ToolTipManager.sharedInstance().registerComponent(this);
         Timer timer = new Timer(enf.getTiempoPartidasJugadas()*1000, e -> {
             mostrarGanador = true;
+            terminado=true;
+            notificar();
             repaint();
         });
         timer.setRepeats(false);
         timer.start();
 
+    }
+    public void agregarObserver(Observer observer) {
+        observers.add(observer);
+    }
+    public void notificar() {
+        for (Observer observer : observers) {
+            observer.actualizar();
+        }
     }
     @Override
     public String getToolTipText(MouseEvent e) {
@@ -112,4 +126,7 @@ public class PanelEnfrentamiento extends JPanel {
 
     }
 
+    public boolean isTerminado() {
+        return terminado;
+    }
 }

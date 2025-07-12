@@ -3,10 +3,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 import Logica.*;
 
-public class PanelTorneo extends JPanel {
+public class PanelTorneo extends JPanel implements Observer {
     private DatosTorneo datosTorneo;
     protected Torneo torneo;
     private Timer timer;
@@ -17,10 +18,13 @@ public class PanelTorneo extends JPanel {
     private JButton btnVerProximosEnfrentamientos;
     private JButton btnEstado;
     private JPanel panelDeEnfrentamientos;
+    private ArrayList<PanelEnfrentamiento> panelesEnfrentamientos;
+    private boolean todosTerminados = false;
 
     public PanelTorneo(Ventana ventana) {
         this.datosTorneo = ventana.getDatosTorneo();
-        torneo=ventana.getPanelDatosTorneo().getTorneo();
+        panelesEnfrentamientos = new ArrayList<>();
+        torneo = ventana.getPanelDatosTorneo().getTorneo();
 
         setBackground(Color.LIGHT_GRAY);
         setLayout(new BorderLayout());
@@ -48,11 +52,11 @@ public class PanelTorneo extends JPanel {
         add(panelSuperior, BorderLayout.NORTH);
 
 
-        JPanel panelDeEnfrentamientos=new JPanel();
-        panelDeEnfrentamientos.setLayout(new GridLayout(3,2));
+        panelDeEnfrentamientos = new JPanel();
+        panelDeEnfrentamientos.setLayout(new GridLayout(3, 2));
         add(panelDeEnfrentamientos, BorderLayout.CENTER);
 
-       //BOTON VER ESTADO
+        //BOTON VER ESTADO
         btnEstado = new JButton("Ver estado del torneo");
         btnEstado.setFont(new Font("Monospaced", Font.BOLD, 16));
         btnEstado.setBackground(new Color(70, 150, 220));
@@ -68,11 +72,14 @@ public class PanelTorneo extends JPanel {
             try {
                 panelDeEnfrentamientos.removeAll();
                 torneo.ejecutarRonda();
-                for(Enfrentamiento enf: torneo.getEnfrentamientosJugadosPorRonda()){
-                    panelDeEnfrentamientos.add(new PanelEnfrentamiento(enf));
+                for (Enfrentamiento enf : torneo.getEnfrentamientosJugadosPorRonda()) {
+                    PanelEnfrentamiento p = new PanelEnfrentamiento(enf);
+                    p.agregarObserver(this);
+                    panelesEnfrentamientos.add(p);
+                    panelDeEnfrentamientos.add(p);
                 }
             } catch (OrdenarEnfrentamientosNoEjecutadoException ex) {
-                JOptionPane.showMessageDialog(this,  ex.getMessage(),
+                JOptionPane.showMessageDialog(this, ex.getMessage(),
                         "Error", JOptionPane.ERROR_MESSAGE);
 
             }
@@ -80,7 +87,7 @@ public class PanelTorneo extends JPanel {
             panelDeEnfrentamientos.revalidate();
         });
         //BOTON ORDENAR ENFRENTAMIENTOS
-        btnOrdenarEnfrentamientos= new JButton("Ordenar Enfrentamientos");
+        btnOrdenarEnfrentamientos = new JButton("Ordenar Enfrentamientos");
         btnOrdenarEnfrentamientos.setFont(new Font("Arial", Font.BOLD, 16));
         btnOrdenarEnfrentamientos.setBackground(new Color(60, 180, 75));
         btnOrdenarEnfrentamientos.setForeground(Color.WHITE);
@@ -88,15 +95,14 @@ public class PanelTorneo extends JPanel {
         btnOrdenarEnfrentamientos.addActionListener(e -> {
             try {
                 torneo.ordenarEnfrentamientos();
-
+                btnOrdenarEnfrentamientos.setEnabled(false);
             } catch (EnfrentamientosYaOrdenadosException | LimiteDeRondasSuperadoException ex) {
-                JOptionPane.showMessageDialog(this,  ex.getMessage(),
+                JOptionPane.showMessageDialog(this, ex.getMessage(),
                         "Error", JOptionPane.ERROR_MESSAGE);
 
             }
 
         });
-
 
 
         //panel inferior de botones
@@ -123,17 +129,21 @@ public class PanelTorneo extends JPanel {
             }
         });
     }
-    /*
-    private void iniciarContador() {
-            switch(datosTorneo.getTorneoTiempoNormal()) {
-                case "blitz": tiempoRestante = 3; break;
-                case "rápido": tiempoRestante = 15; break;
-                case "clásico": tiempoRestante = 90; break;
-                default: tiempoRestante = 30;
+
+    @Override
+    public void actualizar() {
+        todosTerminados = true;
+        for (PanelEnfrentamiento pEnf : panelesEnfrentamientos) {
+            if (!pEnf.isTerminado()) {
+                todosTerminados = false;
+                break;
             }
-            contadorLabel.setText("tiempo: " + tiempoRestante + "s");
-            contadorLabel.setForeground(Color.BLUE);
-            timer.start();
-            btnIniciarRonda.setEnabled(false);
-    } */
+        }
+
+        if (todosTerminados) {
+            btnOrdenarEnfrentamientos.setEnabled(true);
+        }
+    }
+
 }
+
