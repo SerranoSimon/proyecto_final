@@ -45,6 +45,7 @@ public class PanelInscripciones extends JPanel {
             }
             ventana.crearPanelTorneo();
             ventana.getPanelTorneo().torneo.iniciar();
+            ventana.getPanelTorneo().setRondasMaximasLabel();
             ventana.getPanelInscripciones().setVisible(false);
             ventana.getPanelTorneo().setVisible(true);
             ventana.getPanelTorneo().setVisible(true);

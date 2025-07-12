@@ -12,7 +12,8 @@ public class PanelTorneo extends JPanel implements Observer {
     protected Torneo torneo;
     private Timer timer;
     private int tiempoRestante;
-    private JLabel contadorLabel;
+    private JLabel rondaActualLabel;
+    private JLabel rondasMaximasLabel;
     private JButton btnIniciarRonda;
     private JButton btnOrdenarEnfrentamientos;
     private JButton btnVerProximosEnfrentamientos;
@@ -39,10 +40,17 @@ public class PanelTorneo extends JPanel implements Observer {
         lugar.setFont(new Font("Monospaced", Font.PLAIN, 16));
         panelSuperior.add(lugar);
 
-        contadorLabel = new JLabel("Tiempo: " + tiempoRestante + "s", SwingConstants.CENTER);
-        contadorLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        contadorLabel.setForeground(Color.BLUE);
-        panelSuperior.add(contadorLabel);
+        //RONDAS MAXIMAS LABEL
+        rondasMaximasLabel = new JLabel("", SwingConstants.CENTER);
+        rondasMaximasLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        rondasMaximasLabel.setForeground(Color.BLUE);
+        panelSuperior.add(rondasMaximasLabel);
+
+        //RONDA ACTUAL LABEL
+        rondaActualLabel = new JLabel("", SwingConstants.CENTER);
+        rondaActualLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        rondaActualLabel.setForeground(Color.BLUE);
+        panelSuperior.add(rondaActualLabel);
 
         JLabel infoTorneo = new JLabel(
                 datosTorneo.getModalidadTorneo() + " - " + datosTorneo.getTorneoTiempoNormal() + " - " + datosTorneo.getTipoParticipantes(),
@@ -80,6 +88,7 @@ public class PanelTorneo extends JPanel implements Observer {
             try {
                 panelDeEnfrentamientos.removeAll();
                 torneo.ejecutarRonda();
+                rondaActualLabel.setText("Ronda " + torneo.getNumeroRonda());
                 for (Enfrentamiento enf : torneo.getEnfrentamientosJugadosPorRonda()) {
                     PanelEnfrentamiento p = new PanelEnfrentamiento(enf);
                     p.agregarObserver(this);
@@ -164,19 +173,6 @@ public class PanelTorneo extends JPanel implements Observer {
         panelBoton.add(btnEstablecerGanadores);
         add(panelBoton, BorderLayout.SOUTH);
 
-        timer = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                tiempoRestante--;
-                contadorLabel.setText("tiempo: " + tiempoRestante + "s");
-
-                if (tiempoRestante <= 0) {
-                    timer.stop();
-                    contadorLabel.setForeground(Color.RED);
-                    btnIniciarRonda.setEnabled(true);
-                }
-            }
-        });
     }
 
     @Override
@@ -199,5 +195,8 @@ public class PanelTorneo extends JPanel implements Observer {
         }
     }
 
+    public void setRondasMaximasLabel() {
+      rondasMaximasLabel.setText("Rondas máximas: "+torneo.getNumeroMaximoRondas());
+    }
 }
 
