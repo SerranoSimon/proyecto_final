@@ -11,12 +11,6 @@ public class TorneoIndividual extends Torneo {
     }
 
     /**
-     * al agregar los participantes se revisa que todos sean jugadores.
-     * @param participante participante que se va a agregar.
-     * @throws LimitesDeParticipantesException no pueden haber más de 6 participantes en un torneo
-     */
-
-    /**
      * Se contemplan los casos de empate, si empatan 2 se hace un enfrentamiento, de lo contrario se crea
      * un torneo individual de eliminacion directa para asegurarnos de ya no tener desempates.
      * @throws OrdenarEnfrentamientosNoEjecutadoException si no se ordenan los enfrentamientos, sin embargo

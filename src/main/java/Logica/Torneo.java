@@ -49,7 +49,7 @@ public abstract class  Torneo {
 
 
     /**
-     * Da la bienvenida al torneo y determina el numero maximo de jugadores.
+     * Da inicio al torneo y determina el numero maximo de jugadores.
      */
     public void iniciar() {
         if (!torneoDeDesempate) {

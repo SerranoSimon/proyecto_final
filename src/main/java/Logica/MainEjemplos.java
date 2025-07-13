@@ -158,8 +158,8 @@ public class MainEjemplos {
         j1.agregarPuntos(1);
         j2.agregarPuntos(1);
         j3.agregarPuntos(1);
-        j4.agregarPuntos(1);
-        j5.agregarPuntos(1);
+        j4.agregarPuntos(0);
+        j5.agregarPuntos(0);
         torneo4.numeroRonda=5;
         try{
             torneo4.establecerGanadores();}
