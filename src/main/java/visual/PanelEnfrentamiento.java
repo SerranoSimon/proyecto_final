@@ -16,7 +16,7 @@ public class PanelEnfrentamiento extends JPanel {
     private Participante p1;
     private Participante p2;
     private Enfrentamiento enfrentamiento;
-    private boolean mostrarGanador;
+    private boolean mostrarGanador;;
     public PanelEnfrentamiento(Enfrentamiento enf){
         enfrentamiento=enf;
         p1=enf.getP1();

@@ -13,7 +13,9 @@ import java.awt.event.ActionListener;
  */
 
 public class PanelMenu extends JPanel {
+    private Image fondo;
     public PanelMenu(Ventana ventana) {
+        fondo = new ImageIcon(getClass().getResource("/AjedrezFondo.jpg")).getImage();
         setLayout(new BorderLayout());
         setBackground(new Color(30, 30, 40));
 
@@ -21,6 +23,7 @@ public class PanelMenu extends JPanel {
         titulo.setFont(new Font("Monospaced", Font.BOLD, 36));
         titulo.setForeground(new Color(220, 220, 255));
         titulo.setBorder(BorderFactory.createEmptyBorder(50, 0, 100, 0));
+        titulo.setOpaque(false);
         add(titulo, BorderLayout.NORTH);
 
         JPanel panelBotones = new JPanel();
@@ -78,5 +81,11 @@ public class PanelMenu extends JPanel {
         boton.setFont(new Font("Arial", Font.BOLD, 14));
         boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         return boton;
+    }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+            g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
+
     }
 }

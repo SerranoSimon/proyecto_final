@@ -9,8 +9,9 @@ public class PanelInscripciones extends JPanel {
     private PanelDatosTorneo panelDatosTorneo;
     private DatosTorneo datosTorneo;
     private JPanel panelParticipantes;
-
+    private Image fondo;
     public PanelInscripciones(Ventana ventana) {
+        fondo = new ImageIcon(getClass().getResource("/AjedrezFondo.jpg")).getImage();
         panelDatosTorneo=ventana.getPanelDatosTorneo();
         datosTorneo=ventana.getDatosTorneo();
         setLayout(new BorderLayout());
@@ -102,5 +103,11 @@ public class PanelInscripciones extends JPanel {
         }
         panelParticipantes.revalidate();
         panelParticipantes.repaint();
+    }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
+
     }
 }

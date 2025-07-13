@@ -12,9 +12,11 @@ public class PanelDatosTorneo extends JPanel {
     private JTextField textoLugar;
     private DatosTorneo datosTorneo;
     private Torneo torneo;
+    private Image fondo;
 
     public PanelDatosTorneo(Ventana ventana) {
         this.datosTorneo = ventana.getDatosTorneo();
+        fondo = new ImageIcon(getClass().getResource("/AjedrezFondo.jpg")).getImage();
         setLayout(new BorderLayout());
         setBackground(new Color(30, 30, 40));
 
@@ -118,6 +120,13 @@ public class PanelDatosTorneo extends JPanel {
             throw new DatosInsuficientesException("Datos incompletos:\n" + errores.toString());
         }
     }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
+
+    }
+
     public Torneo getTorneo() {
         return torneo;
     }

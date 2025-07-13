@@ -11,12 +11,13 @@ public class PanelTipoTorneo extends JPanel {
     private JToggleButton botonTiempoNormal;
     private JToggleButton botonTiempoDesempate;
     private DatosTorneo datosTorneo;
-    private Torneo torneo;
+    private Image fondo;
 
     public PanelTipoTorneo(Ventana ventana) {
         this.datosTorneo = ventana.getDatosTorneo();
         this.botonTiempoNormal=new JToggleButton();
         this.botonTiempoDesempate=new JToggleButton();
+        fondo = new ImageIcon(getClass().getResource("/AjedrezFondo.jpg")).getImage();
         setLayout(new BorderLayout());
         setBackground(new Color(30, 30, 40));
 
@@ -317,6 +318,12 @@ public class PanelTipoTorneo extends JPanel {
                 datosTorneo.getTipoParticipantes() != null &&
                 botonTiempoNormal != null &&
                 botonTiempoDesempate != null;
+    }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
+
     }
 
 }
