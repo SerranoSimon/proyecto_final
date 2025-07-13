@@ -88,10 +88,10 @@ public class PanelInscripciones extends JPanel {
     }
     public void generarParticipantes(){
         GeneradorJugadores generador = new GeneradorJugadores();
-        ArrayList<? extends Participante> participantes;
+        ArrayList<Participante> participantes;
 
         if ("Individual".equals(datosTorneo.getTipoParticipantes())) {
-            participantes = generador.seleccionarPostulantes();
+            participantes = generador.generarJugadores();
         } else {
             participantes = generador.generarEquipos();
         }

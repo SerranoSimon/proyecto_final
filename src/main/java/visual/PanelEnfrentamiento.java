@@ -121,7 +121,7 @@ public class PanelEnfrentamiento extends JPanel {
             Participante ganador= enfrentamiento.getGanador();
             g2.setColor(Color.BLACK);
             g2.setFont(new Font("Arial", Font.BOLD, 16));
-            g2.drawString("Ganador: " + ganador.toString(), getWidth() / 2 - 60, 25);
+            g2.drawString("Ganador: " + ganador.toString(), getWidth() / 2 - 250, 25);
         }
 
     }

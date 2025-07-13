@@ -13,8 +13,8 @@ public class PanelTipoTorneo extends JPanel {
     private DatosTorneo datosTorneo;
     private Torneo torneo;
 
-    public PanelTipoTorneo(Ventana ventana, DatosTorneo datosTorneo) {
-        this.datosTorneo = datosTorneo;
+    public PanelTipoTorneo(Ventana ventana) {
+        this.datosTorneo = ventana.getDatosTorneo();
         this.botonTiempoNormal=new JToggleButton();
         this.botonTiempoDesempate=new JToggleButton();
         setLayout(new BorderLayout());

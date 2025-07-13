@@ -21,10 +21,12 @@ public class PanelTorneo extends JPanel implements Observer {
     private JButton btnEstado;
     private JButton btnVerHistorial;
     private JPanel panelDeEnfrentamientos;
+    private PanelConsola panelConsola;
     private ArrayList<PanelEnfrentamiento> panelesEnfrentamientos;
     private boolean todosTerminados = false;
 
     public PanelTorneo(Ventana ventana) {
+        panelConsola = PanelConsola.getInstance();
         this.datosTorneo = ventana.getDatosTorneo();
         panelesEnfrentamientos = new ArrayList<>();
         torneo = ventana.getPanelDatosTorneo().getTorneo();
@@ -129,7 +131,7 @@ public class PanelTorneo extends JPanel implements Observer {
         btnVerHistorial.setForeground(Color.WHITE);
         btnVerHistorial.setFocusPainted(false);
         btnVerHistorial.addActionListener(e -> {
-            PanelConsola panelConsola = PanelConsola.getInstance();
+            panelConsola = PanelConsola.getInstance();
             JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(PanelTorneo.this);
             panelConsola.mostrarConsola(parentFrame);
         });

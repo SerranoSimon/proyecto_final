@@ -13,8 +13,8 @@ public class PanelDatosTorneo extends JPanel {
     private DatosTorneo datosTorneo;
     private Torneo torneo;
 
-    public PanelDatosTorneo(Ventana ventana, DatosTorneo datosTorneo) {
-        this.datosTorneo = datosTorneo;
+    public PanelDatosTorneo(Ventana ventana) {
+        this.datosTorneo = ventana.getDatosTorneo();
         setLayout(new BorderLayout());
         setBackground(new Color(30, 30, 40));
 

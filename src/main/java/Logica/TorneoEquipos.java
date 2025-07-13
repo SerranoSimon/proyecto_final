@@ -12,23 +12,6 @@ public class TorneoEquipos extends Torneo {
 
     }
 
-    /**
-     * al agregar los participantes se revisa que todos sean equipos
-     * @param participante participante que se va a agregar
-     * @throws LimitesDeParticipantesException no pueden haber más de 6 equipos en un torneo
-     * @throws TipoDeParticipanteException si un participante no es equipo.
-     */
-    @Override
-    public void agregarParticipante(Participante participante) throws LimitesDeParticipantesException,TipoDeParticipanteException {
-        if(participantes.size()>=6){
-            throw new LimitesDeParticipantesException("No se pueden agregar más de 6 equipos al torneo");
-        }
-        if (participante instanceof Equipo) {
-            participantes.add(participante);
-        } else {
-           throw new TipoDeParticipanteException("El participante debe ser un equipo");
-        }
-    }
 
     /**
      * Se contemplan los casos de empate, si empatan 2 se hace un enfrentamiento, de lo contrario se crea

@@ -99,7 +99,12 @@ public abstract class  Torneo {
      * @param participante participante que se va a agregar
      * @throws LimiteDeRondasSuperadoException
      */
-    public abstract void agregarParticipante(Participante participante) throws LimitesDeParticipantesException;
+    public void agregarParticipante(Participante participante) throws LimitesDeParticipantesException{
+        if(participantes.size()>=12){
+            throw new LimitesDeParticipantesException("El maximo de participantes por torneo son 12");
+        }
+        participantes.add(participante);
+    }
 
     /**
      * Metodo para ejecutar una ronda de enfrentamientos

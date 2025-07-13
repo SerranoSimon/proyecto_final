@@ -11,16 +11,8 @@ public class PanelParticipante extends JPanel {
        setBorder(BorderFactory.createEmptyBorder(5, 20, 5, 20));
         setBackground(new Color(50, 50, 60));
        setMaximumSize(new Dimension(700, 60));
+        String info= participante.getNombre()+" "+participante.getApellido()+" "+" - ELO: "+participante.getELO();
 
-
-        String info;
-        if (participante instanceof Jugador) {
-            Jugador j = (Jugador) participante;
-            info = j.getNombre() + " " + j.getApellido() + " - ELO: " + j.getELO();
-        } else {
-            Equipo e = (Equipo) participante;
-            info = e.getNombre() + " - ELO:" + e.getELO() + " ";
-        }
 
         JLabel labelInfo = new JLabel(info);
         labelInfo.setFont(new Font("Arial", Font.PLAIN, 16));

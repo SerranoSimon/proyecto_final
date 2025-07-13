@@ -16,17 +16,7 @@ public class TorneoIndividual extends Torneo {
      * @throws LimitesDeParticipantesException no pueden haber más de 6 participantes en un torneo
      * @throws TipoDeParticipanteException si un participante no es un jugador.
      */
-    @Override
-    public void agregarParticipante(Participante participante) throws LimitesDeParticipantesException, TipoDeParticipanteException{
-        if(participantes.size()>=6){
-            throw new LimitesDeParticipantesException("No se pueden agregar más de 6 jugadores al torneo");
-        }
-        if (participante instanceof Jugador) {
-            participantes.add(participante);
-        } else {
-          throw new TipoDeParticipanteException("El participante debe ser un jugador");
-        }
-    }
+
     /**
      * Se contemplan los casos de empate, si empatan 2 se hace un enfrentamiento, de lo contrario se crea
      * un torneo individual de eliminacion directa para asegurarnos de ya no tener desempates.
