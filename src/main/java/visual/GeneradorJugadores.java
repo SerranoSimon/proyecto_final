@@ -13,12 +13,12 @@ public class GeneradorJugadores {
     }
     public ArrayList<Participante> generarJugadores() {
         String[] nombres = {"Juan", "Pedro", "Alejandro", "Carlos", "Ana", "Luis", "Patricia", "Diego",
-                "Sofía", "Miguel", "Wladimir", "David", "Emanuel", "Fernando", "Simón",
-                "Ricardo", "Isabel", "Andrés", "Camila", "Gabriel","Baltazar","Jack","Antonia","Florencia", "Carmen"};
+                "Sofia", "Miguel", "Wladimir", "David", "Emanuel", "Fernando", "Simon",
+                "Ricardo", "Isabel", "Andres", "Camila", "Gabriel","Baltazar","Jack","Antonia","Florencia", "Carmen"};
         ArrayList<String> nombresList= new ArrayList<>(List.of(nombres));
-        String[] apellidos = {"Gómez", "Rodríguez", "López", "Martínez", "García", "Pérez",
-                "Sánchez", "Ramírez", "Torres", "Flores", "Díaz", "Hernández",
-                "Vargas", "Vidal", "Romero", "Suárez", "Álvarez", "Mendoza",
+        String[] apellidos = {"Gomez", "Rodriguez", "Lopez", "Martinez", "Garcia", "Perez",
+                "Sanchez", "Ramirez", "Torres", "Flores", "Diaz", "Hernandez",
+                "Vargas", "Vidal", "Romero", "Suarez", "Alvarez", "Mendoza",
                 "Silva", "Rojas","Leiva","Suazo","Henriquez","Molina","Herrera","Concha"};
         ArrayList<String> apellidosList= new ArrayList<>(List.of(apellidos));
         Random random = new Random();

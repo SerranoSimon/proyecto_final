@@ -19,8 +19,8 @@ public class Partida {
         this.blancas=blancas;
         this.negras=negras;
         this.tipoDePartida=tipoDePartida;
-        System.out.println("  Blancas: "+blancas.getNombre());
-        System.out.println("  Negras: "+negras.getNombre());
+        System.out.println("  Blancas: "+blancas.toString());
+        System.out.println("  Negras: "+negras.toString());
     }
 
     /**

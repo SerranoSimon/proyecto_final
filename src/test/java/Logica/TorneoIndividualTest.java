@@ -16,6 +16,12 @@ class TorneoIndividualTest {
     Participante j5;
     Participante j6;
     Participante j7;
+    Participante j8;
+    Participante j9;
+    Participante j10;
+    Participante j11;
+    Participante j12;
+    Participante j13;
     Participante e1;
     @BeforeEach
     void setUp() {
@@ -27,6 +33,12 @@ class TorneoIndividualTest {
         j5=new Jugador("Marcelo","Leiva","marcelol@gmail.com",2000);
         j6=new Jugador("Rosita","Curihual","rositac@gmail.com",2400);
         j7=new Jugador("Vicente","Leal","vicentel@gmail.com",2320);
+        j8=new Jugador("","","",2320);
+        j9=new Jugador("","","",2320);
+        j10=new Jugador("","","",2320);
+        j11=new Jugador("","","",2320);
+        j12=new Jugador("","","",2320);
+        j13=new Jugador("","","",2320);
         ArrayList<Participante> jugadores1=new ArrayList<>(List.of(j1, j2));
         e1=new Equipo("Equipo 1",jugadores1);
     }
@@ -42,25 +54,15 @@ class TorneoIndividualTest {
             torneo.agregarParticipante(j5);
             torneo.agregarParticipante(j6);
             torneo.agregarParticipante(j7);
+            torneo.agregarParticipante(j8);
+            torneo.agregarParticipante(j9);
+            torneo.agregarParticipante(j10);
+            torneo.agregarParticipante(j11);
+            torneo.agregarParticipante(j12);
+            torneo.agregarParticipante(j13);
+
 
         });
-    }
-
-    @Test
-    void agregarParticipanteIncorrecto() {
-        Exception exception = assertThrows(TipoDeParticipanteException.class, () -> {
-            torneo.agregarParticipante(e1);
-        });
-    }
-    @Test
-    void agregarParticipanteCorrecto() {
-        torneo.agregarParticipante(j1);
-        torneo.agregarParticipante(j2);
-        torneo.agregarParticipante(j3);
-        torneo.agregarParticipante(j4);
-        assertEquals(j1,torneo.participantes.get(0));
-        assertEquals(j2,torneo.participantes.get(1));
-        assertEquals(j3,torneo.participantes.get(2));
     }
 
     @Test

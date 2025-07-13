@@ -47,7 +47,7 @@ public class EnfrentamientoJugadores implements Enfrentamiento{
      * Crea partidas, se alterna el que juega con blancas
      */
     public void jugar(){
-        System.out.println("ENFRENTAMIENTO: "+j1.getNombre()+" v/s "+j2.getNombre());
+        System.out.println("ENFRENTAMIENTO: "+j1.toString()+" v/s "+j2.toString());
         int puntosJ1=0;
         int puntosJ2=0;
         Partida p1=new Partida(j1,j2,normal);
@@ -91,14 +91,14 @@ public class EnfrentamientoJugadores implements Enfrentamiento{
             resultado= Resultado.VICTORIA_P1;
             j1.agregarPuntos(2);
             ganador=j1;
-            System.out.println("GANA EL ENFRENTAMIENTO: "+j1.getNombre());
+            System.out.println("GANA EL ENFRENTAMIENTO: "+j1.toString());
 
         }
         else{
             resultado= Resultado.VICTORIA_P2;
             j2.agregarPuntos(2);
             ganador=j2;
-            System.out.println("GANA EL ENFRENTAMIENTO: "+j2.getNombre());
+            System.out.println("GANA EL ENFRENTAMIENTO: "+j2.toString());
         }
     }
     @Override

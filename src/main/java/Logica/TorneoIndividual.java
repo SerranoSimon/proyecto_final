@@ -14,7 +14,6 @@ public class TorneoIndividual extends Torneo {
      * al agregar los participantes se revisa que todos sean jugadores.
      * @param participante participante que se va a agregar.
      * @throws LimitesDeParticipantesException no pueden haber más de 6 participantes en un torneo
-     * @throws TipoDeParticipanteException si un participante no es un jugador.
      */
 
     /**

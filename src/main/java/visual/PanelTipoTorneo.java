@@ -157,25 +157,19 @@ public class PanelTipoTorneo extends JPanel {
 
         ActionListener listener = e -> {
             JToggleButton boton = (JToggleButton) e.getSource();
+            String texto = boton.getText();
+
             if (esPrincipal) {
-                if(botonTiempoNormal.getText().equals("Clásico")){
-                    datosTorneo.setTorneoTiempoNormal(TipoDePartida.CLASICA);
-                } else if (botonTiempoNormal.getText().equals("Rápido")) {
-                    datosTorneo.setTorneoTiempoNormal(TipoDePartida.RAPIDA);
-                    
-                }
-                else{
-                    datosTorneo.setTorneoTiempoNormal(TipoDePartida.BLITZ);
+                switch (texto) {
+                    case "Clásico" -> datosTorneo.setTorneoTiempoNormal(TipoDePartida.CLASICA);
+                    case "Rápido" -> datosTorneo.setTorneoTiempoNormal(TipoDePartida.RAPIDA);
+                    case "Blitz" -> datosTorneo.setTorneoTiempoNormal(TipoDePartida.BLITZ);
                 }
             } else {
-                if(botonTiempoDesempate.getText().equals("Clásico")){
-                    datosTorneo.setTorneoTiempoDesempate(TipoDePartida.CLASICA);
-                } else if (botonTiempoDesempate.getText().equals("Rápido")) {
-                    datosTorneo.setTorneoTiempoDesempate(TipoDePartida.RAPIDA);
-
-                }
-                else{
-                    datosTorneo.setTorneoTiempoDesempate(TipoDePartida.BLITZ);
+                switch (texto) {
+                    case "Clásico" -> datosTorneo.setTorneoTiempoDesempate(TipoDePartida.CLASICA);
+                    case "Rápido" -> datosTorneo.setTorneoTiempoDesempate(TipoDePartida.RAPIDA);
+                    case "Blitz" -> datosTorneo.setTorneoTiempoDesempate(TipoDePartida.BLITZ);
                 }
             }
         };
