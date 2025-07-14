@@ -176,6 +176,36 @@ public class PanelTorneo extends JPanel implements Observer {
 
         });
 
+        btnVerProximosEnfrentamientos = new JButton("Ver proximos enfrentamientos");
+        btnVerProximosEnfrentamientos.setFont(new Font("Monospaced", Font.BOLD, 16));
+        btnVerProximosEnfrentamientos.setBackground(new Color(70, 150, 220));
+        btnVerProximosEnfrentamientos.setForeground(Color.WHITE);
+        btnVerProximosEnfrentamientos.setFocusPainted(false);
+        btnVerProximosEnfrentamientos.addActionListener(e -> {
+            ArrayList<ArrayList<Participante>> proximosEnfrentamientos = null;
+            try {
+                proximosEnfrentamientos = torneo.obtenerProximosEnfrentamientos();
+            } catch (OrdenarEnfrentamientosNoEjecutadoException ex) {
+                JOptionPane.showMessageDialog(this,
+                        "Aún no se han ordenado los enfrentamientos",
+                        "Enfrentamientos no ordenados", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            JDialog dialog = new JDialog((JFrame) SwingUtilities.getWindowAncestor(PanelTorneo.this),
+                    "Próximos Enfrentamientos", true);
+            dialog.setSize(600, 500);
+            dialog.setLocationRelativeTo(PanelTorneo.this);
+
+            PanelProximosEnfrentamientos panelProximos = PanelProximosEnfrentamientos.getInstance();
+            panelProximos.actualizarEnfrentamientos(proximosEnfrentamientos);
+
+            JPanel container = new JPanel(new BorderLayout());
+            container.add(panelProximos, BorderLayout.CENTER);
+
+            dialog.add(container);
+            dialog.setVisible(true);
+        });
         JPanel panelBoton = new JPanel(new GridLayout(1, 3, 10, 0));
         panelBoton.setBorder(BorderFactory.createEmptyBorder(20, 100, 20, 100));
         panelBoton.setOpaque(false);
@@ -185,6 +215,7 @@ public class PanelTorneo extends JPanel implements Observer {
         panelBoton.add(btnOrdenarEnfrentamientos);
         panelBoton.add(btnVerHistorial);
         panelBoton.add(btnEstablecerGanadores);
+        panelBoton.add(btnVerProximosEnfrentamientos);
         add(panelBoton, BorderLayout.SOUTH);
 
     }
