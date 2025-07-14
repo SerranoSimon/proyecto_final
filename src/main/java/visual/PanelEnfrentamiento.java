@@ -12,6 +12,7 @@ import javax.swing.ToolTipManager;
 
 /**
  * Panel que representa el enfrentamiento entre dos participantes
+ * Posee observers para notificar a panel torneo de si los enfrentamientos han terminado o no
  */
 public class PanelEnfrentamiento extends JPanel {
     private List<Observer> observers = new ArrayList<>();
@@ -19,7 +20,12 @@ public class PanelEnfrentamiento extends JPanel {
     private Participante p1;
     private Participante p2;
     private Enfrentamiento enfrentamiento;
-    private boolean mostrarGanador;;
+    private boolean mostrarGanador;
+
+    /**
+     * Toma un enfrentamiento e inicia un timer de acuerdo al tiempo que se necesitó para aquel
+     * @param enf enfrentamiento al cual representar
+     */
     public PanelEnfrentamiento(Enfrentamiento enf){
         enfrentamiento=enf;
         p1=enf.getP1();
@@ -35,14 +41,28 @@ public class PanelEnfrentamiento extends JPanel {
         timer.start();
 
     }
+
+    /**
+     * a
+     * @param observer observer que se desea agregar
+     */
     public void agregarObserver(Observer observer) {
         observers.add(observer);
     }
+
+    /**
+     * notifica a las clases del cambio de estado
+     */
     public void notificar() {
         for (Observer observer : observers) {
             observer.actualizar();
         }
     }
+
+    /**
+     * Podemos ver si el enfrentamiento sigue en juego y sus participantes posando el cursor sobre ellos
+     * @return null
+     */
     @Override
     public String getToolTipText(MouseEvent e) {
         int x = e.getX();
@@ -68,6 +88,10 @@ public class PanelEnfrentamiento extends JPanel {
 
         return null;
     }
+
+    /**
+     * PaintComponent que dibuja una mesa y representacion grafica de dos participantes, se usó IA para dibujarlos.
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

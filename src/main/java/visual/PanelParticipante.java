@@ -4,7 +4,9 @@ import Logica.*;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * Panel que representa la solicitud de un participante, contiene información de este y puede ser aceptado
+ */
 public class PanelParticipante extends JPanel {
     public PanelParticipante(Participante participante, Torneo torneo) {
        setLayout(new BorderLayout(10, 0));
