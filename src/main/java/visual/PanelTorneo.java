@@ -7,6 +7,9 @@ import java.util.ArrayList;
 
 import Logica.*;
 
+/**
+ * Panel que representa un torneo en la interfaz grafica de la aplicación
+ */
 public class PanelTorneo extends JPanel implements Observer {
     private DatosTorneo datosTorneo;
     protected Torneo torneo;
@@ -73,7 +76,7 @@ public class PanelTorneo extends JPanel implements Observer {
 
         //BOTON VER ESTADO
         btnEstado = new JButton("Ver estado del torneo");
-        btnEstado.setFont(new Font("Monospaced", Font.BOLD, 16));
+        btnEstado.setFont(new Font("Monospaced", Font.BOLD, 10));
         btnEstado.setBackground(new Color(70, 150, 220));
         btnEstado.setForeground(Color.WHITE);
         btnEstado.setFocusPainted(false);
@@ -112,7 +115,7 @@ public class PanelTorneo extends JPanel implements Observer {
         });
         //BOTON ORDENAR ENFRENTAMIENTOS
         btnOrdenarEnfrentamientos = new JButton("Ordenar Enfrentamientos");
-        btnOrdenarEnfrentamientos.setFont(new Font("Arial", Font.BOLD, 16));
+        btnOrdenarEnfrentamientos.setFont(new Font("Arial", Font.BOLD, 10));
         btnOrdenarEnfrentamientos.setBackground(new Color(60, 180, 75));
         btnOrdenarEnfrentamientos.setForeground(Color.WHITE);
         btnOrdenarEnfrentamientos.setFocusPainted(false);
@@ -129,7 +132,7 @@ public class PanelTorneo extends JPanel implements Observer {
         });
         //BOTON VER HISTORIAL
         btnVerHistorial = new JButton("Ver historial");
-        btnVerHistorial.setFont(new Font("Arial", Font.BOLD, 16));
+        btnVerHistorial.setFont(new Font("Arial", Font.BOLD, 13));
         btnVerHistorial.setBackground(new Color(60, 180, 75));
         btnVerHistorial.setForeground(Color.WHITE);
         btnVerHistorial.setFocusPainted(false);
@@ -141,7 +144,7 @@ public class PanelTorneo extends JPanel implements Observer {
 
         //BOTON ESTABLECER GANADORES
         btnEstablecerGanadores = new JButton("Establecer ganadores");
-        btnEstablecerGanadores.setFont(new Font("Arial", Font.BOLD, 16));
+        btnEstablecerGanadores.setFont(new Font("Arial", Font.BOLD, 10));
         btnEstablecerGanadores.setBackground(new Color(60, 180, 75));
         btnEstablecerGanadores.setForeground(Color.WHITE);
         btnEstablecerGanadores.setFocusPainted(false);
@@ -225,6 +228,9 @@ public class PanelTorneo extends JPanel implements Observer {
 
     }
 
+    /**
+     * se revisa si todos los enfrentamientos terminaron, para habilitar o deshabilitar botones
+     */
     @Override
     public void actualizar() {
         todosTerminados = true;

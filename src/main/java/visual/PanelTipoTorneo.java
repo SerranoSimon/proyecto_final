@@ -7,6 +7,10 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
+/**
+ * Panel que sirve para guardar la informacion acerca del torneo, cuenta con botones visibles e interactuables
+ * para que el usuario pueda personalizar el torneo tomando el rol de un organizador.
+ */
 public class PanelTipoTorneo extends JPanel {
     private JToggleButton botonTiempoNormal;
     private JToggleButton botonTiempoDesempate;
@@ -59,6 +63,10 @@ public class PanelTipoTorneo extends JPanel {
         add(contenedorCentral, BorderLayout.CENTER);
     }
 
+    /**
+     * Panel donde se escoge la modalidad del torneo , sistema suizo, eliminacion directa o todos contra todos
+     * @return retorna el panel
+     */
     private JPanel SeccionModalidad() {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -96,6 +104,10 @@ public class PanelTipoTorneo extends JPanel {
         return panel;
     }
 
+    /**
+     * panel donde se escoge si los tipos de participantes son individuales o equipos
+     * @return retorna el panel
+     */
     private JPanel SeccionParticipantes() {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -129,6 +141,12 @@ public class PanelTipoTorneo extends JPanel {
         return panel;
     }
 
+    /**
+     * panel donde se escoge el tiempo para partidas normales y desempates del torneo
+     * @param titulo titulo del panel
+     * @param esPrincipal en caso de que sea principal o desempate
+     * @return retorna el panel
+     */
     private JPanel SeccionTiempo(String titulo, boolean esPrincipal) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -189,6 +207,12 @@ public class PanelTipoTorneo extends JPanel {
         return panel;
     }
 
+    /**
+     * metodo para configurar los botones de los tipos de juego.
+     * @param texto texto del boton
+     * @param color color del boton
+     * @return retorna el boton
+     */
     private JToggleButton BotonModalidad(String texto, Color color) {
         JToggleButton boton = new JToggleButton(texto) {
             @Override
@@ -232,6 +256,12 @@ public class PanelTipoTorneo extends JPanel {
         return boton;
     }
 
+    /**
+     * metodo para configurar el boton de los participantes
+     * @param texto texto del boton
+     * @param color color del boton
+     * @return
+     */
     private JToggleButton BotonParticipantes(String texto, Color color) {
         JToggleButton boton = new JToggleButton(texto) {
             @Override
@@ -268,6 +298,12 @@ public class PanelTipoTorneo extends JPanel {
         return boton;
     }
 
+    /**
+     * metodo para configurar los botones respectivos al tiempo
+     * @param texto texto del boton
+     * @param color color del boton
+     * @return retorna el boton
+     */
     private JToggleButton BotonTiempo(String texto, Color color) {
         JToggleButton boton = new JToggleButton(texto) {
             @Override
@@ -300,6 +336,11 @@ public class PanelTipoTorneo extends JPanel {
         return boton;
     }
 
+    /**
+     * metodo para configurar el boton de continuar
+     * @param ventana ventana donde vive el boton, necesaria para establecer visibilidad a otro panel
+     * @return
+     */
     private JButton BotonContinuar(Ventana ventana) {
         JButton btnContinuar = new JButton("Continuar");
         btnContinuar.setFont(new Font("Monospaced", Font.BOLD, 16));

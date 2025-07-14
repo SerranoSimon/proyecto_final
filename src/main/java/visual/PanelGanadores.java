@@ -4,6 +4,9 @@ import Logica.Participante;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * panel que muestra los ganadores del torneo una vez terminado.
+ */
 public class PanelGanadores extends JPanel {
     private JButton btnCerrar;
 
@@ -60,6 +63,13 @@ public class PanelGanadores extends JPanel {
         add(panelBoton, BorderLayout.SOUTH);
     }
 
+    /**
+     * metodo que crea un panel de ganador(es).
+     * @param participante participante que haya sido ganador de uno de los 3 primeros lugares
+     * @param posicion posicion (primero, segundo, tercero) de ello depende el tipo de medalla que tenga.
+     * @param color color de fondo
+     * @return retorna el panel
+     */
     private JPanel crearPanelGanador(Participante participante, String posicion, Color color) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));

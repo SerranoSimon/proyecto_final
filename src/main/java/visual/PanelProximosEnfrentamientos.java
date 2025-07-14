@@ -5,6 +5,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Panel que genera una ventana para visualizar los proximos enfrentamientos una vez ordenados, patron de uso singleton
+ */
 public class PanelProximosEnfrentamientos extends JPanel {
     private JButton btnCerrar;
     private static PanelProximosEnfrentamientos instance;
@@ -49,6 +52,9 @@ public class PanelProximosEnfrentamientos extends JPanel {
         repaint();
     }
 
+    /**
+     *
+     */
     private void configurarTitulo() {
         JLabel titulo = new JLabel("Próximos Enfrentamientos", SwingConstants.CENTER);
         titulo.setFont(new Font("Arial", Font.BOLD, 24));
@@ -57,6 +63,11 @@ public class PanelProximosEnfrentamientos extends JPanel {
         add(titulo, BorderLayout.NORTH);
     }
 
+    /**
+     *
+     * @param enfrentamientos
+     * @return
+     */
     private JPanel crearPanelEnfrentamientos(ArrayList<ArrayList<Participante>> enfrentamientos) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -77,6 +88,12 @@ public class PanelProximosEnfrentamientos extends JPanel {
         return panel;
     }
 
+    /**
+     *
+     * @param p1
+     * @param p2
+     * @return
+     */
     private JPanel crearPanelEnfrentamientoIndividual(Participante p1, Participante p2) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -113,6 +130,9 @@ public class PanelProximosEnfrentamientos extends JPanel {
         return panel;
     }
 
+    /**
+     * Configuracion visual y actionlistener del boton cerrar del panel
+     */
     private void configurarBotonCerrar() {
         btnCerrar = new JButton("Cerrar");
         btnCerrar.setFont(new Font("Arial", Font.BOLD, 16));

@@ -5,6 +5,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Panel de inscripciones, sirve para agregar participantes al torneo.
+ */
 public class PanelInscripciones extends JPanel {
     private PanelDatosTorneo panelDatosTorneo;
     private DatosTorneo datosTorneo;
@@ -61,7 +64,12 @@ public class PanelInscripciones extends JPanel {
     }
 
 
-
+    /**
+     * metodo para configurar el boton continuar, se utiliza para tratar con la visibilidad de los paneles.
+     * @param texto texto del boton
+     * @param color color del boton
+     * @return retorna el boton
+     */
     private JButton Boton(String texto, Color color) {
         JButton boton = new JButton(texto) {
             @Override
@@ -87,6 +95,10 @@ public class PanelInscripciones extends JPanel {
         boton.setPreferredSize(new Dimension(180, 45));
         return boton;
     }
+
+    /**
+     * metodo para generar participantes visibles y agregables usando GeneradorJugadores
+     */
     public void generarParticipantes(){
         GeneradorJugadores generador = new GeneradorJugadores();
         ArrayList<Participante> participantes;

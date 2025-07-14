@@ -3,6 +3,9 @@ package visual;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Ventana de la aplicación, contiene los paneles principales y configura las funcionalidades basicas.
+ */
 public class Ventana extends JFrame {
     private JPanel mainPanel;
     private PanelMenu panelMenu;

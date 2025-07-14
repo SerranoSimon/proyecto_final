@@ -5,6 +5,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * panel que muestra el estado actual del torneo, los ordena por puntuacion. Utiliza patron de uso singleton.
+ */
 public class PanelEstadoTorneo {
     private static JDialog ventana;
     private static PanelEstadoTorneo instance;
@@ -36,6 +39,10 @@ public class PanelEstadoTorneo {
         ventana.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
     }
 
+    /**
+     * actualiza y configura el contenido del panel, muestra a los participantes con su toString(), puntuacion y lugar en el torneo.
+     * @param participantes participantes del torneo
+     */
     private void actualizarContenido(List<Participante> participantes) {
 
         ventana.getContentPane().removeAll();
