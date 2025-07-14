@@ -55,12 +55,12 @@ public class PanelTorneo extends JPanel implements Observer {
         rondaActualLabel.setFont(new Font("Arial", Font.BOLD, 18));
         rondaActualLabel.setForeground(Color.BLUE);
         panelSuperior.add(rondaActualLabel);
-
+        //info torneo
         JLabel infoTorneo = new JLabel(
-                datosTorneo.getModalidadTorneo() + " - " + datosTorneo.getTorneoTiempoNormal(),
+                datosTorneo.getModalidadTorneo() + " - " + datosTorneo.getTorneoTiempoNormal()+" - "+datosTorneo.getTiempoDesempate()+" - "+datosTorneo.getTipoParticipantes(),
                 SwingConstants.RIGHT
         );
-        infoTorneo.setFont(new Font("Monospaced", Font.PLAIN, 16));
+        infoTorneo.setFont(new Font("Monospaced", Font.PLAIN, 8));
         panelSuperior.add(infoTorneo);
 
         add(panelSuperior, BorderLayout.NORTH);
