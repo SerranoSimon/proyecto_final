@@ -37,10 +37,15 @@ public class PanelTorneo extends JPanel implements Observer {
         JPanel panelSuperior = new JPanel(new GridLayout(1, 3));
         panelSuperior.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         panelSuperior.setOpaque(false);
-
+        //Lugar
         JLabel lugar = new JLabel("Lugar: " + datosTorneo.getTorneoLugar());
         lugar.setFont(new Font("Monospaced", Font.PLAIN, 16));
         panelSuperior.add(lugar);
+        // Fecha y hora
+
+        JLabel fechaHora = new JLabel("Inicio "+datosTorneo.getTorneoFecha());
+        fechaHora.setFont(new Font("Monospaced", Font.PLAIN, 16));
+        panelSuperior.add(fechaHora);
 
         //RONDAS MAXIMAS LABEL
         rondasMaximasLabel = new JLabel("", SwingConstants.CENTER);
