@@ -10,8 +10,6 @@ import Logica.*;
 public class PanelTorneo extends JPanel implements Observer {
     private DatosTorneo datosTorneo;
     protected Torneo torneo;
-    private Timer timer;
-    private int tiempoRestante;
     private JLabel rondaActualLabel;
     private JLabel rondasMaximasLabel;
     private JButton btnIniciarRonda;

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class PanelInscripciones extends JPanel {
     private PanelDatosTorneo panelDatosTorneo;
     private DatosTorneo datosTorneo;
-    private JPanel panelParticipantes;
+    private JPanel panelContenedorParticipantes;
     private Image fondo;
     public PanelInscripciones(Ventana ventana) {
         fondo = new ImageIcon(getClass().getResource("/AjedrezFondo.jpg")).getImage();
@@ -23,11 +23,11 @@ public class PanelInscripciones extends JPanel {
         titulo.setBorder(BorderFactory.createEmptyBorder(50, 0, 30, 0));
         add(titulo, BorderLayout.NORTH);
 
-        panelParticipantes = new JPanel();
-        panelParticipantes.setLayout(new BoxLayout(panelParticipantes, BoxLayout.Y_AXIS));
-        panelParticipantes.setOpaque(false);
+        panelContenedorParticipantes = new JPanel();
+        panelContenedorParticipantes.setLayout(new BoxLayout(panelContenedorParticipantes, BoxLayout.Y_AXIS));
+        panelContenedorParticipantes.setOpaque(false);
 
-        JScrollPane scrollPane = new JScrollPane(panelParticipantes);
+        JScrollPane scrollPane = new JScrollPane(panelContenedorParticipantes);
         scrollPane.setBorder(null);
         scrollPane.setOpaque(false);
         scrollPane.getViewport().setOpaque(false);
@@ -98,11 +98,11 @@ public class PanelInscripciones extends JPanel {
         }
 
         for (Participante participante : participantes) {
-            panelParticipantes.add(new PanelParticipante(participante, panelDatosTorneo.getTorneo()));
-            panelParticipantes.add(Box.createRigidArea(new Dimension(0, 10)));
+            panelContenedorParticipantes.add(new PanelParticipante(participante, panelDatosTorneo.getTorneo()));
+            panelContenedorParticipantes.add(Box.createRigidArea(new Dimension(0, 10)));
         }
-        panelParticipantes.revalidate();
-        panelParticipantes.repaint();
+        panelContenedorParticipantes.revalidate();
+        panelContenedorParticipantes.repaint();
     }
     @Override
     protected void paintComponent(Graphics g) {
