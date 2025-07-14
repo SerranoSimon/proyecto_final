@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ToolTipManager;
 
+/**
+ * Panel que representa el enfrentamiento entre dos participantes
+ */
 public class PanelEnfrentamiento extends JPanel {
     private List<Observer> observers = new ArrayList<>();
     private boolean terminado;

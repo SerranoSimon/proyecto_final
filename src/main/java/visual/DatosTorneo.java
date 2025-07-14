@@ -4,6 +4,9 @@ import Logica.ModalidadJuego;
 import Logica.Participante;
 import Logica.TipoDePartida;
 
+/**
+ * Clase que representa los datos del torneo, la usaramemos para setters y getters a medida que se va creando el torneo
+ */
 public class DatosTorneo {
     private String torneoFecha;
     private String torneoLugar;
