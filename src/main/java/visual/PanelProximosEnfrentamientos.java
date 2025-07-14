@@ -53,7 +53,7 @@ public class PanelProximosEnfrentamientos extends JPanel {
     }
 
     /**
-     *
+     * metodo para configurar el titulo de la ventana
      */
     private void configurarTitulo() {
         JLabel titulo = new JLabel("Próximos Enfrentamientos", SwingConstants.CENTER);
@@ -64,9 +64,9 @@ public class PanelProximosEnfrentamientos extends JPanel {
     }
 
     /**
-     *
-     * @param enfrentamientos
-     * @return
+     *metodo para cofigurar la estructura principal de la ventana
+     * @param enfrentamientos enfrentamientos para cada ronda
+     * @return retorna el panel
      */
     private JPanel crearPanelEnfrentamientos(ArrayList<ArrayList<Participante>> enfrentamientos) {
         JPanel panel = new JPanel();
@@ -89,10 +89,10 @@ public class PanelProximosEnfrentamientos extends JPanel {
     }
 
     /**
-     *
-     * @param p1
-     * @param p2
-     * @return
+     *metodo para establecer la configuracion de la ventana para cada enfrentamiento, titulo y participantes.
+     * @param p1 participante 1
+     * @param p2 participante 2
+     * @return retorna el panel
      */
     private JPanel crearPanelEnfrentamientoIndividual(Participante p1, Participante p2) {
         JPanel panel = new JPanel();
