@@ -355,20 +355,46 @@ public class PanelTipoTorneo extends JPanel {
             if (validarSelecciones()) {
                 ventana.getPanelDatosTorneo().setVisible(true);
                 setVisible(false);
-            } else {
-                JOptionPane.showMessageDialog(this,
-                        "Debes completar todas las selecciones",
-                        "Datos incompletos", JOptionPane.WARNING_MESSAGE);
             }
         });
 
         return btnContinuar;
     }
+
+    /**
+     * Se valida si no se llena con la informacion
+     * @return booleano que indica si se llenó correctamente
+     */
     private boolean validarSelecciones() {
-        return datosTorneo.getModalidadTorneo() != null &&
-                datosTorneo.getTipoParticipantes() != null &&
-                botonTiempoNormal != null &&
-                botonTiempoDesempate != null;
+        if (datosTorneo.getModalidadTorneo() == null) {
+            mostrarError("Debes seleccionar una modalidad del torneo.");
+            return false;
+        }
+
+        if (datosTorneo.getTipoParticipantes() == null) {
+            mostrarError("Debes seleccionar el tipo de participantes.");
+            return false;
+        }
+
+        if (datosTorneo.getTorneoTiempoNormal() == null) {
+            mostrarError("Debes seleccionar un tiempo principal para las partidas.");
+            return false;
+        }
+
+        if (datosTorneo.getTiempoDesempate() == null) {
+            mostrarError("Debes seleccionar un tiempo para los desempates.");
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Muestra el dato que no se completó
+     * @param mensaje
+     */
+    private void mostrarError(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, "Datos incompletos", JOptionPane.WARNING_MESSAGE);
     }
     @Override
     protected void paintComponent(Graphics g) {

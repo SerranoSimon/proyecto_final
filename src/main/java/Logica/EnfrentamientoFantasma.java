@@ -12,10 +12,12 @@ Participante ganador;
         this.p2=p2;
         if(p1 instanceof Fantasma){
             p2.agregarPuntos(1);
+            ganador=p2;
             System.out.println(p2+" Descansa");
         }
         else{
             p1.agregarPuntos(1);
+            ganador=p1;
             System.out.println(p1+" Descansa");
         }
     }
@@ -31,7 +33,6 @@ Participante ganador;
             return Resultado.VICTORIA_P2;
         }
         else{
-            ganador=p1;
             return Resultado.VICTORIA_P1;
         }
     }
