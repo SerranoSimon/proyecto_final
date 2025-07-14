@@ -7,6 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
+/**
+ * Panel para obtener ubicacion espacio-temporal del torneo
+ */
 public class PanelDatosTorneo extends JPanel {
     private JTextField textoFecha;
     private JTextField textoLugar;
@@ -14,6 +17,10 @@ public class PanelDatosTorneo extends JPanel {
     private Torneo torneo;
     private Image fondo;
 
+    /**
+     * Se crean los Jlabel con sus respectivos textos, botones y espacio para introducir texto.
+     * @param ventana la ventana del torneo para acceder a variables necesarias para continuar con el flujo
+     */
     public PanelDatosTorneo(Ventana ventana) {
         this.datosTorneo = ventana.getDatosTorneo();
         fondo = new ImageIcon(getClass().getResource("/AjedrezFondo.jpg")).getImage();
@@ -48,7 +55,7 @@ public class PanelDatosTorneo extends JPanel {
         panelLugar.add(textoLugar);
         panelCentral.add(panelLugar);
 
-        JButton btnContinuar = getJButton(ventana);
+        JButton btnContinuar = getJButton();
         btnContinuar.setMaximumSize(new Dimension(300, 50));
         btnContinuar.addActionListener(e -> {
             try {
@@ -80,7 +87,7 @@ public class PanelDatosTorneo extends JPanel {
         add(panelCentral, BorderLayout.CENTER);
     }
 
-    private JButton getJButton(Ventana ventana) {
+    private JButton getJButton() {
         JButton btnContinuar = new JButton("Continuar");
         btnContinuar.setFont(new Font("Monospaced", Font.BOLD, 16));
         btnContinuar.setBackground(new Color(70, 150, 220));

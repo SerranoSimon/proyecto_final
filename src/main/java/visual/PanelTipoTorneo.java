@@ -76,9 +76,14 @@ public class PanelTipoTorneo extends JPanel {
         panelBotones.setOpaque(false);
         panelBotones.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JButton btnSuizo = BotonModalidad("Sistema Suizo", new Color(70, 150, 220));
-        JButton btnEliminacion = BotonModalidad("Eliminación Directa", new Color(200, 60, 60));
-        JButton btnTodos = BotonModalidad("Todos contra Todos", new Color(70, 150, 220));
+        JToggleButton btnSuizo = BotonModalidad("Sistema Suizo", new Color(70, 150, 220));
+        JToggleButton btnEliminacion = BotonModalidad("Eliminación Directa", new Color(200, 60, 60));
+        JToggleButton btnTodos = BotonModalidad("Todos contra Todos", new Color(70, 150, 220));
+
+        ButtonGroup grupoModalidad = new ButtonGroup();
+        grupoModalidad.add(btnSuizo);
+        grupoModalidad.add(btnEliminacion);
+        grupoModalidad.add(btnTodos);
 
         panelBotones.add(btnSuizo);
         panelBotones.add(Box.createRigidArea(new Dimension(20, 0)));
@@ -184,14 +189,20 @@ public class PanelTipoTorneo extends JPanel {
         return panel;
     }
 
-    private JButton BotonModalidad(String texto, Color color) {
-        JButton boton = new JButton(texto) {
+    private JToggleButton BotonModalidad(String texto, Color color) {
+        JToggleButton boton = new JToggleButton(texto) {
             @Override
             protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2.setColor(color);
+
+                if (isSelected()) {
+                    g2.setColor(color.brighter());
+                } else {
+                    g2.setColor(color);
+                }
                 g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
+                g2.setColor(color.darker());
                 g2.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 20, 20);
                 g2.setColor(Color.WHITE);
                 FontMetrics fm = g2.getFontMetrics();
@@ -200,21 +211,20 @@ public class PanelTipoTorneo extends JPanel {
                 g2.drawString(getText(), x, y);
             }
         };
+        boton.setPreferredSize(new Dimension(180, 40));
         boton.setContentAreaFilled(false);
         boton.setBorderPainted(false);
         boton.setFocusPainted(false);
         boton.setFont(new Font("Monospaced", Font.BOLD, 14));
         boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        boton.setPreferredSize(new Dimension(180, 40));
         boton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         boton.addActionListener(e -> {
-            if(Objects.equals(texto, "Sistema Suizo")){
+            if (Objects.equals(texto, "Sistema Suizo")) {
                 datosTorneo.setModalidadTorneo(new SistemaSuizo());
             } else if (Objects.equals(texto, "Eliminación Directa")) {
                 datosTorneo.setModalidadTorneo(new EliminacionDirecta());
-            }
-            else{
+            } else {
                 datosTorneo.setModalidadTorneo(new TodosContraTodos());
             }
         });

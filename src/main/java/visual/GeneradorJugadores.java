@@ -5,12 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Clase que genera jugadores variados para un torneo
+ */
 public class GeneradorJugadores {
-
-
     public GeneradorJugadores() {
 
     }
+
+    /**
+     * Metodo que genera jugadores
+     * @return Lista de 24 jugadores con datos aleatorios
+     */
     public ArrayList<Participante> generarJugadores() {
         String[] nombres = {"Juan", "Pedro", "Alejandro", "Carlos", "Ana", "Luis", "Patricia", "Diego",
                 "Sofia", "Miguel", "Wladimir", "David", "Emanuel", "Fernando", "Simon",
@@ -36,6 +42,10 @@ public class GeneradorJugadores {
         return jugadores;
     }
 
+    /**
+     * Metodo para generar equipos de dos participantes(Jugadores en terminos practicos del torneo)
+     * @return Lista de 12 equipos
+     */
     public ArrayList<Participante> generarEquipos() {
         ArrayList<Participante> jugadoresEquipo = new ArrayList<>(generarJugadores());
         ArrayList<Participante> equipos=new ArrayList<>();

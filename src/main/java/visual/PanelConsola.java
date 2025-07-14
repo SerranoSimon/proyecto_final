@@ -5,15 +5,22 @@ import java.awt.*;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+/**
+ * Singleton que crea un panel para mostrar en una ventana
+ * grafica el contenido impreso en la consola
+ */
 public class PanelConsola {
     private static PanelConsola instance;
     private JDialog ventana;
     private JTextArea areaTexto;
     private PrintStream originalOut;
     private PrintStream customOut;
-
+    /**
+     * Constructor privado que inicializa la redirección de la consola.
+     * Configura el JTextArea y redefine System.out y System.err para redirigir
+     * la salida a la interfaz gráfica.
+     */
     private PanelConsola() {
-        // Redirige la salida solo una vez
         originalOut = System.out;
 
         areaTexto = new JTextArea();
@@ -41,7 +48,7 @@ public class PanelConsola {
         });
 
         System.setOut(customOut);
-        System.setErr(customOut); // Opcional: redirige errores también
+        System.setErr(customOut);
     }
 
     public static PanelConsola getInstance() {
@@ -51,6 +58,12 @@ public class PanelConsola {
         return instance;
     }
 
+    /**
+     * Muestra la ventana con el historial de la consola.
+     * Si la ventana no ha sido creada, la inicializa.
+     *
+     * @param parent JFrame que será la ventana padre para el JDialog
+     */
     public void mostrarConsola(JFrame parent) {
         if (ventana == null) {
             ventana = new JDialog(parent, "Historial del torneo", false);
@@ -76,7 +89,9 @@ public class PanelConsola {
 
         ventana.setVisible(true);
     }
-
+    /**
+     * Restaura la consola
+     */
     public static void restaurarConsola() {
         if (instance != null && instance.originalOut != null) {
             System.setOut(instance.originalOut);
