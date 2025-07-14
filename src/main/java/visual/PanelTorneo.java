@@ -182,9 +182,9 @@ public class PanelTorneo extends JPanel implements Observer {
             repaint();
 
         });
-
+        // BOTON VER PROXIMOS ENFRENTAMIENTOS
         btnVerProximosEnfrentamientos = new JButton("Ver proximos enfrentamientos");
-        btnVerProximosEnfrentamientos.setFont(new Font("Monospaced", Font.BOLD, 16));
+        btnVerProximosEnfrentamientos.setFont(new Font("Monospaced", Font.BOLD, 10));
         btnVerProximosEnfrentamientos.setBackground(new Color(70, 150, 220));
         btnVerProximosEnfrentamientos.setForeground(Color.WHITE);
         btnVerProximosEnfrentamientos.setFocusPainted(false);

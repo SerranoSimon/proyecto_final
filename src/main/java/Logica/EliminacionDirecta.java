@@ -15,6 +15,7 @@ public class EliminacionDirecta implements ModalidadJuego {
 
     /**
      * ordena los participantes para prepararlos en la siguiente ronda
+     * Se agregan los fantasmas necesarios para volver potencia de 2 a la cantidad de participantes
      * @param participantes participantes a los cuales ordenar
      * @param numeroDeRonda ronda de la cual se quiere obtener el orden
      */
@@ -22,7 +23,16 @@ public class EliminacionDirecta implements ModalidadJuego {
     public void ordenarParticipantes(ArrayList<Participante> participantes, int numeroDeRonda) {
         Collections.sort(participantes);
         participantesCopia=(ArrayList<Participante>) participantes.clone();
-        if(participantes.size()%2!=0){
+        if(participantes.size()==5 ){
+            participantesCopia.add(new Fantasma());
+            participantesCopia.add(new Fantasma());
+            participantesCopia.add(new Fantasma());
+        }
+        if(participantes.size()==6){
+            participantesCopia.add(new Fantasma());
+            participantesCopia.add(new Fantasma());
+        }
+        if(participantes.size()==7 || participantes.size()==3){
             participantesCopia.add(new Fantasma());
         }
     }
@@ -54,11 +64,14 @@ public class EliminacionDirecta implements ModalidadJuego {
      */
     @Override
     public int numeroDeRondas(int numeroDeParticipantes) {
-        if(numeroDeParticipantes%2==0){
-            return numeroDeParticipantes/2;
+        if(numeroDeParticipantes==4|| numeroDeParticipantes==8){
+            return (int) (Math.log(numeroDeParticipantes) / Math.log(2));
+        }
+        if(numeroDeParticipantes==3){
+            return 2;
         }
         else{
-            return (int) Math.ceil(Math.log(numeroDeParticipantes) / Math.log(2)); //log base 2 de numeroDeParticipantes redondeado hacia arriba
+            return 3;
         }
     }
 

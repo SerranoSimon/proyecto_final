@@ -100,8 +100,8 @@ public abstract class  Torneo {
      * @throws LimiteDeRondasSuperadoException
      */
     public void agregarParticipante(Participante participante) throws LimitesDeParticipantesException{
-        if(participantes.size()>=12){
-            throw new LimitesDeParticipantesException("El maximo de participantes por torneo son 12");
+        if(participantes.size()>=8){
+            throw new LimitesDeParticipantesException("El maximo de participantes por torneo son 8");
         }
         participantes.add(participante);
     }

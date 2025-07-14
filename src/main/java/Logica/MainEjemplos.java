@@ -166,7 +166,6 @@ public class MainEjemplos {
         catch (ExisteEmpateException ex){
             torneo4.desempatar();
         }
-        System.out.println(torneo4.verEstado());
         System.out.println("PRIMER LUGAR: "+torneo4.primerLugar);
         System.out.println("SEGUNDO LUGAR: "+torneo4.segundoLugar);
         System.out.println("TERCER LUGAR: "+torneo4.tercerLugar);
